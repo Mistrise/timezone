@@ -1,0 +1,35 @@
+.heading_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 122px;
+}
+
+.heading_title {
+    color: #000000;
+    text-align: center;
+
+    /* Title/36 */
+    font-family: Public Sans;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.41px;
+    margin-bottom: 6px;
+}
+
+.heading_text {
+    color: rgba(0, 0, 0, 0.64);
+    text-align: center;
+
+    /* Title/22 */
+    font-family: Public Sans;
+    margin-top: 6px;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.41px;
+}

@@ -1,0 +1,11 @@
+.container {
+    overflow: hidden;
+    height: 200px;
+}
+
+.sliding-background {
+    background: url("../../../../public/assets/Hour.svg") repeat-x;
+    height: 200px;
+    width: 5076px;
+
+}
