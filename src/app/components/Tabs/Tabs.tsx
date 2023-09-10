@@ -1,4 +1,5 @@
 import {ReactNode} from "react";
+import styles from './Tabs.module.css'
 
 interface Props {
     children: ReactNode
@@ -6,6 +7,11 @@ interface Props {
 
 const Tabs = () => {
   return (
-      <div>Tabs</div>
+      <div className={styles.tab}>
+          <p className={styles.tabSide}>left</p>
+          <p className={styles.tabSide}>right</p>
+      </div>
   )
 }
+
+export default Tabs

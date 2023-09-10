@@ -1,0 +1,62 @@
+.card {
+    height: 66px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr ;
+    padding: 14px 20px 18px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 30px;
+    align-self: stretch;
+    background-color: darkblue;
+    color: #FFFFFF;
+    font-family: Public Sans sans-serif;
+}
+
+.card__title {
+    /* Title/29 */
+
+    font-size: 29px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.41px;
+}
+
+.card__time {
+    justify-self: end;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.41px;
+}
+
+.card__am {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.41px;
+}
+
+
+.card__timezone {
+    color: #FFFFFFB8;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.08px;
+}
+
+.card__date {
+    justify-self: end;
+    color: #FFFFFFB8;
+    text-align: right;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.08px;
+}

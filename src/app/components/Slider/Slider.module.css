@@ -3,9 +3,8 @@
     height: 200px;
 }
 
-.sliding-background {
-    background: url("../../../../public/assets/Hour.svg") repeat-x;
+.slider__background {
+    background: url("../../../../public/assets/Hour.png") repeat-x;
     height: 200px;
     width: 5076px;
-
 }

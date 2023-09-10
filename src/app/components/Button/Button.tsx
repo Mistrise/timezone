@@ -2,7 +2,7 @@ import styles from './Button.module.css'
 import {ReactNode} from "react";
 
 interface Props {
-  children: ReactNode
+  children?: ReactNode
 }
 
 const Button = ({children}: Props) => {
