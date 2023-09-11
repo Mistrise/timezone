@@ -25,12 +25,17 @@
 
 .card__time {
     justify-self: end;
+
+    display: flex;
+}
+
+.card__time__item {
     font-size: 36px;
     font-style: normal;
+    margin-right: 5px;
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.41px;
-    display: flex;
 }
 
 .card__am {
