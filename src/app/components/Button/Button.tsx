@@ -1,14 +1,12 @@
 import styles from './Button.module.css'
-import {ReactNode} from "react";
+import Image from "next/image";
+import Plus from '../../../../public/icons/Icon=plus.svg'
 
-interface Props {
-  children?: ReactNode
-}
 
-const Button = ({children}: Props) => {
+const Button = () => {
   return (
       <button className={styles.button}>
-        {children}
+        <Image src={Plus} alt=''></Image>
       </button>
   )
 }

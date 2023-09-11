@@ -1,8 +1,11 @@
 .button {
-    width: 320px;
+    width: 221px;
     height: 48px;
     border-radius: 12px;
     padding: 14px;
     border: none;
     background: #00000014;
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0 16px 0 0 ;
 }

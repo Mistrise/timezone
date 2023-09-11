@@ -30,6 +30,7 @@
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.41px;
+    display: flex;
 }
 
 .card__am {
@@ -50,6 +51,18 @@
     letter-spacing: -0.08px;
 }
 
+.time__format {
+    color: #FFFFFF;
+    text-align: right;
+
+    /* Text/14 */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.41px;
+}
+
 .card__date {
     justify-self: end;
     color: #FFFFFFB8;
@@ -59,4 +72,6 @@
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.08px;
+    display: flex;
+
 }

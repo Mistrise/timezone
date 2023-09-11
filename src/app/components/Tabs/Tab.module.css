@@ -1,0 +1,27 @@
+.switch {
+    display: inline-flex;
+    flex-direction: row;
+    height: 48px;
+    border-radius: 12px;
+    color: #000000A3;
+    background: #00000014;
+    align-items: center;
+    box-sizing: border-box;
+    position: relative;
+    margin: 0 16px;
+    padding: 16px;
+}
+
+
+
+.switch__active {
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    background: #FFFFFF;
+    color: #000000;
+    border-radius: 7px;
+    padding: 0 10px 0 10px;
+}
