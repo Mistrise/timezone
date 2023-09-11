@@ -25,7 +25,7 @@ export default function Home() {
             timezone: 'GMT +03.00',
             time: '12',
             timeFormat: 'AM',
-            date: 'Sat 9 aug'
+            date: 'Sat 9 Aug'
         }
     ])
   return (
