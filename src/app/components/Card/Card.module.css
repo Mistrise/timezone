@@ -9,7 +9,7 @@
     align-items: flex-start;
     border-radius: 30px;
     align-self: stretch;
-    background-color: darkblue;
+    background: rgb(20,53,99);
     color: #FFFFFF;
     font-family: Public Sans sans-serif;
 }
