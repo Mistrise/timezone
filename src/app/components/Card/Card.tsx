@@ -12,7 +12,7 @@ const Card = ({city}: Props) => {
         <div className={styles.card__title}>{city[0].city}</div>
         <div className={styles.card__time}>
             <span className={styles.card__time__item}>{city[0].time}</span>
-            <span className={styles.card__timezone}>{city[0].timeFormat}</span>
+            <span className={styles.card__am}>{city[0].timeFormat}</span>
         </div>
         <div className={styles.card__timezone}>{city[0].timezone}</div>
         <div className={styles.card__date}>
