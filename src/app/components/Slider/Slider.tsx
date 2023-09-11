@@ -1,11 +1,13 @@
 import styles from './Slider.module.css'
 import Image from "next/image";
 import Dot from '../../../../public/icons/State=Off.svg'
+import SliderTimer from "@/app/components/SliderTimer/SliderTimer";
 
 const Slider = () => {
+    const timer = true
     return (
         <div className={styles.container}>
-            <Image src={Dot} alt={''}></Image>
+            {timer ? <SliderTimer/> : <Image src={Dot} alt={''}></Image>}
             <div className={styles.slider__background}></div>
         </div>
     )
