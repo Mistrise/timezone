@@ -17,17 +17,24 @@ export interface City {
     timeFormat: string
 }
 
+export interface TimeFormat {
+    timeFormat: string
+}
+
 export default function Home() {
     const [city, setCity] = useState<City[]>([
         {
             id: 1,
             city: 'Moscow',
             timezone: 'GMT +03.00',
-            time: '12',
+            time: '12:30',
             timeFormat: 'AM',
             date: 'Sat 9 Aug'
         }
     ])
+    const [timeFormat, setTimeFormat] = useState<TimeFormat>({
+        timeFormat: '24H'
+    })
   return (
       <>
           <Heading/>
