@@ -19,6 +19,9 @@ export interface City {
 }
 
 export default function Home() {
+
+    const globalDate = new Date()
+
     const days = [
         'Sun',
         'Mon',
@@ -28,23 +31,33 @@ export default function Home() {
         'Fri',
         'Sat',
     ]
+
     const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ]
-    const globalDate = new Date()
+
+    const [calendarType, setCalendarType] = useState(true)
+
+    const [timeFormat, setTimeFormat] = useState(true)
+
     const [city, setCity] = useState<City[]>([
         {
             id: 1,
             city: 'Moscow',
-            timezone: globalDate.getTimezoneOffset().toString(),
+            timezone: `GMT ${
+               globalDate.getTimezoneOffset() < 0 ? 
+                   "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
+                   "- " + (Math.abs(globalDate.getTimezoneOffset() / 60))
+            }`,
             hours: globalDate.getHours().toString(10),
             minutes: globalDate.getMinutes().toString(10),
             timeFormat: 'AM',
             date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`
         }
     ])
-    const [calendarType, setCalendarType] = useState(true)
-    const [timeFormat, setTimeFormat] = useState(true)
+
+
+
   return (
       <>
           <Heading/>
