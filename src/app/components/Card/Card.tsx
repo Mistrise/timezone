@@ -12,7 +12,7 @@ const Card = ({city}: Props) => {
         <div className={styles.card__title}>{city[0].city}</div>
         <div className={styles.card__time}>
             <span className={styles.card__time__item}
-                  style={city[0].timeFormat === '' ? {marginRight: '30px'} : {marginRight: 'inherit'}}>
+                  style={city[0].timeFormat === '' ? {marginRight: '30px'} : {marginRight: '8px'}}>
                 {city[0].timeFormat === 'PM' ? city[0].hours - 12 : city[0].hours}:{
                 city[0].minutes < 10 ? `0${city[0].minutes}` :
                     city[0].minutes

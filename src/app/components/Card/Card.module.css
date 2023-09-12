@@ -26,7 +26,6 @@
 
 .card__time {
     justify-self: end;
-
     display: flex;
 }
 
@@ -37,6 +36,7 @@
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.41px;
+    transition: .5s;
 }
 
 .card__am {

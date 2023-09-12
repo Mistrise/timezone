@@ -58,17 +58,18 @@ export default function Home() {
 
     useEffect(() => {
         console.log('effect')
-        setCity(prevState => [ ...prevState, prevState.map(e => {
-               if (timeFormat) {
-                   e.timeFormat = ''
-               }
-               else if (e.hours < 12) {
-                e.timeFormat = 'AM'
-            } else {
-                e.timeFormat = 'PM'
-            }
-            }
-        )])
+        setCity(prevState => {
+           return [...prevState, prevState.map(e => {
+                    if (timeFormat) {
+                        e.timeFormat = ''
+                    } else if (e.hours < 12) {
+                        e.timeFormat = 'AM'
+                    } else {
+                        e.timeFormat = 'PM'
+                    }
+                }
+            )]
+        })
     }, [timeFormat])
 
 
