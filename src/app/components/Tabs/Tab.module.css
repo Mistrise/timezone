@@ -7,7 +7,6 @@
     background: #00000014;
     align-items: center;
     box-sizing: border-box;
-    position: relative;
     margin: 0 16px;
     padding: 16px;
 }
@@ -24,4 +23,5 @@
     color: #000000;
     border-radius: 7px;
     padding: 0 10px 0 10px;
+    transition: ease-in .5s;
 }

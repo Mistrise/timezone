@@ -12,29 +12,39 @@ export interface City {
     id: number
     city: string
     timezone: string
-    time: string
+    hours: string
+    minutes: string
     date: string
     timeFormat: string
 }
 
-export interface TimeFormat {
-    timeFormat: string
-}
-
 export default function Home() {
+    const days = [
+        'Sun',
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat',
+    ]
+    const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ]
+    const globalDate = new Date()
     const [city, setCity] = useState<City[]>([
         {
             id: 1,
             city: 'Moscow',
-            timezone: 'GMT +03.00',
-            time: '12:30',
+            timezone: globalDate.getTimezoneOffset().toString(),
+            hours: globalDate.getHours().toString(10),
+            minutes: globalDate.getMinutes().toString(10),
             timeFormat: 'AM',
-            date: 'Sat 9 Aug'
+            date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`
         }
     ])
-    const [timeFormat, setTimeFormat] = useState<TimeFormat>({
-        timeFormat: '24H'
-    })
+    const [calendarType, setCalendarType] = useState(true)
+    const [timeFormat, setTimeFormat] = useState(true)
   return (
       <>
           <Heading/>
@@ -46,8 +56,8 @@ export default function Home() {
               <Card city={city}/>
               <div style={{display: "flex", flexDirection: "row"}}>
                   <Button/>
-                  <Tab elem1={'Normal'} elem2={'Scheduler'}/>
-                  <Tab elem1={'24H'} elem2={'AM/PM'}/>
+                  <Tab elem1={'Normal'} elem2={'Scheduler'} prevState={calendarType} setState={setCalendarType}/>
+                  <Tab elem1={'24H'} elem2={'AM/PM'} prevState={timeFormat} setState={setTimeFormat}/>
               </div>
 
           </Container>
