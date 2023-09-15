@@ -9,19 +9,18 @@
     align-items: flex-start;
     border-radius: 30px;
     align-self: stretch;
-    background: rgb(20,53,99);
-    color: #FFFFFF;
+    background: rgba(0, 0, 0, 0.08);
+    color: #000000;
     font-family: Public Sans sans-serif;
 }
 
 .card__title {
     /* Title/29 */
-
-    font-size: 29px;
+    font-size: 21px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    letter-spacing: -0.41px;
+    letter-spacing: 0.1px;
 }
 
 .card__time {
@@ -30,21 +29,13 @@
 }
 
 .card__time__item {
-    font-size: 36px;
+    color: #000000;
+    /* Title/28 */
+    font-size: 28px;
     font-style: normal;
-    margin-right: 8px;
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.41px;
-    transition: .5s;
-}
-
-.card__time__item__24h {
-    margin-right: 30px;
-}
-
-.card__time__item__am {
-    margin-right: 8px;
 }
 
 .card__am {
@@ -58,7 +49,7 @@
 
 
 .card__timezone {
-    color: #FFFFFFB8;
+    color: #000000;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -67,7 +58,7 @@
 }
 
 .time__format {
-    color: #FFFFFF;
+    color:#000000;
     text-align: right;
 
     /* Text/14 */

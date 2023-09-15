@@ -8,13 +8,13 @@
     align-items: center;
     box-sizing: border-box;
     margin: 0 16px;
+    gap: 5px;
     padding: 16px;
 }
 
 
 
 .switch__active {
-    margin: 0 5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,6 +22,16 @@
     background: #FFFFFF;
     color: #000000;
     border-radius: 7px;
-    padding: 0 10px 0 10px;
-    transition: ease-in .5s;
+    animation-duration: 3s;
+    animation-name: slide;
+}
+
+
+@keyframes slide {
+    from {
+        margin-right: 0;
+    }
+    to {
+       margin-right: 0;
+    }
 }
