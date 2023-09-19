@@ -6,11 +6,11 @@ import Cross from "../../../../public/icons/Icon=cross-circle.svg";
 
 const Slider = () => {
     let startX: number | null = null
-    let innerScrollElement = useRef(null);
-    let timeElement = useRef('');
+    let innerScrollElement = useRef<HTMLDivElement | null>(null);
+    let timeElement = useRef<HTMLDivElement | string>('');
     let totalDiffX = 0;
     let currentDiffX = 0;
-    let timerRef = useRef(null)
+    let timerRef = useRef<HTMLDivElement | null >(null)
 
     const PIXELS_PER_HOUR = 50;
 
@@ -33,13 +33,14 @@ const Slider = () => {
                  startX = null;
              }}
              onMouseMove={event => {
-                 if (startX) {
+                 if (startX && innerScrollElement.current !== null && timerRef.current !== null) {
                      const diffX = event.clientX - startX;
                      currentDiffX = totalDiffX - diffX;
                      innerScrollElement.current.style.transform = `translate(${diffX}px)`;
                      calcRoundedTime(currentDiffX)
                      localStorage.setItem('globalTimeOffset', JSON.stringify(timeElement.current))
-                     timerRef.current.innerHTML = localStorage.getItem('globalTimeOffset').slice(1,-1)
+                     // @ts-ignore
+                     timerRef.current.innerHTML = localStorage.getItem('globalTimeOffset')?.slice(1,-1)
                  }
              }}
         >
@@ -49,10 +50,14 @@ const Slider = () => {
                     <Image
                         src={Cross} alt={''} width={16} height={16}
                         onClick={() => {
-                            localStorage.setItem('globalTimeOffset', JSON.stringify(''))
-                            timeElement.current = ''
-                            totalDiffX = 0
-                            timerRef.current.innerHTML = localStorage.getItem('globalTimeOffset').slice(1,-1)
+                            if (timerRef.current !== null) {
+                                localStorage.setItem('globalTimeOffset', JSON.stringify(''))
+                                timeElement.current = ''
+                                totalDiffX = 0
+                                // @ts-ignore
+                                timerRef.current.innerHTML = localStorage.getItem('globalTimeOffset').slice(1, -1)
+
+                            }
                         }}>
                     </Image>
                 </div>
