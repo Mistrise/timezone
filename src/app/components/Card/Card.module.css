@@ -48,6 +48,8 @@
 }
 
 .card__am {
+    position: relative;
+    top: -14px;
     font-size: 14px;
     font-style: normal;
     margin-top: 5px;

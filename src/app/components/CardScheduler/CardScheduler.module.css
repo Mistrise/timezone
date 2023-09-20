@@ -39,6 +39,9 @@
 }
 
 .card__am {
+    position: relative;
+    margin-left: 6px;
+    top: -16px;
     font-size: 14px;
     font-style: normal;
     margin-top: 5px;
