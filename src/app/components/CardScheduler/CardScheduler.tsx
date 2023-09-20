@@ -22,6 +22,7 @@ const CardScheduler = ({city, timeFormat}: Props) => {
                     {city.hours > 13 ? <p>PM</p> : <p>AM</p>}
                 </span>}
           </div>
+          <div className={styles.card__time__scroll}></div>
       </div>
   )
 }
