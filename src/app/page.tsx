@@ -17,7 +17,6 @@ export interface City {
     hours: number
     minutes: number
     date: string
-    timeFormat: string
 }
 
 export default function Home() {
@@ -39,7 +38,6 @@ export default function Home() {
             }`,
             hours: globalDate.getHours(),
             minutes: globalDate.getMinutes(),
-            timeFormat: '',
             date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`
         },
         {
@@ -52,7 +50,6 @@ export default function Home() {
             }`,
             hours: globalDate.getHours(),
             minutes: globalDate.getMinutes(),
-            timeFormat: '',
             date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`
         },
         {
@@ -65,7 +62,6 @@ export default function Home() {
             }`,
             hours: globalDate.getHours(),
             minutes: globalDate.getMinutes(),
-            timeFormat: '',
             date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`
         },
         {
@@ -78,7 +74,6 @@ export default function Home() {
             }`,
             hours: globalDate.getHours(),
             minutes: globalDate.getMinutes(),
-            timeFormat: '',
             date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`
         },
     ])
@@ -89,7 +84,11 @@ export default function Home() {
           <Heading/>
           <Container>
               <Slider/>
-              {cities.map(city => <CardScheduler key={city.id} city={city}/>)}
+              {calendarType ?
+                  cities.map(city => <Card timeFormat={timeFormat} city={city} key={city.id}/>)
+                  :
+                  cities.map(city => <CardScheduler timeFormat={timeFormat} key={city.id} city={city}/>)
+              }
               <div style={{display: "flex", flexDirection: "row"}}>
                   <Button/>
                   <Tab elem1={'Normal'} elem2={'Scheduler'} prevState={calendarType} setState={setCalendarType}/>

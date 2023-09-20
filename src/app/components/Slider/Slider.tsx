@@ -3,6 +3,7 @@ import Image from "next/image";
 import Dot from '../../../../public/icons/State=Off.svg'
 import {useRef, useState} from "react";
 import Cross from "../../../../public/icons/Icon=cross-circle.svg";
+import Plus from "../../../../public/icons/Icon=plus.svg";
 
 const Slider = () => {
     let startX: number | null = null
@@ -44,7 +45,10 @@ const Slider = () => {
                  }
              }}
         >
+            { localStorage.getItem('globalTimeOffset') == '' ? <Image src={Dot} alt={''}/>
+                      :
                 <div className={styles.slider__timer}>
+
                     <div className={styles.slider__text} ref={timerRef}>
                     </div>
                     <Image
@@ -54,13 +58,15 @@ const Slider = () => {
                                 localStorage.setItem('globalTimeOffset', JSON.stringify(''))
                                 timeElement.current = ''
                                 totalDiffX = 0
-                                // @ts-ignore
-                                timerRef.current.innerHTML = localStorage.getItem('globalTimeOffset').slice(1, -1)
 
+                                // @ts-ignore
+                                timerRef.current.innerHTML = localStorage.getItem('globalTimeOffset')?.slice(1,-1)
                             }
                         }}>
                     </Image>
                 </div>
+            }
+
             <div className={styles.slider__background} ref={innerScrollElement}></div>
         </div>
     )
