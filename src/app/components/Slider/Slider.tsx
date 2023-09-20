@@ -1,3 +1,5 @@
+"use client"
+
 import styles from './Slider.module.css'
 import Image from "next/image";
 import Dot from '../../../../public/icons/State=Off.svg'
@@ -14,6 +16,7 @@ const Slider = () => {
     let timerRef = useRef<HTMLDivElement | null >(null)
 
     const PIXELS_PER_HOUR = 50;
+
 
     console.log(timeElement)
     function calcRoundedTime(pxOffset: number) {
@@ -45,8 +48,7 @@ const Slider = () => {
                  }
              }}
         >
-            { localStorage.getItem('globalTimeOffset') == '' ? <Image src={Dot} alt={''}/>
-                      :
+
                 <div className={styles.slider__timer}>
 
                     <div className={styles.slider__text} ref={timerRef}>
@@ -65,7 +67,7 @@ const Slider = () => {
                         }}>
                     </Image>
                 </div>
-            }
+
 
             <div className={styles.slider__background} ref={innerScrollElement}></div>
         </div>
