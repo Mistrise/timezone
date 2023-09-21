@@ -14,11 +14,9 @@ const Slider = () => {
     let totalDiffX = 0;
     let currentDiffX = 0;
     let timerRef = useRef<HTMLDivElement | null >(null)
-
     const PIXELS_PER_HOUR = 50;
 
 
-    console.log(timeElement)
     function calcRoundedTime(pxOffset: number) {
         const hoursOffset = Math.round(pxOffset / PIXELS_PER_HOUR * 2) / 2;
         if (hoursOffset === 0) {
