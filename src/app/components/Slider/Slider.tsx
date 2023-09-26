@@ -3,11 +3,14 @@
 import styles from './Slider.module.css'
 import Image from "next/image";
 import Dot from '../../../../public/icons/State=Off.svg'
-import {useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import Cross from "../../../../public/icons/Icon=cross-circle.svg";
 import Plus from "../../../../public/icons/Icon=plus.svg";
+import { useMyContext} from "@/app/context";
+
 
 const Slider = () => {
+    let {interval} = useMyContext()
     let startX: number | null = null
     let innerScrollElement = useRef<HTMLDivElement | null>(null);
     let timeElement = useRef<HTMLDivElement | string>('');
@@ -16,6 +19,7 @@ const Slider = () => {
     let timerRef = useRef<HTMLDivElement | null >(null)
     const PIXELS_PER_HOUR = 50;
 
+    console.log(interval)
 
     function calcRoundedTime(pxOffset: number) {
         const hoursOffset = Math.round(pxOffset / PIXELS_PER_HOUR * 2) / 2;

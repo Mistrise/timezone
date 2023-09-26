@@ -4,11 +4,13 @@ import Button from "@/app/components/Button/Button";
 import Heading from "@/app/components/Heading/Heading";
 import Slider from "@/app/components/Slider/Slider";
 import Tab from "@/app/components/Tabs/Tab";
-import {createContext, useContext, useState} from "react";
+import {useState} from "react";
 import Card from "@/app/components/Card/Card";
 import Container from "@/app/components/Container/Container";
 import CardScheduler from "@/app/components/CardScheduler/CardScheduler";
 import {citiesConst} from "@/constants/constants";
+import {MyContext, TimeOffset} from "@/app/context";
+
 
 export interface City {
     id: number
@@ -18,13 +20,11 @@ export interface City {
     minutes: number
     date: string
 }
-const TimeContext = createContext('')
 
 export default function Home() {
 
 
-
-    const [globalTime, setGlobalTime] = useState<null | string>('')
+    const [globalTime, setGlobalTime] = useState({interval: 'test'})
 
     const [calendarType, setCalendarType] = useState(true)
 
@@ -34,7 +34,7 @@ export default function Home() {
 
 
     return (
-          <TimeContext.Provider value={globalTime}>
+          <MyContext.Provider value={globalTime}>
               <Heading/>
               <Container>
                   <Slider/>
@@ -49,6 +49,6 @@ export default function Home() {
                       <Tab elem1={'24H'} elem2={'AM/PM'} prevState={timeFormat} setState={setTimeFormat}/>
                   </div>
               </Container>
-          </TimeContext.Provider>
+          </MyContext.Provider>
   )
 }
