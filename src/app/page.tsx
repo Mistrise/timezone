@@ -10,6 +10,7 @@ import Container from "@/app/components/Container/Container";
 import CardScheduler from "@/app/components/CardScheduler/CardScheduler";
 import {citiesConst} from "@/constants/constants";
 import {TimeContext} from "@/app/context";
+import CitiesModal from "@/app/components/CitiesModal/CitiesModal";
 
 
 export interface City {
@@ -23,6 +24,7 @@ export interface City {
 
 export default function Home() {
 
+    const [showSearch, setShowSearch] = useState(false)
 
     const [globalTimeOffset, setGlobalTimeOffset] = useState<string>('0')
 
@@ -32,7 +34,7 @@ export default function Home() {
 
     const [cities, setCity] = useState<City[]>(citiesConst)
 
-
+    console.log('showSearch is', showSearch)
     return (
           <TimeContext.Provider value={{globalTimeOffset, setGlobalTimeOffset}}>
               <Heading/>
@@ -44,9 +46,10 @@ export default function Home() {
                       cities.filter(city => city.id < 4).map(city => <CardScheduler timeFormat={timeFormat} key={city.id} city={city}/>)
                   }
                   <div style={{display: "flex", flexDirection: "row"}}>
-                      <Button/>
+                      <Button showSearch={showSearch} setShowSearch={setShowSearch}/>
                       <Tab elem1={'Normal'} elem2={'Scheduler'} prevState={calendarType} setState={setCalendarType}/>
                       <Tab elem1={'24H'} elem2={'AM/PM'} prevState={timeFormat} setState={setTimeFormat}/>
+                      {showSearch ? <CitiesModal setShowSearch={setShowSearch}/> : null}
                   </div>
               </Container>
           </TimeContext.Provider>

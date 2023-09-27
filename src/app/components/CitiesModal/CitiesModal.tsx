@@ -1,0 +1,24 @@
+import styles from './CitiesModal.module.css'
+import ModalSearch from "@/app/components/ModalSearch/ModalSearch";
+import ModalList from "@/app/components/ModalList/ModalList";
+import Close from '../../../../public/icons/Icon=Close.svg'
+import Image from "next/image";
+
+interface Props {
+    setShowSearch: (show: boolean) => void
+}
+
+const CitiesModal = ({setShowSearch}:Props) => {
+    return (
+        <div className={styles.modal__container}>
+            <div className={styles.modal__title}>
+                <div className={styles.modal__title__text}>Add City</div>
+                <Image src={Close} alt={''} className={styles.modal__title__image} onClick={() => setShowSearch(false)}/>
+            </div>
+            <ModalSearch/>
+            <ModalList/>
+        </div>
+    )
+}
+
+export default CitiesModal

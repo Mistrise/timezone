@@ -10,7 +10,7 @@ import { useTimeContext} from "@/app/context";
 
 
 const Slider = () => {
-    let {globalTimeOffset, setGlobalTimeOffset} = useTimeContext()
+    let { setGlobalTimeOffset} = useTimeContext()
     let startX: number | null = null
     let innerScrollElement = useRef<HTMLDivElement | null>(null);
     let timeElement = useRef<HTMLDivElement | string>('');
@@ -52,7 +52,7 @@ const Slider = () => {
 
                 <div className={styles.slider__timer}>
 
-                    <div className={styles.slider__text} ref={timerRef}>{globalTimeOffset}</div>
+                    <div className={styles.slider__text} ref={timerRef}></div>
                     <Image
                         src={Cross} alt={''} width={16} height={16}
                         onClick={() => {
