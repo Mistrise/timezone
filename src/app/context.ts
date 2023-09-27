@@ -1,12 +1,13 @@
-import {createContext, Dispatch, SetStateAction, useContext} from 'react';
+import {createContext, useContext} from 'react';
 
-export interface TimeOffset {
-    interval: string
-    setInterval?: Dispatch<SetStateAction<string>>
+export type TimeOffset = {
+    globalTimeOffset: string
+    setGlobalTimeOffset: (time: string) => void
 }
-export const MyContext = createContext<TimeOffset>({interval: 'test'} );
+export const TimeContext = createContext<TimeOffset>({
+    globalTimeOffset: '',
+    setGlobalTimeOffset: () => {}
+} );
 
-export function useMyContext() {
-    return useContext(MyContext);
-}
+export const useTimeContext = () => useContext(TimeContext)
 

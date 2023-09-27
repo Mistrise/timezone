@@ -9,7 +9,7 @@ import Card from "@/app/components/Card/Card";
 import Container from "@/app/components/Container/Container";
 import CardScheduler from "@/app/components/CardScheduler/CardScheduler";
 import {citiesConst} from "@/constants/constants";
-import {MyContext, TimeOffset} from "@/app/context";
+import {TimeContext} from "@/app/context";
 
 
 export interface City {
@@ -24,7 +24,7 @@ export interface City {
 export default function Home() {
 
 
-    const [globalTime, setGlobalTime] = useState({interval: 'test'})
+    const [globalTimeOffset, setGlobalTimeOffset] = useState<string>('0')
 
     const [calendarType, setCalendarType] = useState(true)
 
@@ -34,7 +34,7 @@ export default function Home() {
 
 
     return (
-          <MyContext.Provider value={globalTime}>
+          <TimeContext.Provider value={{globalTimeOffset, setGlobalTimeOffset}}>
               <Heading/>
               <Container>
                   <Slider/>
@@ -49,6 +49,6 @@ export default function Home() {
                       <Tab elem1={'24H'} elem2={'AM/PM'} prevState={timeFormat} setState={setTimeFormat}/>
                   </div>
               </Container>
-          </MyContext.Provider>
+          </TimeContext.Provider>
   )
 }

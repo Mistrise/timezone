@@ -6,11 +6,11 @@ import Dot from '../../../../public/icons/State=Off.svg'
 import {useContext, useRef, useState} from "react";
 import Cross from "../../../../public/icons/Icon=cross-circle.svg";
 import Plus from "../../../../public/icons/Icon=plus.svg";
-import { useMyContext} from "@/app/context";
+import { useTimeContext} from "@/app/context";
 
 
 const Slider = () => {
-    let {interval} = useMyContext()
+    let {globalTimeOffset, setGlobalTimeOffset} = useTimeContext()
     let startX: number | null = null
     let innerScrollElement = useRef<HTMLDivElement | null>(null);
     let timeElement = useRef<HTMLDivElement | string>('');
@@ -19,7 +19,6 @@ const Slider = () => {
     let timerRef = useRef<HTMLDivElement | null >(null)
     const PIXELS_PER_HOUR = 50;
 
-    console.log(interval)
 
     function calcRoundedTime(pxOffset: number) {
         const hoursOffset = Math.round(pxOffset / PIXELS_PER_HOUR * 2) / 2;
@@ -53,8 +52,7 @@ const Slider = () => {
 
                 <div className={styles.slider__timer}>
 
-                    <div className={styles.slider__text} ref={timerRef}>
-                    </div>
+                    <div className={styles.slider__text} ref={timerRef}>{globalTimeOffset}</div>
                     <Image
                         src={Cross} alt={''} width={16} height={16}
                         onClick={() => {
@@ -64,10 +62,11 @@ const Slider = () => {
                                 totalDiffX = 0
 
                                 // @ts-ignore
-                                timerRef.current.innerHTML = localStorage.getItem('globalTimeOffset')?.slice(1,-1)
+                                // timerRef.current.innerHTML = localStorage.getItem('globalTimeOffset')?.slice(1,-1)
                             }
                         }}>
                     </Image>
+
                 </div>
 
 
