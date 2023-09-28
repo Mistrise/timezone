@@ -7,11 +7,22 @@ import BackgroundImageAmPm from '../../../../public/assets/24h=Off.svg'
 interface Props {
     city: City
     timeFormat: boolean
+    dragItem: any
+    dragOverItem: any
+    handleSort: () => void
+    index: number
 }
 
-const CardScheduler = ({city, timeFormat}: Props) => {
+const CardScheduler = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Props) => {
   return (
-      <div className={styles.card}>
+      <div
+          className={styles.card}
+          draggable
+          onDragStart={event => dragItem.current = index}
+          onDragEnter={event => dragOverItem.current = index}
+          onDragEnd={handleSort}
+          onDragOver={event => event.preventDefault()}
+      >
         <div className={styles.card__title}>{city.city}</div>
           <div className={styles.card__time}>
             <span className={`${styles.card__time__item} ${timeFormat ? styles.card__time__item__24h : styles.card__time__item__am} `}>

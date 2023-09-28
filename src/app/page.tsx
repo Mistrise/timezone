@@ -70,7 +70,16 @@ export default function Home() {
                               key={city.id}
                           />)
                       :
-                      cities.map((city) => <CardScheduler timeFormat={timeFormat} key={city.id} city={city}/>)
+                      cities.map((city, index) =>
+                          <CardScheduler
+                              timeFormat={timeFormat}
+                              key={city.id}
+                              city={city}
+                              index={index}
+                              dragItem={dragItem}
+                              dragOverItem={dragOverItem}
+                              handleSort={handleSort}
+                          />)
                   }
                   <div style={{display: "flex", flexDirection: "row"}}>
                       <Button showSearch={showSearch} setShowSearch={setShowSearch}/>
