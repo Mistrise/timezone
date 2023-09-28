@@ -4,7 +4,7 @@ import Button from "@/app/components/Button/Button";
 import Heading from "@/app/components/Heading/Heading";
 import Slider from "@/app/components/Slider/Slider";
 import Tab from "@/app/components/Tabs/Tab";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import Card from "@/app/components/Card/Card";
 import Container from "@/app/components/Container/Container";
 import CardScheduler from "@/app/components/CardScheduler/CardScheduler";
@@ -24,6 +24,12 @@ export interface City {
 
 export default function Home() {
 
+    const dragItem = useRef<any>(null)
+
+    const dragOverItem = useRef<any>(null)
+
+    const [cities, setCity] = useState<City[]>(citiesConst)
+
     const [showSearch, setShowSearch] = useState(false)
 
     const [globalTimeOffset, setGlobalTimeOffset] = useState<string>('0')
@@ -32,18 +38,39 @@ export default function Home() {
 
     const [timeFormat, setTimeFormat] = useState(true)
 
-    const [cities, setCity] = useState<City[]>(citiesConst)
+    const handleSort = () => {
+        let _cities = [...cities]
 
-    console.log('showSearch is', showSearch)
+        const draggedItemContent = _cities.splice(dragItem.current, 1)[0]
+
+        _cities.splice(dragOverItem.current, 0, draggedItemContent)
+
+        dragItem.current = null
+        dragOverItem.current = null
+
+        setCity(_cities)
+    }
+
+
+
     return (
           <TimeContext.Provider value={{globalTimeOffset, setGlobalTimeOffset}}>
               <Heading/>
               <Container>
                   <Slider/>
                   {calendarType ?
-                      cities.filter(city => city.id < 4).map(city => <Card timeFormat={timeFormat} city={city} key={city.id}/>)
+                      cities.map((city, index) =>
+                          <Card
+                              index={index}
+                              dragItem={dragItem}
+                              dragOverItem={dragOverItem}
+                              handleSort={handleSort}
+                              timeFormat={timeFormat}
+                              city={city}
+                              key={city.id}
+                          />)
                       :
-                      cities.filter(city => city.id < 4).map(city => <CardScheduler timeFormat={timeFormat} key={city.id} city={city}/>)
+                      cities.map((city) => <CardScheduler timeFormat={timeFormat} key={city.id} city={city}/>)
                   }
                   <div style={{display: "flex", flexDirection: "row"}}>
                       <Button showSearch={showSearch} setShowSearch={setShowSearch}/>

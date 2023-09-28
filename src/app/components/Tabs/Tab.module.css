@@ -1,5 +1,7 @@
 .switch {
     display: inline-flex;
+    cursor: pointer;
+    user-select: none;
     flex-direction: row;
     height: 48px;
     border-radius: 12px;

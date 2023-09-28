@@ -33,6 +33,7 @@
 }
 
 .modal__title__image {
+    cursor: pointer;
     width: 24px;
     height: 24px;
 }

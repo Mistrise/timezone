@@ -13,6 +13,8 @@
     color: #FFFFFF;
     font-family: Public Sans sans-serif;
     transition: 1s;
+    user-select: none;
+    cursor: pointer;
 }
 
 .card__title {

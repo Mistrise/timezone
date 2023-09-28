@@ -55,6 +55,7 @@ const Slider = () => {
                     <div className={styles.slider__text} ref={timerRef}></div>
                     <Image
                         src={Cross} alt={''} width={16} height={16}
+                        className={styles.slider__image}
                         onClick={() => {
                             if (timerRef.current !== null) {
                                 localStorage.setItem('globalTimeOffset', JSON.stringify(''))

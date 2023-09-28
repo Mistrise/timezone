@@ -1,4 +1,5 @@
 .button {
+    cursor: pointer;
     width: 221px;
     height: 48px;
     border-radius: 12px;
