@@ -9,7 +9,8 @@ import {City} from "@/app/page";
 interface Props {
     setShowSearch: (show: boolean) => void
     cities: City[]
-    setCity: (c: City) => void
+    setCity: (c: any) => void
+//     fix type
 }
 
 const CitiesModal = ({setShowSearch, cities, setCity}:Props) => {
