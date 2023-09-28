@@ -85,7 +85,7 @@ export default function Home() {
                       <Button showSearch={showSearch} setShowSearch={setShowSearch}/>
                       <Tab elem1={'Normal'} elem2={'Scheduler'} prevState={calendarType} setState={setCalendarType}/>
                       <Tab elem1={'24H'} elem2={'AM/PM'} prevState={timeFormat} setState={setTimeFormat}/>
-                      {showSearch ? <CitiesModal setShowSearch={setShowSearch}/> : null}
+                      {showSearch ? <CitiesModal setShowSearch={setShowSearch} cities={cities} setCity={setCity}/> : null}
                   </div>
               </Container>
           </TimeContext.Provider>
