@@ -6,14 +6,14 @@ interface Props {
     modalInput: string
     cities: City[]
     setCity: (c: any) => void
-    set_City: (c: any) => void
+    mainPageCities: City[]
 }
 
-const ModalList = ({modalInput, cities, setCity, set_City}: Props) => {
+const ModalList = ({cities, setCity, mainPageCities}: Props) => {
 
     return (
         <div className={styles.modal__list}>
-            {cities.map(city => <ModalListItem key={city.id} city={city}/>)}
+            {cities.map(city => <ModalListItem key={city.id} city={city} cities={mainPageCities} setCity={setCity}/>)}
         </div>
     )
 }

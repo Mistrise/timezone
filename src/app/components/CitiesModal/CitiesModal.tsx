@@ -5,14 +5,16 @@ import Close from '../../../../public/icons/Icon=Close.svg'
 import Image from "next/image";
 import {useEffect, useState} from "react";
 import {citiesConst} from "@/constants/constants";
+import {City} from "@/app/page";
 
 interface Props {
     setShowSearch: (show: boolean) => void
     setCity: (c: any) => void
+    cities: City[]
 //     fix type
 }
 
-const CitiesModal = ({setShowSearch,  setCity}:Props) => {
+const CitiesModal = ({setShowSearch, setCity, cities}:Props) => {
 
     const [modalInput, setModalInput] = useState('')
 
@@ -35,7 +37,7 @@ const CitiesModal = ({setShowSearch,  setCity}:Props) => {
                 <Image src={Close} alt={''} className={styles.modal__title__image} onClick={() => setShowSearch(false)} />
             </div>
             <ModalSearch modalInput={modalInput} setModalInput={setModalInput}/>
-            <ModalList modalInput={modalInput} cities={_cities} setCity={setCity} set_City={set_City}/>
+            <ModalList modalInput={modalInput} cities={_cities} setCity={setCity} mainPageCities={cities}/>
         </div>
     )
 }
