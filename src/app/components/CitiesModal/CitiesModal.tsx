@@ -4,24 +4,23 @@ import ModalList from "@/app/components/ModalList/ModalList";
 import Close from '../../../../public/icons/Icon=Close.svg'
 import Image from "next/image";
 import {useEffect, useState} from "react";
-import {City} from "@/app/page";
+import {citiesConst} from "@/constants/constants";
 
 interface Props {
     setShowSearch: (show: boolean) => void
-    cities: City[]
     setCity: (c: any) => void
 //     fix type
 }
 
-const CitiesModal = ({setShowSearch, cities, setCity}:Props) => {
+const CitiesModal = ({setShowSearch,  setCity}:Props) => {
 
     const [modalInput, setModalInput] = useState('')
 
-    const [_cities, set_City] = useState(cities)
+    const [_cities, set_City] = useState(citiesConst)
 
     function filterModalInput(input: string) {
         input === '' ?
-            set_City(cities) :
+            set_City(citiesConst) :
             set_City(_cities.filter(city => city.city.toLowerCase().startsWith(input.toLowerCase())))
     }
 
