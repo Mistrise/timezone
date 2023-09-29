@@ -20,6 +20,7 @@ export const citiesConst: City[] = [
     {
         id: 1,
         city: 'Moscow',
+        country: 'Russia',
         timezone: `GMT ${
             globalDate.getTimezoneOffset() < 0 ?
                 "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
@@ -27,11 +28,13 @@ export const citiesConst: City[] = [
         }`,
         hours: globalDate.getHours(),
         minutes: globalDate.getMinutes(),
-        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`
+        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`,
+        flag: `🇷🇺`
     },
     {
         id: 2,
         city: 'London',
+        country: 'UK',
         timezone: `GMT ${
             globalDate.getTimezoneOffset() < 0 ?
                 "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
@@ -39,11 +42,13 @@ export const citiesConst: City[] = [
         }`,
         hours: globalDate.getHours(),
         minutes: globalDate.getMinutes(),
-        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`
+        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`,
+        flag: `🇬🇧`
     },
     {
         id: 3,
         city: 'New York',
+        country: 'USA',
         timezone: `GMT ${
             globalDate.getTimezoneOffset() < 0 ?
                 "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
@@ -51,11 +56,13 @@ export const citiesConst: City[] = [
         }`,
         hours: globalDate.getHours(),
         minutes: globalDate.getMinutes(),
-        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`
+        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`,
+        flag: `🇺🇸`
     },
     {
         id: 4,
         city: 'Paris',
+        country: 'France',
         timezone: `GMT ${
             globalDate.getTimezoneOffset() < 0 ?
                 "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
@@ -63,11 +70,13 @@ export const citiesConst: City[] = [
         }`,
         hours: globalDate.getHours(),
         minutes: globalDate.getMinutes(),
-        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`
+        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`,
+        flag: `🇫🇷`
     },
     {
         id: 5,
         city: 'Washington',
+        country: 'USA',
         timezone: `GMT ${
             globalDate.getTimezoneOffset() < 0 ?
                 "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
@@ -75,6 +84,7 @@ export const citiesConst: City[] = [
         }`,
         hours: globalDate.getHours(),
         minutes: globalDate.getMinutes(),
-        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`
+        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`,
+        flag: `🇺🇸`
     },
 ]

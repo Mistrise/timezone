@@ -20,6 +20,8 @@ export interface City {
     hours: number
     minutes: number
     date: string
+    flag: string
+    country: string
 }
 
 export default function Home() {

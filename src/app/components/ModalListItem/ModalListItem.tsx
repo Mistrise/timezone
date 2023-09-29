@@ -7,9 +7,19 @@ interface Props {
 
 const ModalListItem = ({city}: Props) => {
   return (
-      <div className={styles.modalListItem}>
-        {city.city}
-        {city.timezone}
+      <div className={styles.modal__list__item}>
+          <div className={styles.modal__list__item__grid}>
+              {city.flag}
+          </div>
+          <div className={styles.modal__list__item__grid}>
+              {city.city}
+          </div>
+          <div className={styles.modal__list__item__timezone}>
+              {city.timezone}
+          </div>
+          <div className={styles.modal__list__item__country}>
+              {city.country}
+          </div>
       </div>
   )
 }

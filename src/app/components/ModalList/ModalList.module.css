@@ -1,4 +1,6 @@
 .modal__list {
     margin-top: 8px;
-    padding: 0 16px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 405px;
 }

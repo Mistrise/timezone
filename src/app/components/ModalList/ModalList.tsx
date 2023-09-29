@@ -5,9 +5,11 @@ import {City} from "@/app/page";
 interface Props {
     modalInput: string
     cities: City[]
+    setCity: (c: any) => void
+    set_City: (c: any) => void
 }
 
-const ModalList = ({modalInput, cities}: Props) => {
+const ModalList = ({modalInput, cities, setCity, set_City}: Props) => {
 
     return (
         <div className={styles.modal__list}>

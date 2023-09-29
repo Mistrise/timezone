@@ -1,3 +1,45 @@
-.modal-list-item {
+.modal__list__item {
+    box-sizing: border-box;
+    width: 390px;
+    display: grid;
+    grid-template-columns: 24px 159px 181px;
+    grid-template-rows: 1fr 16px;
+    color: #000000;
 
+    /* Title/22 */
+    font-family: Public Sans sans-serif;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.41px;
+    padding: 8px 12px;
+}
+
+.modal__list__item:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+}
+
+.modal__list__item__country {
+    color: rgba(0, 0, 0, 0.48);
+    grid-row: 2/3;
+    grid-column: 2/3;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.08px;
+    align-self: end;
+}
+
+.modal__list__item__timezone {
+    color: rgba(0, 0, 0, 0.48);
+    justify-self: end;
+    align-self: end;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.08px;
 }
