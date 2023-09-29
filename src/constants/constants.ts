@@ -26,9 +26,9 @@ export const citiesConst: City[] = [
                 "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
                 "- " + (Math.abs(globalDate.getTimezoneOffset() / 60))
         }`,
-        hours: globalDate.getHours(),
-        minutes: globalDate.getMinutes(),
-        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`,
+        hours: globalDate.getUTCHours(),
+        minutes: globalDate.getUTCMinutes(),
+        date: `${days[globalDate.getUTCDay()]} ${globalDate.getUTCDate()} ${month[globalDate.getUTCMonth()]}`,
         flag: `🇷🇺`
     },
     {

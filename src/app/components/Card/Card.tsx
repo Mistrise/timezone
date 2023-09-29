@@ -2,6 +2,7 @@ import styles from './Card.module.css'
 import {City} from "@/app/page";
 import Sunny from '../../../../public/icons/State=Sunny.svg'
 import Image from "next/image";
+import {globalDate} from "@/constants/constants";
 
 interface Props {
     city: City
@@ -20,6 +21,12 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         onDragEnter={event => dragOverItem.current = index}
         onDragEnd={handleSort}
         onDragOver={event => event.preventDefault()}
+        onClick={
+        () => {
+            console.log(globalDate.getUTCHours())
+            globalDate.setHours(globalDate.getUTCHours() + 1)
+        }
+    }
     >
         <div className={styles.card__title}>{city.city}</div>
         <div className={styles.card__time}>

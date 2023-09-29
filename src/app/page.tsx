@@ -8,7 +8,7 @@ import {useEffect, useRef, useState} from "react";
 import Card from "@/app/components/Card/Card";
 import Container from "@/app/components/Container/Container";
 import CardScheduler from "@/app/components/CardScheduler/CardScheduler";
-import {citiesConst} from "@/constants/constants";
+import {citiesConst, globalDate} from "@/constants/constants";
 import {TimeContext} from "@/app/context";
 import CitiesModal from "@/app/components/CitiesModal/CitiesModal";
 
@@ -53,7 +53,7 @@ export default function Home() {
         setCity(_cities)
     }
 
-    useEffect(() => setCity(cities.filter(city => city.id < 2)), [])
+    useEffect(() => setCity(cities.filter(city => city.id < 2)), [globalDate])
 
     return (
           <TimeContext.Provider value={{globalTimeOffset, setGlobalTimeOffset}}>
