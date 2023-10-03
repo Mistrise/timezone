@@ -1,5 +1,4 @@
 import {City} from "@/app/page";
-
 export const days = [
     'Sun',
     'Mon',
@@ -14,7 +13,8 @@ export const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 ]
 
-export const globalDate = new Date()
+
+export let globalDate = new Date()
 
 export const citiesConst: City[] = [
     {

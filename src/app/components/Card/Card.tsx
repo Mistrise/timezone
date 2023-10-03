@@ -2,7 +2,7 @@ import styles from './Card.module.css'
 import {City} from "@/app/page";
 import Sunny from '../../../../public/icons/State=Sunny.svg'
 import Image from "next/image";
-import {globalDate} from "@/constants/constants";
+import {useTimeStore} from "@/app/store";
 
 interface Props {
     city: City
@@ -14,27 +14,23 @@ interface Props {
 }
 
 const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Props) => {
+
+    console.log('card rerendered')
     return <div
         className={styles.card}
         draggable
-        onDragStart={event => dragItem.current = index}
-        onDragEnter={event => dragOverItem.current = index}
+        onDragStart={() => dragItem.current = index}
+        onDragEnter={() => dragOverItem.current = index}
         onDragEnd={handleSort}
         onDragOver={event => event.preventDefault()}
-        onClick={
-        () => {
-            console.log(globalDate.getUTCHours())
-            globalDate.setHours(globalDate.getUTCHours() + 1)
-        }
-    }
     >
         <div className={styles.card__title}>{city.city}</div>
         <div className={styles.card__time}>
-            <span className={`${styles.card__time__item} ${timeFormat ? styles.card__time__item__24h : styles.card__time__item__am} `}>
-                {timeFormat || city.hours < 13 ? city.hours :  city.hours - 12}
+            <div className={`${styles.card__time__item} ${timeFormat ? styles.card__time__item__24h : styles.card__time__item__am} `}>
+                {timeFormat || city.hours < 13 ? city.hours :  city.hours - 12 }
                 :
                 {city.minutes < 10 ? `0${city.minutes}` : city.minutes}
-            </span>
+            </div>
             {timeFormat ?
                 null :
                 <span className={styles.card__am}>

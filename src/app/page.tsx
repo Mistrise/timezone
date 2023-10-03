@@ -8,9 +8,9 @@ import {useEffect, useRef, useState} from "react";
 import Card from "@/app/components/Card/Card";
 import Container from "@/app/components/Container/Container";
 import CardScheduler from "@/app/components/CardScheduler/CardScheduler";
-import {citiesConst, globalDate} from "@/constants/constants";
-import {TimeContext} from "@/app/context";
+import {citiesConst} from "@/constants/constants";
 import CitiesModal from "@/app/components/CitiesModal/CitiesModal";
+import {useTimeStore} from "@/app/store";
 
 
 export interface City {
@@ -22,9 +22,13 @@ export interface City {
     date: string
     flag: string
     country: string
+    localDate?: Date
 }
 
+
 export default function Home() {
+
+    const {timeOffset ,changeTime} = useTimeStore()
 
     const dragItem = useRef<any>(null)
 
@@ -33,8 +37,6 @@ export default function Home() {
     const [cities, setCity] = useState<City[]>(citiesConst)
 
     const [showSearch, setShowSearch] = useState(false)
-
-    const [globalTimeOffset, setGlobalTimeOffset] = useState<string>('0')
 
     const [calendarType, setCalendarType] = useState(true)
 
@@ -53,13 +55,17 @@ export default function Home() {
         setCity(_cities)
     }
 
-    useEffect(() => setCity(cities.filter(city => city.id < 2)), [globalDate])
+    useEffect(() => {
+        setInterval(() => {
+            setCity(citiesConst)
+        }, 30000)
+    }, [citiesConst, timeOffset])
 
     return (
-          <TimeContext.Provider value={{globalTimeOffset, setGlobalTimeOffset}}>
+          <>
               <Heading/>
               <Container>
-                  <Slider/>
+                  <Slider setGlobalTime={changeTime}/>
                   {calendarType ?
                       cities.map((city, index) =>
                           <Card
@@ -90,6 +96,6 @@ export default function Home() {
                       {showSearch ? <CitiesModal setShowSearch={setShowSearch} setCity={setCity} cities={cities}/> : null}
                   </div>
               </Container>
-          </TimeContext.Provider>
+          </>
   )
 }
