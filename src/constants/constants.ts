@@ -21,11 +21,7 @@ export const citiesConst: City[] = [
         id: 1,
         city: 'Moscow',
         country: 'Russia',
-        timezone: `GMT ${
-            globalDate.getTimezoneOffset() < 0 ?
-                "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
-                "- " + (Math.abs(globalDate.getTimezoneOffset() / 60))
-        }`,
+        timezone: 3,
         hours: globalDate.getUTCHours(),
         minutes: globalDate.getUTCMinutes(),
         date: `${days[globalDate.getUTCDay()]} ${globalDate.getUTCDate()} ${month[globalDate.getUTCMonth()]}`,
@@ -35,56 +31,40 @@ export const citiesConst: City[] = [
         id: 2,
         city: 'London',
         country: 'UK',
-        timezone: `GMT ${
-            globalDate.getTimezoneOffset() < 0 ?
-                "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
-                "- " + (Math.abs(globalDate.getTimezoneOffset() / 60))
-        }`,
-        hours: globalDate.getHours(),
-        minutes: globalDate.getMinutes(),
-        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`,
+        timezone: 1,
+        hours: globalDate.getUTCHours(),
+        minutes: globalDate.getUTCMinutes(),
+        date: `${days[globalDate.getUTCDay()]} ${globalDate.getUTCDate()} ${month[globalDate.getUTCMonth()]}`,
         flag: `🇬🇧`
     },
     {
         id: 3,
         city: 'New York',
         country: 'USA',
-        timezone: `GMT ${
-            globalDate.getTimezoneOffset() < 0 ?
-                "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
-                "- " + (Math.abs(globalDate.getTimezoneOffset() / 60))
-        }`,
-        hours: globalDate.getHours(),
-        minutes: globalDate.getMinutes(),
-        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`,
+        timezone: -4,
+        hours: globalDate.getUTCHours(),
+        minutes: globalDate.getUTCMinutes(),
+        date: `${days[globalDate.getUTCDay()]} ${globalDate.getUTCDate()} ${month[globalDate.getUTCMonth()]}`,
         flag: `🇺🇸`
     },
     {
         id: 4,
         city: 'Paris',
         country: 'France',
-        timezone: `GMT ${
-            globalDate.getTimezoneOffset() < 0 ?
-                "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
-                "- " + (Math.abs(globalDate.getTimezoneOffset() / 60))
-        }`,
-        hours: globalDate.getHours(),
-        minutes: globalDate.getMinutes(),
-        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`,
+        timezone: 2,
+        hours: globalDate.getUTCHours(),
+        minutes: globalDate.getUTCMinutes(),
+        date: `${days[globalDate.getUTCDay()]} ${globalDate.getUTCDate()} ${month[globalDate.getUTCMonth()]}`,
         flag: `🇫🇷`
     },
     {
         id: 5,
         city: 'Washington',
         country: 'USA',
-        timezone: `GMT ${
-            globalDate.getTimezoneOffset() < 0 ?
-                "+ " + (Math.abs(globalDate.getTimezoneOffset() / 60)) :
-                "- " + (Math.abs(globalDate.getTimezoneOffset() / 60))
-        }`,
-        hours: globalDate.getHours(),
-        minutes: globalDate.getMinutes(),
-        date: `${days[globalDate.getDay()]} ${globalDate.getDate()} ${month[globalDate.getMonth()]}`,
+        timezone: -4,
+        hours: globalDate.getUTCHours(),
+        minutes: globalDate.getUTCMinutes(),
+        date: `${days[globalDate.getUTCDay()]} ${globalDate.getUTCDate()} ${month[globalDate.getUTCMonth()]}`,
         flag: `🇺🇸`
     },
 ]

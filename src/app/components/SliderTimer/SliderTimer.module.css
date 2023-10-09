@@ -1,4 +1,6 @@
 .slider__timer {
+    width: 73px;
+    height: 16px;
     display: flex;
     padding: 4px 4px 4px 6px;
     justify-content: center;
@@ -23,3 +25,6 @@
 .slider__image {
     cursor: pointer;
 }
+
+
+

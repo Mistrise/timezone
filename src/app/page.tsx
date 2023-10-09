@@ -16,7 +16,7 @@ import {useTimeStore} from "@/app/store";
 export interface City {
     id: number
     city: string
-    timezone: string
+    timezone: number
     hours: number
     minutes: number
     date: string
@@ -43,16 +43,16 @@ export default function Home() {
     const [timeFormat, setTimeFormat] = useState(true)
 
     const handleSort = () => {
-        let _cities = [...cities]
+        let prevCities = [...cities]
 
-        const draggedItemContent = _cities.splice(dragItem.current, 1)[0]
+        const draggedItemContent = prevCities.splice(dragItem.current, 1)[0]
 
-        _cities.splice(dragOverItem.current, 0, draggedItemContent)
+        prevCities.splice(dragOverItem.current, 0, draggedItemContent)
 
         dragItem.current = null
         dragOverItem.current = null
 
-        setCity(_cities)
+        setCity(prevCities)
     }
 
     useEffect(() => {

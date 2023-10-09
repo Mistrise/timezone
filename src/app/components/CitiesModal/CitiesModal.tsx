@@ -18,12 +18,12 @@ const CitiesModal = ({setShowSearch, setCity, cities}:Props) => {
 
     const [modalInput, setModalInput] = useState('')
 
-    const [_cities, set_City] = useState(citiesConst)
+    const [nextCities, setNextCities] = useState(citiesConst)
 
     function filterModalInput(input: string) {
         input === '' ?
-            set_City(citiesConst) :
-            set_City(_cities.filter(city => city.city.toLowerCase().startsWith(input.toLowerCase())))
+            setNextCities(citiesConst) :
+            setNextCities(nextCities.filter(city => city.city.toLowerCase().startsWith(input.toLowerCase())))
     }
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const CitiesModal = ({setShowSearch, setCity, cities}:Props) => {
                 <Image src={Close} alt={''} className={styles.modal__title__image} onClick={() => setShowSearch(false)} />
             </div>
             <ModalSearch modalInput={modalInput} setModalInput={setModalInput}/>
-            <ModalList modalInput={modalInput} cities={_cities} setCity={setCity} mainPageCities={cities}/>
+            <ModalList modalInput={modalInput} cities={nextCities} setCity={setCity} mainPageCities={cities}/>
         </div>
     )
 }
