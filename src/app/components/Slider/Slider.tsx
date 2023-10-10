@@ -1,7 +1,7 @@
 "use client"
 
 import styles from './Slider.module.css'
-import React, {useRef, useState} from "react";
+import React, {useCallback, useRef, useState} from "react";
 import SliderTimer from "@/app/components/SliderTimer/SliderTimer";
 
 interface Props {
@@ -19,7 +19,7 @@ const Slider = ({setGlobalTime}:Props) => {
     const [resetTime, setResetTime] = useState(false)
 
 
-    function calcRoundedTime(pxOffset: number) {
+    const calcRoundedTime = useCallback((pxOffset: number) =>  {
         const hoursOffset = Math.round(pxOffset / PIXELS_PER_HOUR * 2) / 2;
         if (hoursOffset === 0 || resetTime) {
             timeElement.current = '';
@@ -28,7 +28,7 @@ const Slider = ({setGlobalTime}:Props) => {
             timeElement.current = `${sign}${hoursOffset}h`;
             setGlobalTime(`${sign}${hoursOffset}h`)
         }
-    }
+    }, [resetTime, setGlobalTime])
 
 
     return (
