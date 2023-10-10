@@ -2,6 +2,7 @@ import styles from './Card.module.css'
 import {City} from "@/app/page";
 import Sunny from '../../../../public/icons/State=Sunny.svg'
 import Image from "next/image";
+import {useTimeStore} from "@/app/store";
 
 interface Props {
     city: City
@@ -10,10 +11,15 @@ interface Props {
     dragOverItem: any
     handleSort: () => void
     index: number
+    timeOffset: string
 }
 
-const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Props) => {
+const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index, timeOffset}: Props) => {
 
+    const store = useTimeStore()
+
+    console.log(city.timezone)
+    console.log(store.currentDate)
     return <div
         className={styles.card}
         draggable
@@ -24,15 +30,19 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
     >
         <div className={styles.card__title}>{city.city}</div>
         <div className={styles.card__time}>
-            <div className={`${styles.card__time__item} ${timeFormat ? styles.card__time__item__24h : styles.card__time__item__am} `}>
-                {timeFormat || city.hours + city.timezone < 13 ? city.hours + city.timezone :  city.hours - 12 + city.timezone }
+            <div className={`${styles.card__time__item} ${timeFormat 
+                ? styles.card__time__item__24h 
+                : styles.card__time__item__am} `}>
+                {timeFormat || store.currentDate.getUTCHours() + city.timezone < 12
+                    ? store.currentDate.getUTCHours() + city.timezone
+                    :  store.currentDate.getUTCHours() - 12 + city.timezone }
                 :
                 {city.minutes < 10 ? `0${city.minutes}` : city.minutes}
             </div>
             {timeFormat ?
                 null :
                 <span className={styles.card__am}>
-                    {city.hours  > 13 ? <p>PM</p> : <p>AM</p>}
+                    {city.hours  > 12 ? <p>PM</p> : <p>AM</p>}
                 </span>}
         </div>
         <div className={styles.card__timezone}>GMT {city.timezone < 10 ? `0${city.timezone}:00` : `${city.timezone}:00`}</div>

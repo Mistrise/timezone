@@ -28,7 +28,7 @@ export interface City {
 
 export default function Home() {
 
-    const {timeOffset ,changeTime} = useTimeStore()
+    const {timeOffset, changeTime} = useTimeStore()
 
     const dragItem = useRef<any>(null)
 
@@ -41,6 +41,7 @@ export default function Home() {
     const [calendarType, setCalendarType] = useState(true)
 
     const [timeFormat, setTimeFormat] = useState(true)
+
 
     const handleSort = () => {
         let prevCities = [...cities]
@@ -55,11 +56,6 @@ export default function Home() {
         setCity(prevCities)
     }
 
-    useEffect(() => {
-        setInterval(() => {
-            setCity(citiesConst)
-        }, 30000)
-    }, [citiesConst, timeOffset])
 
     return (
           <>
@@ -76,6 +72,7 @@ export default function Home() {
                               timeFormat={timeFormat}
                               city={city}
                               key={city.id}
+                              timeOffset={timeOffset}
                           />)
                       :
                       cities.map((city, index) =>

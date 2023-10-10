@@ -23,6 +23,7 @@ const SliderTimer = ({resetSlider}:Props) => {
                       className={styles.slider__image}
                       onClick={() => {
                           store.changeTime('')
+                          store.currentDate(new Date())
                           resetSlider(true)
                       }}>
                   </Image>
