@@ -18,7 +18,6 @@ const Slider = () => {
     let currentDiffX = 0;
     const PIXELS_PER_HOUR = 50;
     const [resetTime, setResetTime] = useState(false)
-    const tmp = timeElement.current
 
 
     const calcRoundedTime = useCallback((pxOffset: number) =>  {
@@ -47,6 +46,7 @@ const Slider = () => {
                      currentDiffX = totalDiffX - diffX;
                      innerScrollElement.current.style.transform = `translate(${diffX}px)`;
                      calcRoundedTime(currentDiffX)
+
                  }
              }}
         >
