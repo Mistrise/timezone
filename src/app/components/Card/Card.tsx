@@ -18,6 +18,8 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index, time
 
     const currentDate = useTimeStore(state => state.currentDate)
 
+    console.log(currentDate)
+
     return <div
         className={styles.card}
         draggable
@@ -31,9 +33,9 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index, time
             <div className={`${styles.card__time__item} ${timeFormat 
                 ? styles.card__time__item__24h 
                 : styles.card__time__item__am} `}>
-                {timeFormat || currentDate.getUTCHours() + city.timezone < 12
-                    ? currentDate.getUTCHours() + city.timezone
-                    :  currentDate.getUTCHours() - 12 + city.timezone }
+                {timeFormat || currentDate.getUTCHours() < 12
+                    ? currentDate.getUTCHours()
+                    :  currentDate.getUTCHours() - 13 }
                 :
                 {city.minutes < 10 ? `0${city.minutes}` : city.minutes}
             </div>

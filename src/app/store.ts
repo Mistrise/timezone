@@ -5,7 +5,7 @@ import ApiClient, {axiosInstance} from "@/services/api-client";
 import axios from "axios";
 
 interface TimeStore {
-    timeOffset: string
+    timeOffset: string | number
     currentDate: any
     changeTime: any
     timezones: any
@@ -13,6 +13,7 @@ interface TimeStore {
 }
 
 
+// @ts-ignore
 export const useTimeStore = create<TimeStore>()(
     (devtools(
          (set) => ({
@@ -23,11 +24,22 @@ export const useTimeStore = create<TimeStore>()(
               const result = await axiosInstance.get('https://timeapi.io/api/TimeZone/AvailableTimeZones')
                 set({timezones: result})
             },
-            changeTime: (by: any) => set((state) => (
+            changeTime: (time: string) => set((state) => (
+                time === '' ?
                 {
-                    timeOffset: by,
-                    currentDate: addHours(state.currentDate, Number(state.timeOffset.slice(0, -1)))
+                    timeOffset: time,
                 }
+                :
+                    parseFloat(time) > parseFloat(state.timeOffset ? state.timeOffset : '0') ?
+                        {
+                            timeOffset: time,
+                            currentDate: addHours(state.currentDate, 1)
+                        }
+                        :
+                        {
+                            timeOffset: time,
+                            currentDate: addHours(state.currentDate, -1)
+                        }
             )),
 
         }),

@@ -49,7 +49,6 @@ const Slider = () => {
                      currentDiffX = totalDiffX - diffX;
                      innerScrollElement.current.style.transform = `translate(${diffX}px)`;
                      calcRoundedTime(currentDiffX)
-
                  }
              }}
         >
