@@ -11,19 +11,21 @@ interface Props {
 
 
 const SliderTimer = ({resetSlider}:Props) => {
-    const store = useTimeStore()
+    const timeOffset = useTimeStore(state => state.timeOffset)
+    const changeTime = useTimeStore(state => state.changeTime)
+    const currentDate = useTimeStore(state => state.currentDate)
 
   return (
       <div className={styles.slider__timer}>
-          { store.timeOffset !== '' ?
+          { timeOffset !== '' ?
               <>
-                  <div className={styles.slider__text}>{store.timeOffset}</div>
+                  <div className={styles.slider__text}>{timeOffset}</div>
                   <Image
                       src={Cross} alt={''} width={16} height={16}
                       className={styles.slider__image}
                       onClick={() => {
-                          store.changeTime('')
-                          store.currentDate(new Date())
+                          changeTime('')
+                          currentDate(new Date())
                           resetSlider(true)
                       }}>
                   </Image>

@@ -3,13 +3,14 @@
 import styles from './Slider.module.css'
 import React, {useCallback, useRef, useState} from "react";
 import SliderTimer from "@/app/components/SliderTimer/SliderTimer";
-
-interface Props {
-    setGlobalTime: (time: string) => void
-}
+import {useTimeStore} from "@/app/store";
 
 
-const Slider = ({setGlobalTime}:Props) => {
+
+
+const Slider = () => {
+    const changeTime = useTimeStore(state => state.changeTime)
+
     let startX: number | null = null
     let innerScrollElement = useRef<HTMLDivElement | null>(null);
     let timeElement = useRef<HTMLDivElement | string>('');
@@ -17,6 +18,7 @@ const Slider = ({setGlobalTime}:Props) => {
     let currentDiffX = 0;
     const PIXELS_PER_HOUR = 50;
     const [resetTime, setResetTime] = useState(false)
+    const tmp = timeElement.current
 
 
     const calcRoundedTime = useCallback((pxOffset: number) =>  {
@@ -26,16 +28,16 @@ const Slider = ({setGlobalTime}:Props) => {
         } else {
             const sign = hoursOffset > 0 ? '+' : '';
             timeElement.current = `${sign}${hoursOffset}h`;
-            setGlobalTime(`${sign}${hoursOffset}h`)
+            changeTime(`${sign}${hoursOffset}h`)
         }
-    }, [resetTime, setGlobalTime])
-
+    }, [resetTime, changeTime, timeElement.current])
 
     return (
         <div className={styles.container}
              onMouseUp={() => {
                  totalDiffX = currentDiffX;
                  startX = null;
+
              }}
              onMouseDown={event => startX = event.clientX}
              onMouseMove={event => {

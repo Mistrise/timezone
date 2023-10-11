@@ -28,7 +28,10 @@ export interface City {
 
 export default function Home() {
 
-    const {timeOffset, changeTime} = useTimeStore()
+    const timeOffset = useTimeStore(state => state.timeOffset)
+
+
+
 
     const dragItem = useRef<any>(null)
 
@@ -61,7 +64,7 @@ export default function Home() {
           <>
               <Heading/>
               <Container>
-                  <Slider setGlobalTime={changeTime}/>
+                  <Slider/>
                   {calendarType ?
                       cities.map((city, index) =>
                           <Card
