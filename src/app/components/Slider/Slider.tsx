@@ -10,7 +10,6 @@ import {useTimeStore} from "@/app/store";
 
 const Slider = () => {
     const changeTime = useTimeStore(state => state.changeTime)
-
     let startX: number | null = null
     let innerScrollElement = useRef<HTMLDivElement | null>(null);
     let timeElement = useRef<HTMLDivElement | string>('');
@@ -25,11 +24,15 @@ const Slider = () => {
         if (hoursOffset === 0 || resetTime) {
             timeElement.current = '';
         } else {
+            const prevElement = timeElement.current
             const sign = hoursOffset > 0 ? '+' : '';
             timeElement.current = `${sign}${hoursOffset}h`;
-            changeTime(`${sign}${hoursOffset}h`)
+            if (prevElement !== timeElement.current) {
+                console.log(timeElement.current)
+                changeTime(`${sign}${hoursOffset}h`)
+            }
         }
-    }, [resetTime, changeTime, timeElement.current])
+    }, [resetTime, changeTime])
 
     return (
         <div className={styles.container}
