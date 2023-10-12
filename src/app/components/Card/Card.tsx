@@ -35,7 +35,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
                 : styles.card__time__item__am} `}>
                 {timeFormat || currentDate.getHours() < 12
                     ? currentDate.getHours()
-                    :  currentDate.getHours() - 13 }
+                    :  currentDate.getHours() - 12 }
                 :
                 {currentDate.getMinutes() < 10 ? `0${currentDate.getMinutes()}` : currentDate.getMinutes()}
             </div>

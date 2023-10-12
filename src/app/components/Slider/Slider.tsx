@@ -28,7 +28,6 @@ const Slider = () => {
             const sign = hoursOffset > 0 ? '+' : '';
             timeElement.current = `${sign}${hoursOffset}h`;
             if (prevElement !== timeElement.current) {
-                console.log(timeElement.current)
                 changeTime(`${sign}${hoursOffset}h`)
             }
         }

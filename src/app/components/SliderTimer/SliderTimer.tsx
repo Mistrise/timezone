@@ -13,7 +13,7 @@ interface Props {
 const SliderTimer = ({resetSlider}:Props) => {
     const timeOffset = useTimeStore(state => state.timeOffset)
     const changeTime = useTimeStore(state => state.changeTime)
-    const currentDate = useTimeStore(state => state.currentDate)
+    const resetCurrentDate = useTimeStore(state => state.resetCurrentDate)
 
   return (
       <div className={styles.slider__timer}>
@@ -25,7 +25,7 @@ const SliderTimer = ({resetSlider}:Props) => {
                       className={styles.slider__image}
                       onClick={() => {
                           changeTime('')
-                          currentDate(new Date())
+                          resetCurrentDate()
                           resetSlider(true)
                       }}>
                   </Image>
