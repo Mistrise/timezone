@@ -1,8 +1,7 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { addHours } from 'date-fns'
-import ApiClient, {axiosInstance} from "@/services/api-client";
-import axios from "axios";
+import {addMinutes} from 'date-fns'
+import {axiosInstance} from "@/services/api-client";
 
 interface TimeStore {
     timeOffset: string | number
@@ -30,15 +29,15 @@ export const useTimeStore = create<TimeStore>()(
                     timeOffset: time,
                 }
                 :
-                    parseFloat(time) > parseFloat(state.timeOffset ? state.timeOffset : '0') ?
+                    parseFloat(time) >= parseFloat(state.timeOffset ? state.timeOffset : '0') ?
                         {
                             timeOffset: time,
-                            currentDate: addHours(state.currentDate, 1)
+                            currentDate: addMinutes(state.currentDate, 30)
                         }
                         :
                         {
                             timeOffset: time,
-                            currentDate: addHours(state.currentDate, -1)
+                            currentDate: addMinutes(state.currentDate, -30)
                         }
             )),
 

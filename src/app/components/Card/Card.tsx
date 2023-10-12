@@ -11,14 +11,12 @@ interface Props {
     dragOverItem: any
     handleSort: () => void
     index: number
-    timeOffset: string
 }
 
-const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index, timeOffset}: Props) => {
+const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Props) => {
 
     const currentDate = useTimeStore(state => state.currentDate)
 
-    console.log(currentDate)
 
     return <div
         className={styles.card}
@@ -33,11 +31,11 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index, time
             <div className={`${styles.card__time__item} ${timeFormat 
                 ? styles.card__time__item__24h 
                 : styles.card__time__item__am} `}>
-                {timeFormat || currentDate.getUTCHours() < 12
-                    ? currentDate.getUTCHours()
-                    :  currentDate.getUTCHours() - 13 }
+                {timeFormat || currentDate.getHours() < 12
+                    ? currentDate.getHours()
+                    :  currentDate.getHours() - 13 }
                 :
-                {city.minutes < 10 ? `0${city.minutes}` : city.minutes}
+                {currentDate.getMinutes() < 10 ? `0${currentDate.getMinutes()}` : currentDate.getMinutes()}
             </div>
             {timeFormat ?
                 null :
