@@ -11,6 +11,7 @@ import CardScheduler from "@/app/components/CardScheduler/CardScheduler";
 import {citiesConst} from "@/constants/constants";
 import CitiesModal from "@/app/components/CitiesModal/CitiesModal";
 import {useTimeStore} from "@/app/store";
+import {axiosInstance} from "@/services/api-client";
 
 
 export interface City {
@@ -30,9 +31,6 @@ export default function Home() {
 
     const timeOffset = useTimeStore(state => state.timeOffset)
 
-
-
-
     const dragItem = useRef<any>(null)
 
     const dragOverItem = useRef<any>(null)
@@ -44,7 +42,6 @@ export default function Home() {
     const [calendarType, setCalendarType] = useState(true)
 
     const [timeFormat, setTimeFormat] = useState(true)
-
 
     const handleSort = () => {
         let prevCities = [...cities]
@@ -58,6 +55,11 @@ export default function Home() {
 
         setCity(prevCities)
     }
+
+    useEffect(() => {
+        const arr = axiosInstance.get('timezone')
+        arr.then(res => console.log(res.data))
+    },[])
 
 
     return (
