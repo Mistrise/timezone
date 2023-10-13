@@ -32,6 +32,7 @@ export const useTimeStore = create<TimeStore>()(
                     timeOffset: time,
                 }
                 :
+                    // @ts-ignore
                     parseFloat(time) >= parseFloat(state.timeOffset ? state.timeOffset : '0') ?
                         {
                             timeOffset: time,

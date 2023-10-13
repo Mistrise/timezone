@@ -77,7 +77,6 @@ export default function Home() {
                               timeFormat={timeFormat}
                               city={city}
                               key={city.id}
-                              timeOffset={timeOffset}
                           />)
                       :
                       cities.map((city, index) =>
