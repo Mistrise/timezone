@@ -4,7 +4,7 @@ import Button from "@/app/components/Button/Button";
 import Heading from "@/app/components/Heading/Heading";
 import Slider from "@/app/components/Slider/Slider";
 import Tab from "@/app/components/Tabs/Tab";
-import { useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Card from "@/app/components/Card/Card";
 import Container from "@/app/components/Container/Container";
 import CardScheduler from "@/app/components/CardScheduler/CardScheduler";
@@ -56,7 +56,10 @@ export default function Home() {
         setCity(prevCities)
     }
 
-    setTimezones()
+    useEffect(() => {
+        setTimezones()
+    }, [setTimezones]);
+
 
 
     return (
