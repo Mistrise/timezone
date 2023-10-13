@@ -4,14 +4,13 @@ import Button from "@/app/components/Button/Button";
 import Heading from "@/app/components/Heading/Heading";
 import Slider from "@/app/components/Slider/Slider";
 import Tab from "@/app/components/Tabs/Tab";
-import {useEffect, useRef, useState} from "react";
+import { useRef, useState} from "react";
 import Card from "@/app/components/Card/Card";
 import Container from "@/app/components/Container/Container";
 import CardScheduler from "@/app/components/CardScheduler/CardScheduler";
 import {citiesConst} from "@/constants/constants";
 import CitiesModal from "@/app/components/CitiesModal/CitiesModal";
 import {useTimeStore} from "@/app/store";
-import {axiosInstance} from "@/services/api-client";
 
 
 export interface City {
@@ -30,6 +29,7 @@ export interface City {
 export default function Home() {
 
     const timeOffset = useTimeStore(state => state.timeOffset)
+    const setTimezones = useTimeStore(state => state.setTimezones)
 
     const dragItem = useRef<any>(null)
 
@@ -56,10 +56,7 @@ export default function Home() {
         setCity(prevCities)
     }
 
-    useEffect(() => {
-        const arr = axiosInstance.get('timezone')
-        arr.then(res => console.log(res.data))
-    },[])
+    setTimezones()
 
 
     return (

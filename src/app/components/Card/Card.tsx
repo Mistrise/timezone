@@ -45,7 +45,12 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
                     {currentDate.getHours()  > 12 ? <p>PM</p> : <p>AM</p>}
                 </span>}
         </div>
-        <div className={styles.card__timezone}>GMT {city.timezone < 10 ? `0${city.timezone}:00` : `${city.timezone}:00`}</div>
+        <div className={styles.card__timezone}>GMT {currentDate.getTimezoneOffset() < 0 ?
+            `+ ${Math.abs(currentDate.getTimezoneOffset() / 60)}`
+            :
+            `- ${Math.abs(currentDate.getTimezoneOffset() / 60)}`
+        }
+        </div>
         <div className={styles.card__date}>
             {currentDate.getHours() > 7 && currentDate.getHours() < 22 ?
                 <Image src={Sunny} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>
