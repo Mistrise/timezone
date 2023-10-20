@@ -3,6 +3,7 @@ import styles from './CardScheduler.module.css'
 import Image from "next/image";
 import BackgroundImage24h from '../../../../public/assets/24h=On.svg'
 import BackgroundImageAmPm from '../../../../public/assets/24h=Off.svg'
+import {useTimeStore} from "@/app/store";
 
 interface Props {
     city: City
@@ -14,6 +15,9 @@ interface Props {
 }
 
 const CardScheduler = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Props) => {
+
+    const currentDate = useTimeStore(state => state.currentDate)
+
   return (
       <div
           className={styles.card}
@@ -26,14 +30,16 @@ const CardScheduler = ({city, timeFormat, dragItem, dragOverItem, handleSort, in
         <div className={styles.card__title}>{city.city}</div>
           <div className={styles.card__time}>
             <span className={`${styles.card__time__item} ${timeFormat ? styles.card__time__item__24h : styles.card__time__item__am} `}>
-                {timeFormat || city.hours < 13 ? city.hours :  city.hours - 12}
+                {timeFormat || currentDate.getHours() < 13
+                    ? currentDate.getHours()
+                    :  currentDate.getHours() - 13 }
                 :
-                {city.minutes < 10 ? `0${city.minutes}` : city.minutes}
+                {currentDate.getMinutes() < 10 ? `0${currentDate.getMinutes()}` : currentDate.getMinutes()}
             </span>
               {timeFormat ?
                   null :
                   <span className={styles.card__am}>
-                    {city.hours > 13 ? <p>PM</p> : <p>AM</p>}
+                    {currentDate.getHours()  > 13 ? <p>PM</p> : <p>AM</p>}
                 </span>}
           </div>
           <div className={styles.card__time__scroll}>

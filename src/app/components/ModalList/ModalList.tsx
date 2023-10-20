@@ -1,6 +1,7 @@
 import ModalListItem from "@/app/components/ModalListItem/ModalListItem";
 import styles from './ModalList.module.css'
 import {City} from "@/app/page";
+import {useTimeStore} from "@/app/store";
 
 interface Props {
     modalInput: string
@@ -10,10 +11,10 @@ interface Props {
 }
 
 const ModalList = ({cities, setCity, mainPageCities}: Props) => {
-
+    const timezones = useTimeStore(state => state.timezones)
     return (
         <div className={styles.modal__list}>
-            {cities.map(city => <ModalListItem key={city.id} city={city} cities={mainPageCities} setCity={setCity}/>)}
+            {timezones.map((city: any, index: number) => <ModalListItem key={index} city={city} cities={mainPageCities} setCity={setCity}/>)}
         </div>
     )
 }

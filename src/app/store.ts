@@ -21,7 +21,6 @@ export const useTimeStore = create<TimeStore>()(
             timeOffset: '',
             timezones: [],
             currentDate: new Date(),
-
             fetchTimezones: async () => {
               const result = await axiosInstance.get('https://timeapi.io/api/TimeZone/AvailableTimeZones')
                 set({timezones: result})
@@ -53,5 +52,4 @@ export const useTimeStore = create<TimeStore>()(
              }
         }),
         { name: 'timeStore' }
-
 )))

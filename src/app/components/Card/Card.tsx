@@ -33,16 +33,16 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
             <div className={`${styles.card__time__item} ${timeFormat 
                 ? styles.card__time__item__24h 
                 : styles.card__time__item__am} `}>
-                {timeFormat || currentDate.getHours() < 12
+                {timeFormat || currentDate.getHours() < 13
                     ? currentDate.getHours()
-                    :  currentDate.getHours() - 12 }
+                    :  currentDate.getHours() - 13 }
                 :
                 {currentDate.getMinutes() < 10 ? `0${currentDate.getMinutes()}` : currentDate.getMinutes()}
             </div>
             {timeFormat ?
                 null :
                 <span className={styles.card__am}>
-                    {currentDate.getHours()  > 12 ? <p>PM</p> : <p>AM</p>}
+                    {currentDate.getHours()  > 13 ? <p>PM</p> : <p>AM</p>}
                 </span>}
         </div>
         <div className={styles.card__timezone}>GMT {currentDate.getTimezoneOffset() < 0 ?

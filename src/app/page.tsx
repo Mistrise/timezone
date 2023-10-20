@@ -58,8 +58,7 @@ export default function Home() {
 
     useEffect(() => {
         setTimezones()
-    }, [setTimezones]);
-
+    }, [ setTimezones]);
 
 
     return (
