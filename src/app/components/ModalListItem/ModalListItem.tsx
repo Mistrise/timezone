@@ -1,18 +1,17 @@
-import {City} from "@/app/page";
 import styles from './ModalListItem.module.css'
-import {useTimeStore} from "@/app/store";
 
 interface Props {
   city: any
-    setCity: (city: any) => void
-    cities: City[]
 }
 
-const ModalListItem = ({city, setCity, cities}: Props) => {
+const ModalListItem = ({city}: Props) => {
+    const splitCitiesAndCountries = city.split('/')
+    const lengthOfCitiesArr = splitCitiesAndCountries.length
+    const cityString = splitCitiesAndCountries[lengthOfCitiesArr - 1]
   return (
       <div className={styles.modal__list__item}>
           <div className={styles.modal__list__item__grid}>
-              {city}
+              {cityString}
           </div>
       </div>
   )

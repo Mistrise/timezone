@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import {addMinutes} from 'date-fns'
 import {axiosInstance} from "@/services/api-client";
+import {immer} from "zustand/middleware/immer";
 
 interface TimeStore {
     timeOffset: string | number
@@ -17,7 +18,7 @@ interface TimeStore {
 // @ts-ignore
 export const useTimeStore = create<TimeStore>()(
     (devtools(
-         (set) => ({
+         immer((set) => ({
             timeOffset: '',
             timezones: [],
             currentDate: new Date(),
@@ -50,6 +51,6 @@ export const useTimeStore = create<TimeStore>()(
                 const response = axiosInstance.get('timezone').then(res => res.data)
                  set({timezones: await response})
              }
-        }),
+        })),
         { name: 'timeStore' }
 )))
