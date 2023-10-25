@@ -11,7 +11,7 @@ interface Props {
 //     fix type
 }
 
-const CitiesModal = ({setShowSearch}:Props) => {
+const CitiesModal = ({ setShowSearch }:Props) => {
 
     const [modalInput, setModalInput] = useState('')
 
