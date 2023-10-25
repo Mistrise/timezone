@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const axiosInstance = axios.create(
     {
-        baseURL: 'http://worldtimeapi.org/api/',
+        baseURL: 'https://worldtimeapi.org/api/',
         withCredentials: false,
     }
 )
