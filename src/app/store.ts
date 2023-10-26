@@ -11,6 +11,7 @@ interface TimeStore {
     timezones: any
     fetchTimezones: any
     resetCurrentDate: any
+    getTimezones: any
     setTimezones: any
 }
 
@@ -18,7 +19,8 @@ interface TimeStore {
 // @ts-ignore
 export const useTimeStore = create<TimeStore>()(
     (devtools(
-         immer((set) => ({
+         immer(
+             (set) => ({
             timeOffset: '',
             timezones: [],
             currentDate: new Date(),
@@ -47,10 +49,11 @@ export const useTimeStore = create<TimeStore>()(
              resetCurrentDate: () => set(
                  {currentDate: new Date()}
              ),
-             setTimezones: async () => {
+             getTimezones: async () => {
                 const response = axiosInstance.get('timezone').then(res => res.data)
                  set({timezones: await response})
-             }
+             },
+                 setTimezones: (filteredTimezones: any) => set({timezones: filteredTimezones})
         })),
         { name: 'timeStore' }
 )))

@@ -4,23 +4,23 @@ import ModalList from "@/app/components/ModalList/ModalList";
 import Close from '../../../../public/icons/Icon=Close.svg'
 import Image from "next/image";
 import {useEffect, useState} from "react";
-import {citiesConst} from "@/constants/constants";
+import {useTimeStore} from "@/app/store";
 
 interface Props {
     setShowSearch: (show: boolean) => void
-//     fix type
 }
 
 const CitiesModal = ({ setShowSearch }:Props) => {
 
+    const citiesConst = useTimeStore(state => state.timezones)
+    const setTimezones = useTimeStore(state => state.setTimezones)
+
     const [modalInput, setModalInput] = useState('')
 
-    const [nextCities, setNextCities] = useState(citiesConst)
-
     function filterModalInput(input: string) {
-        input === '' ?
-            setNextCities(citiesConst) :
-            setNextCities(nextCities.filter(city => city.city.toLowerCase().startsWith(input.toLowerCase())))
+        if (input !== '') {
+            setTimezones(citiesConst)
+        }
     }
 
     useEffect(() => {
