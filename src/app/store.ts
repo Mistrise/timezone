@@ -12,7 +12,6 @@ interface TimeStore {
     fetchTimezones: any
     resetCurrentDate: any
     getTimezones: any
-    setTimezones: any
 }
 
 
@@ -52,8 +51,7 @@ export const useTimeStore = create<TimeStore>()(
              getTimezones: async () => {
                 const response = axiosInstance.get('timezone').then(res => res.data)
                  set({timezones: await response})
-             },
-                 setTimezones: (filteredTimezones: any) => set({timezones: filteredTimezones})
+             }
         })),
         { name: 'timeStore' }
 )))

@@ -29,7 +29,7 @@ export interface City {
 export default function Home() {
 
     const timeOffset = useTimeStore(state => state.timeOffset)
-    const setTimezones = useTimeStore(state => state.setTimezones)
+    const getTimezones = useTimeStore(state => state.getTimezones)
 
     const dragItem = useRef<any>(null)
 
@@ -57,8 +57,8 @@ export default function Home() {
     }
 
     useEffect(() => {
-        setTimezones()
-    }, [ setTimezones]);
+        getTimezones()
+    }, [ getTimezones]);
 
 
     return (

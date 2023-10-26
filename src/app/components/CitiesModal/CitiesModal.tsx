@@ -13,14 +13,15 @@ interface Props {
 const CitiesModal = ({ setShowSearch }:Props) => {
 
     const citiesConst = useTimeStore(state => state.timezones)
-    const setTimezones = useTimeStore(state => state.setTimezones)
 
     const [modalInput, setModalInput] = useState('')
 
+    const [nextCities, setNextCities] = useState(citiesConst)
+
     function filterModalInput(input: string) {
-        if (input !== '') {
-            setTimezones(citiesConst)
-        }
+        input === '' ?
+            setNextCities(citiesConst) :
+            setNextCities(nextCities.filter(city => city.toLowerCase().includes(input.toLowerCase())))
     }
 
     useEffect(() => {
