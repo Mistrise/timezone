@@ -19,9 +19,8 @@ const CitiesModal = ({ setShowSearch }:Props) => {
     const [nextCities, setNextCities] = useState(citiesConst)
 
     function filterModalInput(input: string) {
-        input === '' ?
-            setNextCities(citiesConst) :
-            setNextCities(nextCities.filter(city => city.toLowerCase().includes(input.toLowerCase())))
+        // @ts-ignore
+        input !== '' ? setNextCities(nextCities.filter(city => city.toLowerCase().includes(input.toLowerCase()))) : setNextCities(citiesConst)
     }
 
     useEffect(() => {
