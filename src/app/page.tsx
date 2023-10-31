@@ -28,7 +28,6 @@ export interface City {
 
 export default function Home() {
 
-    const timeOffset = useTimeStore(state => state.timeOffset)
     const getTimezones = useTimeStore(state => state.getTimezones)
 
     const dragItem = useRef<any>(null)

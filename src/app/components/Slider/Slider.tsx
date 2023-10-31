@@ -1,7 +1,7 @@
 "use client"
 
 import styles from './Slider.module.css'
-import React, {useCallback, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import SliderTimer from "@/app/components/SliderTimer/SliderTimer";
 import {useTimeStore} from "@/app/store";
 
@@ -33,22 +33,28 @@ const Slider = () => {
         }
     }, [resetTime, changeTime])
 
+    useEffect(() => {
+        document.addEventListener('mouseup', (e) => {
+            totalDiffX = currentDiffX;
+            startX = null;
+        })
+
+        document.addEventListener('mousemove', (e) => {
+            console.log('move')
+            if (startX) {
+                const diffX = e.clientX - startX;
+                currentDiffX = totalDiffX - diffX;
+                innerScrollElement.current.style.transform = `translate(${diffX}px)`;
+                calcRoundedTime(currentDiffX)
+            }
+        })
+    }, []);
+
     return (
         <div className={styles.container}
-             onMouseUp={() => {
-                 totalDiffX = currentDiffX;
-                 startX = null;
-
-             }}
-             onMouseDown={event => startX = event.clientX}
-             onMouseMove={event => {
-                 if (startX && innerScrollElement.current !== null) {
-                     setResetTime(false)
-                     const diffX = event.clientX - startX;
-                     currentDiffX = totalDiffX - diffX;
-                     innerScrollElement.current.style.transform = `translate(${diffX}px)`;
-                     calcRoundedTime(currentDiffX)
-                 }
+             onMouseDown={event => {
+                 console.log('down')
+                 startX = event.clientX
              }}
         >
             <SliderTimer resetSlider={setResetTime}/>
