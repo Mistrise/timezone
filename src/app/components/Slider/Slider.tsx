@@ -10,6 +10,7 @@ import {useTimeStore} from "@/app/store";
 
 const Slider = () => {
     const changeTime = useTimeStore(state => state.changeTime)
+    const resetCurrentDate = useTimeStore(state => state.resetCurrentDate)
     let startX: number | null = null
     let innerScrollElement = useRef<HTMLDivElement | null>(null);
     let timeElement = useRef<HTMLDivElement | string>('');
@@ -31,16 +32,16 @@ const Slider = () => {
                 changeTime(`${sign}${hoursOffset}h`)
             }
         }
-    }, [resetTime, changeTime])
+    }, [resetTime, changeTime, resetCurrentDate])
 
     useEffect(() => {
+        setResetTime(false)
         document.addEventListener('mouseup', (e) => {
             totalDiffX = currentDiffX;
             startX = null;
         })
 
         document.addEventListener('mousemove', (e) => {
-            console.log('move')
             if (startX) {
                 const diffX = e.clientX - startX;
                 currentDiffX = totalDiffX - diffX;
@@ -49,12 +50,27 @@ const Slider = () => {
                 calcRoundedTime(currentDiffX)
             }
         })
-    }, []);
+        return () => {
+            document.removeEventListener('mouseup', (e) => {
+                totalDiffX = currentDiffX;
+                startX = null;
+            })
+
+            document.removeEventListener('mousemove', (e) => {
+                if (startX) {
+                    const diffX = e.clientX - startX;
+                    currentDiffX = totalDiffX - diffX;
+                    // @ts-ignore
+                    innerScrollElement.current.style.transform = `translate(${diffX}px)`;
+                    calcRoundedTime(currentDiffX)
+                }
+            })
+        }
+    }, [resetTime, changeTime, resetCurrentDate]);
 
     return (
         <div className={styles.container}
              onMouseDown={event => {
-                 console.log('down')
                  startX = event.clientX
              }}
         >
