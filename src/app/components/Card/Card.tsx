@@ -2,6 +2,8 @@ import styles from './Card.module.css'
 import {City} from "@/app/page";
 import Sunny from '../../../../public/icons/State=Sunny.svg'
 import Night from '../../../../public/icons/State=Clear-night.svg'
+import Close from '../../../../public/icons/Icon=cross-circle-outlined.svg'
+import Drag from '../../../../public/icons/Icon=drag.svg'
 import Image from "next/image";
 import {useTimeStore} from "@/app/store";
 import {days, month} from "@/constants/constants";
@@ -20,7 +22,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
     const currentDate = useTimeStore(state => state.currentDate)
 
 
-    return <div
+    return (<div
         className={styles.card}
         draggable
         onDragStart={() => dragItem.current = index}
@@ -60,7 +62,13 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
 
             {`${days[currentDate.getDay()]} ${currentDate.getDate()} ${month[currentDate.getMonth()]}`}
         </div>
-    </div>
+        <div className={styles.card__close}>
+            <Image src={Close} width={24} height={24} alt=''></Image>
+        </div>
+        <div className={styles.card__drag}>
+            <Image src={Drag} width={24} height={24} alt=''></Image>
+        </div>
+    </div>)
 }
 
 export default Card

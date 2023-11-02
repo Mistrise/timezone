@@ -96,3 +96,15 @@
     display: flex;
     margin-right: 30px;
 }
+
+.card__close {
+    position: relative;
+    left: 545px;
+    top: -27px;
+}
+
+.card__drag {
+    position: relative;
+    top: -71px;
+    left: 288px;
+}
