@@ -13,6 +13,8 @@ interface TimeStore {
     fetchTimezones: any
     resetCurrentDate: any
     getTimezones: any
+    citiesList: any
+    removeCitiesList: any
 }
 
 
@@ -29,7 +31,8 @@ export const useTimeStore = create<TimeStore>()(
               const result = await axiosInstance.get('https://timeapi.io/api/TimeZone/AvailableTimeZones')
                 set({timezones: result})
             },
-            removeCities: () => {},
+                 setCities: () => {},
+            removeCitiesList: (id: number) => set(state => ({citiesList: state.citiesList.filter((city: any) => city.id !== id)})),
             changeTime: (time: string) => set((state) => (
                 time === '' ?
                 {

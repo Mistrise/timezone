@@ -24,6 +24,10 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
 
     const currentDate = useTimeStore(state => state.currentDate)
 
+    const setCitiesList = useTimeStore(state => state.removeCitiesList)
+
+    const citiesList = useTimeStore(state => state.citiesList)
+
     const handleMouseOver = () => {
         setIsHovering(true)
     }
@@ -79,6 +83,10 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
                     `${styles.card__controls__invisible} ${styles.card__close}` }
                      onMouseOver={handleMouseOver}
                      onMouseOut={handleMouseOut}
+                     onClick={() => {
+                         setCitiesList(city.id)
+                         console.log(citiesList)
+                     }}
                 >
                     <Image src={Close} width={24} height={24} alt=''></Image>
                 </div>

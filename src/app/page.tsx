@@ -34,7 +34,9 @@ export default function Home() {
 
     const dragOverItem = useRef<any>(null)
 
-    const [cities, setCity] = useState<City[]>(citiesConst)
+    const citiesList = useTimeStore(state => state.citiesList)
+
+    const [cities, setCity] = useState<City[]>(citiesList)
 
     const [showSearch, setShowSearch] = useState(false)
 
