@@ -99,12 +99,22 @@
 
 .card__close {
     position: relative;
-    left: 545px;
-    top: -27px;
+    top: -89px;
+    left: 525px;
+    padding: 20px;
 }
 
 .card__drag {
     position: relative;
-    top: -71px;
-    left: 288px;
+    top: -49px;
+    padding: 20px;
+    left: 267px;
+}
+
+.card__controls__invisible {
+    visibility: hidden;
+}
+
+.card__controls__visible {
+    visibility: visible;
 }

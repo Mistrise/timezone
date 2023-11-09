@@ -3,6 +3,7 @@ import { devtools } from 'zustand/middleware'
 import {addMinutes} from 'date-fns'
 import {axiosInstance} from "@/services/api-client";
 import {immer} from "zustand/middleware/immer";
+import {citiesConst} from "@/constants/constants";
 
 interface TimeStore {
     timeOffset: string | number
@@ -22,11 +23,13 @@ export const useTimeStore = create<TimeStore>()(
              (set) => ({
             timeOffset: '',
             timezones: [],
+            citiesList: citiesConst,
             currentDate: new Date(),
             fetchTimezones: async () => {
               const result = await axiosInstance.get('https://timeapi.io/api/TimeZone/AvailableTimeZones')
                 set({timezones: result})
             },
+            removeCities: () => {},
             changeTime: (time: string) => set((state) => (
                 time === '' ?
                 {

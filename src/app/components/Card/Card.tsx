@@ -7,6 +7,7 @@ import Drag from '../../../../public/icons/Icon=drag.svg'
 import Image from "next/image";
 import {useTimeStore} from "@/app/store";
 import {days, month} from "@/constants/constants";
+import {useState} from "react";
 
 interface Props {
     city: City
@@ -19,16 +20,28 @@ interface Props {
 
 const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Props) => {
 
+    const [isHovering, setIsHovering] = useState(false)
+
     const currentDate = useTimeStore(state => state.currentDate)
+
+    const handleMouseOver = () => {
+        setIsHovering(true)
+    }
+
+    const handleMouseOut = () => {
+        setIsHovering(false)
+    }
 
 
     return (<div
-        className={styles.card}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
         draggable
         onDragStart={() => dragItem.current = index}
         onDragEnter={() => dragOverItem.current = index}
         onDragEnd={handleSort}
         onDragOver={event => event.preventDefault()}
+        className={styles.card}
     >
         <div className={styles.card__title}>{city.city}</div>
         <div className={styles.card__time}>
@@ -62,12 +75,20 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
 
             {`${days[currentDate.getDay()]} ${currentDate.getDate()} ${month[currentDate.getMonth()]}`}
         </div>
-        <div className={styles.card__close}>
-            <Image src={Close} width={24} height={24} alt=''></Image>
-        </div>
-        <div className={styles.card__drag}>
-            <Image src={Drag} width={24} height={24} alt=''></Image>
-        </div>
+                <div className={isHovering ? `${styles.card__controls__visible} ${styles.card__close}` :
+                    `${styles.card__controls__invisible} ${styles.card__close}` }
+                     onMouseOver={handleMouseOver}
+                     onMouseOut={handleMouseOut}
+                >
+                    <Image src={Close} width={24} height={24} alt=''></Image>
+                </div>
+                <div
+                    className={isHovering ? `${styles.card__controls__visible} ${styles.card__drag}` :
+                        `${styles.card__controls__invisible} ${styles.card__drag}` }
+                    onMouseOver={handleMouseOver}
+                    onMouseOut={handleMouseOut}>
+                    <Image src={Drag} width={24} height={24} alt=''></Image>
+                </div>
     </div>)
 }
 
