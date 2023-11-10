@@ -11,7 +11,7 @@ import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 
 interface Props {
-    city?: any
+    city?: string
     timeFormat: boolean
     dragItem: any
     dragOverItem: any
@@ -21,8 +21,6 @@ interface Props {
 
 const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Props) => {
 
-    console.log(city)
-
     const { isPending, error, data,  } = useQuery({
         queryKey: ['city', city],
         queryFn: () =>
@@ -31,11 +29,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
                 .then((res) => res.data),
     })
 
-
-
     const [isHovering, setIsHovering] = useState(false)
-
-    const currentDate = useTimeStore(state => state.currentDate)
 
     const setCitiesList = useTimeStore(state => state.removeCitiesList)
 
@@ -53,7 +47,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
 
     if (error) return 'An error has occurred: ' + error.message
 
-    console.log(data.timezone)
+    const currentDate = new Date(data.datetime)
 
     return (<div
         onMouseOver={handleMouseOver}
@@ -65,7 +59,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         onDragOver={event => event.preventDefault()}
         className={styles.card}
     >
-        <div className={styles.card__title}>{data.timezone}</div>
+        <div className={styles.card__title}>{data.timezone.substring(data.timezone.lastIndexOf('/') + 1).replace("_", " ")}</div>
         <div className={styles.card__time}>
             <div className={`${styles.card__time__item} ${timeFormat 
                 ? styles.card__time__item__24h 
@@ -79,15 +73,10 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
             {timeFormat ?
                 null :
                 <span className={styles.card__am}>
-                    {currentDate.getHours()  > 13 ? <p>PM</p> : <p>AM</p>}
+                    {currentDate.getHours() > 13 ? <p>PM</p> : <p>AM</p>}
                 </span>}
         </div>
-        <div className={styles.card__timezone}>GMT {currentDate.getTimezoneOffset() < 0 ?
-            `+ ${Math.abs(currentDate.getTimezoneOffset() / 60)}`
-            :
-            `- ${Math.abs(currentDate.getTimezoneOffset() / 60)}`
-        }
-        </div>
+        <div className={styles.card__timezone}>GMT {data.utc_offset}</div>
         <div className={styles.card__date}>
             {currentDate.getHours() > 7 && currentDate.getHours() < 22 ?
                 <Image src={Sunny} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>
@@ -102,8 +91,6 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
                      onMouseOver={handleMouseOver}
                      onMouseOut={handleMouseOut}
                      onClick={() => {
-                         setCitiesList(city.id)
-                         console.log(citiesList)
                      }}
                 >
                     <Image src={Close} width={24} height={24} alt=''></Image>
