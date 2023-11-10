@@ -1,5 +1,4 @@
 import styles from './Card.module.css'
-import {City} from "@/app/page";
 import Sunny from '../../../../public/icons/State=Sunny.svg'
 import Night from '../../../../public/icons/State=Clear-night.svg'
 import Close from '../../../../public/icons/Icon=cross-circle-outlined.svg'
@@ -8,9 +7,11 @@ import Image from "next/image";
 import {useTimeStore} from "@/app/store";
 import {days, month} from "@/constants/constants";
 import {useState} from "react";
+import {useQuery} from "@tanstack/react-query";
+import axios from "axios";
 
 interface Props {
-    city: City
+    city?: any
     timeFormat: boolean
     dragItem: any
     dragOverItem: any
@@ -19,6 +20,18 @@ interface Props {
 }
 
 const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Props) => {
+
+    console.log(city)
+
+    const { isPending, error, data,  } = useQuery({
+        queryKey: ['city', city],
+        queryFn: () =>
+            axios
+                .get(`https://worldtimeapi.org/api/${city}`)
+                .then((res) => res.data),
+    })
+
+
 
     const [isHovering, setIsHovering] = useState(false)
 
@@ -36,6 +49,11 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         setIsHovering(false)
     }
 
+    if (isPending) return 'Loading...'
+
+    if (error) return 'An error has occurred: ' + error.message
+
+    console.log(data.timezone)
 
     return (<div
         onMouseOver={handleMouseOver}
@@ -47,7 +65,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         onDragOver={event => event.preventDefault()}
         className={styles.card}
     >
-        <div className={styles.card__title}>{city.city}</div>
+        <div className={styles.card__title}>{data.timezone}</div>
         <div className={styles.card__time}>
             <div className={`${styles.card__time__item} ${timeFormat 
                 ? styles.card__time__item__24h 

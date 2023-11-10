@@ -4,11 +4,10 @@ import Button from "@/app/components/Button/Button";
 import Heading from "@/app/components/Heading/Heading";
 import Slider from "@/app/components/Slider/Slider";
 import Tab from "@/app/components/Tabs/Tab";
-import {useEffect, useRef, useState} from "react";
+import { useRef, useState} from "react";
 import Card from "@/app/components/Card/Card";
 import Container from "@/app/components/Container/Container";
 import CardScheduler from "@/app/components/CardScheduler/CardScheduler";
-import {citiesConst} from "@/constants/constants";
 import CitiesModal from "@/app/components/CitiesModal/CitiesModal";
 import {useTimeStore} from "@/app/store";
 
@@ -28,13 +27,13 @@ export interface City {
 
 export default function Home() {
 
-    const getTimezones = useTimeStore(state => state.getTimezones)
-
     const dragItem = useRef<any>(null)
 
     const dragOverItem = useRef<any>(null)
 
     const citiesList = useTimeStore(state => state.citiesList)
+
+    const timezones = useTimeStore(state => state.timezones)
 
     const [cities, setCity] = useState<City[]>(citiesList)
 
@@ -57,10 +56,6 @@ export default function Home() {
         setCity(prevCities)
     }
 
-    useEffect(() => {
-        getTimezones()
-    }, [ getTimezones]);
-
 
     return (
           <>
@@ -68,7 +63,7 @@ export default function Home() {
               <Container>
                   <Slider/>
                   {calendarType ?
-                      cities.map((city, index) =>
+                      timezones.map((city, index) =>
                           <Card
                               index={index}
                               dragItem={dragItem}
@@ -76,10 +71,10 @@ export default function Home() {
                               handleSort={handleSort}
                               timeFormat={timeFormat}
                               city={city}
-                              key={city.id}
+                              key={city}
                           />)
                       :
-                      cities.map((city, index) =>
+                      timezones.map((city, index) =>
                           <CardScheduler
                               timeFormat={timeFormat}
                               key={city.id}

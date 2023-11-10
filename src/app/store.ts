@@ -10,28 +10,31 @@ interface TimeStore {
     currentDate: any
     changeTime: any
     timezones: any
-    fetchTimezones: any
     resetCurrentDate: any
     getTimezones: any
     citiesList: any
+    fetchCurrentDate?: any
     removeCitiesList: any
 }
 
 
+// @ts-ignore
 // @ts-ignore
 export const useTimeStore = create<TimeStore>()(
     (devtools(
          immer(
              (set) => ({
             timeOffset: '',
-            timezones: [],
+            timezones: [
+                "Europe/Moscow",
+                "Europe/Paris",
+                "Europe/Prague",
+                "America/New_York",
+                "Asia/Hong_Kong",
+            ],
             citiesList: citiesConst,
             currentDate: new Date(),
-            fetchTimezones: async () => {
-              const result = await axiosInstance.get('https://timeapi.io/api/TimeZone/AvailableTimeZones')
-                set({timezones: result})
-            },
-                 setCities: () => {},
+            setCities: ( ) => {},
             removeCitiesList: (id: number) => set(state => ({citiesList: state.citiesList.filter((city: any) => city.id !== id)})),
             changeTime: (time: string) => set((state) => (
                 time === '' ?
