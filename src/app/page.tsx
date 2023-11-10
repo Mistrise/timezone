@@ -63,7 +63,7 @@ export default function Home() {
               <Container>
                   <Slider/>
                   {calendarType ?
-                      timezones.map((city, index) =>
+                      timezones.map((city: any, index: any) =>
                           <Card
                               index={index}
                               dragItem={dragItem}
@@ -74,7 +74,7 @@ export default function Home() {
                               key={city}
                           />)
                       :
-                      timezones.map((city, index) =>
+                      timezones.map((city: any, index: any) =>
                           <CardScheduler
                               timeFormat={timeFormat}
                               key={city.id}
