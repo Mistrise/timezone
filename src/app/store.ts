@@ -1,18 +1,17 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import {addMinutes} from 'date-fns'
-import {axiosInstance} from "@/services/api-client";
 import {immer} from "zustand/middleware/immer";
 import {citiesConst} from "@/constants/constants";
 
 interface TimeStore {
-    timeOffset: string | number
+    timeOffset: string
     currentDate: any
     changeTime: any
     timezones: any
     resetCurrentDate: any
-    getTimezones: any
     citiesList: any
+    removeTimezone: any
     fetchCurrentDate?: any
     removeCitiesList: any
 }
@@ -34,7 +33,7 @@ export const useTimeStore = create<TimeStore>()(
             ],
             citiesList: citiesConst,
             currentDate: new Date(),
-            setCities: ( ) => {},
+            removeTimezone: (city: string) => set(state => ({timezones: state.timezones.filter((timezone: any) => timezone !== city)})),
             removeCitiesList: (id: number) => set(state => ({citiesList: state.citiesList.filter((city: any) => city.id !== id)})),
             changeTime: (time: string) => set((state) => (
                 time === '' ?
@@ -57,10 +56,6 @@ export const useTimeStore = create<TimeStore>()(
              resetCurrentDate: () => set(
                  {currentDate: new Date()}
              ),
-             getTimezones: async () => {
-                const response = axiosInstance.get('timezone').then(res => res.data)
-                 set({timezones: await response})
-             }
         })),
         { name: 'timeStore' }
 )))

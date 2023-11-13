@@ -9,6 +9,7 @@ import {days, month} from "@/constants/constants";
 import {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
+import { addMinutes } from 'date-fns'
 
 interface Props {
     city?: string
@@ -21,7 +22,7 @@ interface Props {
 
 const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Props) => {
 
-    const { isPending, error, data,  } = useQuery({
+    const { isPending, error, data } = useQuery({
         queryKey: ['city', city],
         queryFn: () =>
             axios
@@ -31,23 +32,33 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
 
     const [isHovering, setIsHovering] = useState(false)
 
-    const setCitiesList = useTimeStore(state => state.removeCitiesList)
+    const timeOffset = useTimeStore(state => state.timeOffset)
 
-    const citiesList = useTimeStore(state => state.citiesList)
+    const removeTimezone = useTimeStore(state => state.removeTimezone)
+
+    if (isPending) return 'Loading...'
+
+    if (error) return 'An error has occurred: ' + error.message
 
     const handleMouseOver = () => {
         setIsHovering(true)
+    }
+
+    const getActualTime = (time: string) => {
+        // format from api 	"utc_offset": "+03:00",
+        const hours = Number(time.slice(0,3))
+        const minutes = Number(time.slice(4,6))
+        const offsetFromSlider = parseFloat(timeOffset)
+        return  (offsetFromSlider * 60) ? (hours * 60) + minutes + (offsetFromSlider * 60) : (hours * 60) + minutes
     }
 
     const handleMouseOut = () => {
         setIsHovering(false)
     }
 
-    if (isPending) return 'Loading...'
+    const dateFromApi = addMinutes(new Date(data.utc_datetime.slice(0, -6)), getActualTime(data.utc_offset))
+    // data.utc_datetime.slice(0, -6)) cutting unnecessary part with timezone
 
-    if (error) return 'An error has occurred: ' + error.message
-
-    const currentDate = new Date(data.datetime)
 
     return (<div
         onMouseOver={handleMouseOver}
@@ -64,34 +75,35 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
             <div className={`${styles.card__time__item} ${timeFormat 
                 ? styles.card__time__item__24h 
                 : styles.card__time__item__am} `}>
-                {timeFormat || currentDate.getHours() < 13
-                    ? currentDate.getHours()
-                    :  currentDate.getHours() - 13 }
+                {timeFormat || dateFromApi.getHours() < 13
+                    ?  dateFromApi.getHours()  < 10
+                        ? `0${dateFromApi.getHours() }`
+                        : dateFromApi.getHours()
+                    :   dateFromApi.getHours()  }
                 :
-                {currentDate.getMinutes() < 10 ? `0${currentDate.getMinutes()}` : currentDate.getMinutes()}
+                {dateFromApi.getMinutes() < 10 ? `0${dateFromApi.getMinutes() }` : dateFromApi.getMinutes() }
             </div>
             {timeFormat ?
                 null :
                 <span className={styles.card__am}>
-                    {currentDate.getHours() > 13 ? <p>PM</p> : <p>AM</p>}
+                    {dateFromApi.getHours() > 13 ? <p>PM</p> : <p>AM</p>}
                 </span>}
         </div>
         <div className={styles.card__timezone}>GMT {data.utc_offset}</div>
         <div className={styles.card__date}>
-            {currentDate.getHours() > 7 && currentDate.getHours() < 22 ?
+            {dateFromApi.getHours() > 7 && dateFromApi.getHours() < 22 ?
                 <Image src={Sunny} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>
                 :
                 <Image src={Night} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>
             }
 
-            {`${days[currentDate.getDay()]} ${currentDate.getDate()} ${month[currentDate.getMonth()]}`}
+            {`${days[dateFromApi.getDay()]} ${dateFromApi.getDate()} ${month[dateFromApi.getMonth()]}`}
         </div>
                 <div className={isHovering ? `${styles.card__controls__visible} ${styles.card__close}` :
                     `${styles.card__controls__invisible} ${styles.card__close}` }
                      onMouseOver={handleMouseOver}
                      onMouseOut={handleMouseOut}
-                     onClick={() => {
-                     }}
+                     onClick={() => removeTimezone(data.timezone)}
                 >
                     <Image src={Close} width={24} height={24} alt=''></Image>
                 </div>
