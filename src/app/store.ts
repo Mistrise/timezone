@@ -14,6 +14,7 @@ interface TimeStore {
     removeTimezone: any
     fetchCurrentDate?: any
     removeCitiesList: any
+    addTimezone: any
 }
 
 
@@ -33,8 +34,13 @@ export const useTimeStore = create<TimeStore>()(
             ],
             citiesList: citiesConst,
             currentDate: new Date(),
+
             removeTimezone: (city: string) => set(state => ({timezones: state.timezones.filter((timezone: any) => timezone !== city)})),
+
+            addTimezone: (city: any) => set(state => {state.timezones.push(city)}),
+
             removeCitiesList: (id: number) => set(state => ({citiesList: state.citiesList.filter((city: any) => city.id !== id)})),
+
             changeTime: (time: string) => set((state) => (
                 time === '' ?
                 {
@@ -53,6 +59,7 @@ export const useTimeStore = create<TimeStore>()(
                             currentDate: addMinutes(state.currentDate, -30)
                         }
             )),
+
              resetCurrentDate: () => set(
                  {currentDate: new Date()}
              ),
