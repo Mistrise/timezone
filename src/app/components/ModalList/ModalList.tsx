@@ -3,9 +3,11 @@ import styles from './ModalList.module.css'
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 
+interface Props {
+    modalInput: string
+}
 
-
-const ModalList = () => {
+const ModalList = ({modalInput}: Props) => {
     const { isPending, error, data }  = useQuery<any>({
         queryKey: ['cities'],
         queryFn: () => {
@@ -20,7 +22,13 @@ const ModalList = () => {
 
     return (
         <div className={styles.modal__list}>
-            {data.map((city: any, index: number) => <ModalListItem key={index} city={city}/>)}
+            { modalInput !== ''
+                ?
+                data.filter((city: any) => city.toLowerCase().includes(modalInput.toLowerCase()))
+                    .map((city: any, index: number) => <ModalListItem key={index} city={city}/>)
+                :
+                data.map((city: any, index: number) => <ModalListItem key={index} city={city}/>)
+            }
         </div>
     )
 }

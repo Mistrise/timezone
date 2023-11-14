@@ -37,7 +37,7 @@ export const useTimeStore = create<TimeStore>()(
 
             removeTimezone: (city: string) => set(state => ({timezones: state.timezones.filter((timezone: any) => timezone !== city)})),
 
-            addTimezone: (city: any) => set(state => {state.timezones.push(city)}),
+            addTimezone: (city: any) => set(state => {state.timezones.includes(city) || state.timezones.push(city)}),
 
             removeCitiesList: (id: number) => set(state => ({citiesList: state.citiesList.filter((city: any) => city.id !== id)})),
 

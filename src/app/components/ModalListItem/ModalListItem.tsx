@@ -18,7 +18,7 @@ const ModalListItem = ({city}: Props) => {
   return (
       <div className={styles.modal__list__item} onClick={() => addTimezone(city)}>
           <div className={styles.modal__list__item__grid}>
-              {cityString}
+              {cityString.replace('_', ' ')}
           </div>
       </div>
   )

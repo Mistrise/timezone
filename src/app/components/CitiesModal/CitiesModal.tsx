@@ -3,8 +3,7 @@ import ModalSearch from "@/app/components/ModalSearch/ModalSearch";
 import ModalList from "@/app/components/ModalList/ModalList";
 import Close from '../../../../public/icons/Icon=Close.svg'
 import Image from "next/image";
-import {useEffect, useState} from "react";
-import {useTimeStore} from "@/app/store";
+import {useState} from "react";
 
 interface Props {
     setShowSearch: (show: boolean) => void
@@ -12,20 +11,7 @@ interface Props {
 
 const CitiesModal = ({ setShowSearch }:Props) => {
 
-    const citiesConst = useTimeStore(state => state.timezones)
-
     const [modalInput, setModalInput] = useState('')
-
-    const [nextCities, setNextCities] = useState(citiesConst)
-
-    function filterModalInput(input: string) {
-        // @ts-ignore
-        input !== '' ? setNextCities(nextCities.filter(city => city.toLowerCase().includes(input.toLowerCase()))) : setNextCities(citiesConst)
-    }
-
-    useEffect(() => {
-        filterModalInput(modalInput)
-    }, [modalInput])
 
     return (
         <div className={styles.modal__container}>
@@ -34,7 +20,7 @@ const CitiesModal = ({ setShowSearch }:Props) => {
                 <Image src={Close} alt={''} className={styles.modal__title__image} onClick={() => setShowSearch(false)} />
             </div>
             <ModalSearch modalInput={modalInput} setModalInput={setModalInput}/>
-            <ModalList />
+            <ModalList modalInput={modalInput}/>
         </div>
     )
 }
