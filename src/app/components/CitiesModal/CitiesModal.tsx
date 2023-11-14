@@ -14,13 +14,19 @@ const CitiesModal = ({ setShowSearch }:Props) => {
     const [modalInput, setModalInput] = useState('')
 
     return (
-        <div className={styles.modal__container}>
-            <div className={styles.modal__title}>
-                <div className={styles.modal__title__text}>Add City</div>
-                <Image src={Close} alt={''} className={styles.modal__title__image} onClick={() => setShowSearch(false)} />
+        <div className={styles.modal__background} onClick={() => {
+            setShowSearch(false)
+        }}>
+            <div className={styles.modal__container} onClick={(event) => {
+                event.stopPropagation()}
+            }>
+                <div className={styles.modal__title}>
+                    <div className={styles.modal__title__text}>Add City</div>
+                    <Image src={Close} alt={''} className={styles.modal__title__image} onClick={() => setShowSearch(false)} />
+                </div>
+                <ModalSearch modalInput={modalInput} setModalInput={setModalInput}/>
+                <ModalList modalInput={modalInput}/>
             </div>
-            <ModalSearch modalInput={modalInput} setModalInput={setModalInput}/>
-            <ModalList modalInput={modalInput}/>
         </div>
     )
 }

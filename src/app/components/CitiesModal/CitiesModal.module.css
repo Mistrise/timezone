@@ -1,7 +1,18 @@
+.modal__background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vh;
+    height: 100vh;
+    background: #0000008F;
+}
+
+
 .modal__container {
     position: absolute;
-    top: 39%;
-    right: 37%;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     width: 405px;
     height: 390px;
@@ -9,6 +20,7 @@
     flex-direction: column;
     align-items: flex-start;
     flex-shrink: 0;
+    z-index: 999999;
     border-radius: 20px;
     background: #FFFFFF;
     font-family: Public Sans sans-serif;
