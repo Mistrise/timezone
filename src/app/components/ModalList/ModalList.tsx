@@ -20,14 +20,18 @@ const ModalList = ({modalInput}: Props) => {
     if (error) return <div>An error occurred: {error.message}</div>
 
 
+    if (data.length === 0) {
+        return <div>Nothing found</div>
+    }
+
     return (
         <div className={styles.modal__list}>
             { modalInput !== ''
                 ?
                 data.filter((city: any) => city.toLowerCase().includes(modalInput.toLowerCase()))
-                    .map((city: any, index: number) => <ModalListItem key={index} city={city}/>)
+                    .map((city: any) => <ModalListItem key={city} city={city}/>)
                 :
-                data.map((city: any, index: number) => <ModalListItem key={index} city={city}/>)
+                data.map((city: any) => <ModalListItem key={city} city={city}/>)
             }
         </div>
     )
