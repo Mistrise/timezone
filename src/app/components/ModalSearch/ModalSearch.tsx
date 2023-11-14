@@ -1,12 +1,11 @@
 import styles from './ModalSearch.module.css'
 
 interface Props {
-    modalInput: string
     setModalInput: (input: string) => void
 }
 
 
-const ModalSearch = ({modalInput, setModalInput}: Props) => {
+const ModalSearch = ({setModalInput}: Props) => {
 
   return (
       <form className={styles.modal__search__form}>
@@ -14,6 +13,7 @@ const ModalSearch = ({modalInput, setModalInput}: Props) => {
               className={styles.modal__search__input}
               type="text" name={'cities_search_field'}
               placeholder={'Enter city'}
+              autoFocus={true}
               onChange={(event) => setModalInput(event.target.value) }/>
       </form>
   )
