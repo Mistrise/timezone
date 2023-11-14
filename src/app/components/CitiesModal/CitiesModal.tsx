@@ -24,7 +24,7 @@ const CitiesModal = ({ setShowSearch }:Props) => {
                     <div className={styles.modal__title__text}>Add City</div>
                     <Image src={Close} alt={''} className={styles.modal__title__image} onClick={() => setShowSearch(false)} />
                 </div>
-                <ModalSearch modalInput={modalInput} setModalInput={setModalInput}/>
+                <ModalSearch setModalInput={setModalInput}/>
                 <ModalList modalInput={modalInput}/>
             </div>
         </div>
