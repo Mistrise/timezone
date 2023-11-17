@@ -14,7 +14,7 @@ const ModalSearch = ({setModalInput}: Props) => {
               type="text" name={'cities_search_field'}
               placeholder={'Enter city'}
               autoFocus={true}
-              onChange={(event) => setModalInput(event.target.value) }/>
+              onChange={(event) => setModalInput(event.target.value.replace(' ', '_')) }/>
       </form>
   )
 }
