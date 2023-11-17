@@ -9,7 +9,7 @@ import {days, month} from "@/constants/constants";
 import {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
-import { addMinutes } from 'date-fns'
+import {addMinutes, format} from 'date-fns'
 
 interface Props {
     city?: string
@@ -76,17 +76,17 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
                 ? styles.card__time__item__24h 
                 : styles.card__time__item__am} `}>
                 {timeFormat || dateFromApi.getHours() < 13
-                    ?  dateFromApi.getHours()  < 10
+                    ?  dateFromApi.getHours() < 10
                         ? `0${dateFromApi.getHours() }`
                         : dateFromApi.getHours()
-                    :   dateFromApi.getHours()  }
+                    :   format(dateFromApi,'h' ) }
                 :
                 {dateFromApi.getMinutes() < 10 ? `0${dateFromApi.getMinutes() }` : dateFromApi.getMinutes() }
             </div>
             {timeFormat ?
                 null :
                 <span className={styles.card__am}>
-                    {dateFromApi.getHours() > 13 ? <p>PM</p> : <p>AM</p>}
+                    {dateFromApi.getHours() > 13  ? <p>PM</p> : <p>AM</p>}
                 </span>}
         </div>
         <div className={styles.card__timezone}>GMT {data.utc_offset}</div>
