@@ -10,6 +10,7 @@ import {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {addMinutes, format} from 'date-fns'
+import {gradients} from '@/constants/constants'
 
 interface Props {
     city?: string
@@ -59,6 +60,8 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
     const dateFromApi = addMinutes(new Date(data.utc_datetime.slice(0, -6)), getActualTime(data.utc_offset))
     // data.utc_datetime.slice(0, -6)) cutting unnecessary part with timezone
 
+    const gradientFiltered = gradients.filter(e => e.hour === dateFromApi.getHours())
+
 
     return (<div
         onMouseOver={handleMouseOver}
@@ -69,6 +72,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         onDragEnd={handleSort}
         onDragOver={event => event.preventDefault()}
         className={styles.card}
+        style={{background: `linear-gradient(90deg, ${gradientFiltered[0].gradientStart}, ${gradientFiltered[0].gradientEnd})`}}
     >
         <div className={styles.card__title}>{data.timezone.substring(data.timezone.lastIndexOf('/') + 1).replace("_", " ")}</div>
         <div className={styles.card__time}>
