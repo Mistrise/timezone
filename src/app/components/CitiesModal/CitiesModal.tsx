@@ -13,6 +13,8 @@ const CitiesModal = ({ setShowSearch }:Props) => {
 
     const [modalInput, setModalInput] = useState('')
 
+
+
     return (
         <div className={styles.modal__background} onClick={() => {
             setShowSearch(false)

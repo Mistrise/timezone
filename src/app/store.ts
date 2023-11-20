@@ -15,6 +15,7 @@ interface TimeStore {
     fetchCurrentDate?: any
     removeCitiesList: any
     addTimezone: any
+    timeOffsetAddedHours: any
 }
 
 
@@ -25,6 +26,7 @@ export const useTimeStore = create<TimeStore>()(
          immer(
              (set) => ({
             timeOffset: '',
+            timeOffsetAddedHours: '',
             timezones: [
                 "Europe/Moscow",
                 "Europe/Paris",
@@ -52,6 +54,7 @@ export const useTimeStore = create<TimeStore>()(
                         {
                             timeOffset: time,
                             currentDate: addMinutes(state.currentDate, 30)
+
                         }
                         :
                         {

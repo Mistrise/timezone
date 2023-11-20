@@ -37,7 +37,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
 
     const removeTimezone = useTimeStore(state => state.removeTimezone)
 
-    if (isPending) return 'Loading...'
+    if (isPending) return <div className={styles.card__skeleton}></div>
 
     if (error) return 'An error has occurred: ' + error.message
 
@@ -61,7 +61,12 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
     // data.utc_datetime.slice(0, -6)) cutting unnecessary part with timezone
 
     const gradientFiltered = gradients.filter(e => e.hour === dateFromApi.getHours())
-
+    //
+    // const gradientAnimation = `
+    //     @keyframes gradient-animation {
+    //         0% { background: black; }
+    //         100% { background: \`linear-gradient(90deg, ${gradientFiltered[0].gradientStart}, ${gradientFiltered[0].gradientEnd})\` }
+    // `
 
     return (<div
         onMouseOver={handleMouseOver}
@@ -72,7 +77,10 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         onDragEnd={handleSort}
         onDragOver={event => event.preventDefault()}
         className={styles.card}
-        style={{background: `linear-gradient(90deg, ${gradientFiltered[0].gradientStart}, ${gradientFiltered[0].gradientEnd})`}}
+        style={{
+            background: `linear-gradient(90deg, ${gradientFiltered[0].gradientStart}, ${gradientFiltered[0].gradientEnd})`,
+            transition: 'background 0.5s ease',
+    }}
     >
         <div className={styles.card__title}>{data.timezone.substring(data.timezone.lastIndexOf('/') + 1).replace("_", " ")}</div>
         <div className={styles.card__time}>
