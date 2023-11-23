@@ -23,7 +23,8 @@ const ModalList = ({modalInput}: Props) => {
         <div className={styles.modal__list}>
             { modalInput !== ''
                 ?
-                data.filter((city: any) => city.toLowerCase().includes(modalInput.toLowerCase()))
+                data
+                    .filter((city: any) => city.toLowerCase().includes(modalInput.toLowerCase()))
                     .map((city: any) => <ModalListItem key={city} city={city}/>)
                 :
                 data.map((city: any) => <ModalListItem key={city} city={city}/>)

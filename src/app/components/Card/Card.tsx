@@ -12,6 +12,7 @@ import axios from "axios";
 import {addMinutes, format} from 'date-fns'
 import {gradients} from '@/constants/constants'
 
+
 interface Props {
     city?: string
     timeFormat: boolean
@@ -61,15 +62,11 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
     // data.utc_datetime.slice(0, -6)) cutting unnecessary part with timezone
 
     const gradientFiltered = gradients.filter(e => e.hour === dateFromApi.getHours())
-    //
-    // const gradientAnimation = `
-    //     @keyframes gradient-animation {
-    //         0% { background: black; }
-    //         100% { background: \`linear-gradient(90deg, ${gradientFiltered[0].gradientStart}, ${gradientFiltered[0].gradientEnd})\` }
-    // `
+
 
     return (<div
         onMouseOver={handleMouseOver}
+        key={data + timeOffset}
         onMouseOut={handleMouseOut}
         draggable
         onDragStart={() => dragItem.current = index}
@@ -79,7 +76,6 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         className={styles.card}
         style={{
             background: `linear-gradient(90deg, ${gradientFiltered[0].gradientStart}, ${gradientFiltered[0].gradientEnd})`,
-            transition: 'background 0.5s ease',
     }}
     >
         <div className={styles.card__title}>{data.timezone.substring(data.timezone.lastIndexOf('/') + 1).replace("_", " ")}</div>
