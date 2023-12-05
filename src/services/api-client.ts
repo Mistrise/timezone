@@ -2,8 +2,11 @@ import axios from "axios";
 
 export const axiosInstance = axios.create(
     {
-        baseURL: 'https://worldtimeapi.org/api/',
-        withCredentials: false,
+        baseURL: 'https://wft-geo-db.p.rapidapi.com/v1/',
+        headers: {
+            'X-RapidAPI-Key': '86124587fdmsh1b504d18fccc3dfp1134c3jsne0958a931e39',
+            'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+        }
     }
 )
 
