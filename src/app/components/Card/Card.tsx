@@ -6,7 +6,7 @@ import Drag from '../../../../public/icons/Icon=drag.svg'
 import Image from "next/image";
 import {useTimeStore} from "@/app/store";
 import {days, month} from "@/constants/constants";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {addMinutes, format} from 'date-fns'
@@ -28,7 +28,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
 
 
 
-    const { isPending, error, data } = useQuery({
+    const { isPending, error, data: cities } = useQuery({
         queryKey: ['city', city],
         queryFn: () =>
             axios
@@ -42,6 +42,25 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         staleTime: 60 * 1000,
         retry: 0,
         retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+    })
+
+    const cityId = cities?.data.id
+
+    const {data: cityTime} = useQuery({
+        queryKey: ['cityTime', cityId],
+        queryFn: () =>  axios
+            .get(`https://wft-geo-db.p.rapidapi.com/v1/geo/places/${cityId}/dateTime`, {
+                headers: {
+                    'X-RapidAPI-Key': '86124587fdmsh1b504d18fccc3dfp1134c3jsne0958a931e39',
+                    'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+                },
+                timeout: 3000,
+            })
+            .then(res => res.data),
+        staleTime: 60 * 1000,
+        retry: 0,
+        retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+        enabled: !!cityId
     })
 
     const [isHovering, setIsHovering] = useState(false)
@@ -78,7 +97,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
 
     return (<div
         onMouseOver={handleMouseOver}
-        key={data + timeOffset}
+        key={cityId}
         onMouseOut={handleMouseOut}
         draggable
         onDragStart={() => dragItem.current = index}
