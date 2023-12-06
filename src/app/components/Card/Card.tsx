@@ -39,8 +39,6 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
                         },
                     })
                 .then(res => res.data),
-        staleTime: 60 * 1000,
-        retry: 0,
         retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
     })
 
@@ -57,9 +55,6 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
                 timeout: 3000,
             })
             .then(res => res.data),
-        staleTime: 60 * 1000,
-        retry: 0,
-        retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
         enabled: !!cityId
     })
 
