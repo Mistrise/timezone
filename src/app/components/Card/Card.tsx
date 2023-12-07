@@ -98,7 +98,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
                 </span>}
         </div>
         <div className={styles.card__timezone}>GMT {data.utc_offset}</div>
-        <div className={styles.card__date}>
+        <div className={`${timeFormat ? styles.card__date__24h : styles.card__date}`}>
             {dateFromApi.getHours() > 7 && dateFromApi.getHours() < 22 ?
                 <Image src={Sunny} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>
                 :
