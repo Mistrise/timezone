@@ -28,7 +28,11 @@ export const useTimeStore = create<TimeStore>()(
             timeOffset: '',
             timeOffsetAddedHours: '',
             timezones: [
-                "Q649",
+                "Europe/Moscow",
+                "Europe/Paris",
+                "Europe/Prague",
+                "America/New_York",
+                "Asia/Hong_Kong",
             ],
             citiesList: citiesConst,
             currentDate: new Date(),
