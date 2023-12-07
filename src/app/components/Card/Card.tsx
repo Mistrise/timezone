@@ -3,6 +3,7 @@ import Sunny from '../../../../public/icons/State=Sunny.svg'
 import Night from '../../../../public/icons/State=Clear-night.svg'
 import Close from '../../../../public/icons/Icon=cross-circle-outlined.svg'
 import Drag from '../../../../public/icons/Icon=drag.svg'
+import Gradient from '../../../../public/assets/Gradient.svg'
 import Image from "next/image";
 import {useTimeStore} from "@/app/store";
 import {days, month} from "@/constants/constants";
@@ -75,7 +76,10 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         onDragOver={event => event.preventDefault()}
         className={styles.card}
         style={{
-            background: `linear-gradient(90deg, ${gradientFiltered[0].gradientStart}, ${gradientFiltered[0].gradientEnd})`,
+            backgroundImage: `url(${Gradient.src})`,
+            opacity: '1',
+            backgroundPositionX: `${4.16666666667 * dateFromApi.getHours()}%`,
+            transition: "opacity 2s ease-in-out",
     }}
     >
         <div className={styles.card__title}>{data.timezone.substring(data.timezone.lastIndexOf('/') + 1).replace("_", " ")}</div>

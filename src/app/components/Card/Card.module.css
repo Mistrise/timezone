@@ -1,11 +1,3 @@
-@keyframes gradientAnimation {
-    0% {
-        opacity: .85;
-    }
-    100% {
-        opacity: 1;
-    }
-}
 
 .card {
     height: 66px;
@@ -22,9 +14,6 @@
     font-family: Public Sans sans-serif;
     user-select: none;
     cursor: pointer;
-    animation-duration: 1s;
-    animation-name: gradientAnimation;
-    animation-timing-function: ease-out;
 }
 
 .card__skeleton {
