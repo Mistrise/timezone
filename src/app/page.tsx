@@ -7,7 +7,6 @@ import Tab from "@/app/components/Tabs/Tab";
 import {useRef, useState} from "react";
 import Card from "@/app/components/Card/Card";
 import Container from "@/app/components/Container/Container";
-import CardScheduler from "@/app/components/CardScheduler/CardScheduler";
 import CitiesModal from "@/app/components/CitiesModal/CitiesModal";
 import {useTimeStore} from "@/app/store";
 
@@ -39,7 +38,7 @@ export default function Home() {
 
     const [showSearch, setShowSearch] = useState(false)
 
-    const [calendarType, setCalendarType] = useState(true)
+    // const [calendarType, setCalendarType] = useState(true)
 
     const [timeFormat, setTimeFormat] = useState(true)
 
@@ -62,8 +61,7 @@ export default function Home() {
               <Heading/>
               <Container>
                   <Slider/>
-                  {calendarType ?
-                      timezones.map((city: any, index: any) =>
+                  {timezones.map((city: any, index: any) =>
                           <Card
                               index={index}
                               dragItem={dragItem}
@@ -72,17 +70,6 @@ export default function Home() {
                               timeFormat={timeFormat}
                               city={city}
                               key={city}
-                          />)
-                      :
-                      timezones.map((city: any, index: any) =>
-                          <CardScheduler
-                              timeFormat={timeFormat}
-                              key={city.id}
-                              city={city}
-                              index={index}
-                              dragItem={dragItem}
-                              dragOverItem={dragOverItem}
-                              handleSort={handleSort}
                           />)
                   }
                   <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>

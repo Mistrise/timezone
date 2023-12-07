@@ -24,7 +24,7 @@
     cursor: pointer;
     animation-duration: 1s;
     animation-name: gradientAnimation;
-    animation-timing-function: linear;
+    animation-timing-function: ease-out;
 }
 
 .card__skeleton {

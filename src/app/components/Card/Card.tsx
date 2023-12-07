@@ -6,12 +6,12 @@ import Drag from '../../../../public/icons/Icon=drag.svg'
 import Image from "next/image";
 import {useTimeStore} from "@/app/store";
 import {days, month} from "@/constants/constants";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {addMinutes, format} from 'date-fns'
 import {gradients} from '@/constants/constants'
-
+import ApiClient from "@/services/api-client";
 
 interface Props {
     city?: string
@@ -24,12 +24,38 @@ interface Props {
 
 const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Props) => {
 
-    const { isPending, error, data } = useQuery({
+    const apiClient: any = new ApiClient('')
+
+
+
+    const { isPending, error, data: cities } = useQuery({
         queryKey: ['city', city],
         queryFn: () =>
             axios
-                .get(`https://worldtimeapi.org/api/${city}`)
-                .then((res) => res.data),
+                .get(`https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${city}`, {
+                        headers: {
+                            'X-RapidAPI-Key': '86124587fdmsh1b504d18fccc3dfp1134c3jsne0958a931e39',
+                            'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+                        },
+                    })
+                .then(res => res.data),
+        retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+    })
+
+    const cityId = cities?.data.id
+
+    const {data: cityTime} = useQuery({
+        queryKey: ['cityTime', cityId],
+        queryFn: () =>  axios
+            .get(`https://wft-geo-db.p.rapidapi.com/v1/geo/places/${cityId}/dateTime`, {
+                headers: {
+                    'X-RapidAPI-Key': '86124587fdmsh1b504d18fccc3dfp1134c3jsne0958a931e39',
+                    'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+                },
+                timeout: 3000,
+            })
+            .then(res => res.data),
+        enabled: !!cityId
     })
 
     const [isHovering, setIsHovering] = useState(false)
@@ -58,15 +84,15 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         setIsHovering(false)
     }
 
-    const dateFromApi = addMinutes(new Date(data.utc_datetime.slice(0, -6)), getActualTime(data.utc_offset))
-    // data.utc_datetime.slice(0, -6)) cutting unnecessary part with timezone
-
-    const gradientFiltered = gradients.filter(e => e.hour === dateFromApi.getHours())
+    // const dateFromApi = addMinutes(new Date(data.utc_datetime.slice(0, -6)), getActualTime(data.utc_offset))
+    // // data.utc_datetime.slice(0, -6)) cutting unnecessary part with timezone
+    //
+    // const gradientFiltered = gradients.filter(e => e.hour === dateFromApi.getHours())
 
 
     return (<div
         onMouseOver={handleMouseOver}
-        key={data + timeOffset}
+        key={cityId}
         onMouseOut={handleMouseOut}
         draggable
         onDragStart={() => dragItem.current = index}
@@ -74,54 +100,54 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         onDragEnd={handleSort}
         onDragOver={event => event.preventDefault()}
         className={styles.card}
-        style={{
-            background: `linear-gradient(90deg, ${gradientFiltered[0].gradientStart}, ${gradientFiltered[0].gradientEnd})`,
-    }}
+    //     style={{
+    //         background: `linear-gradient(90deg, ${gradientFiltered[0].gradientStart}, ${gradientFiltered[0].gradientEnd})`,
+    // }}
     >
-        <div className={styles.card__title}>{data.timezone.substring(data.timezone.lastIndexOf('/') + 1).replace("_", " ")}</div>
-        <div className={styles.card__time}>
-            <div className={`${styles.card__time__item} ${timeFormat 
-                ? styles.card__time__item__24h 
-                : styles.card__time__item__am} `}>
-                {timeFormat || dateFromApi.getHours() < 13
-                    ?  dateFromApi.getHours() < 10
-                        ? `0${dateFromApi.getHours() }`
-                        : dateFromApi.getHours()
-                    :   format(dateFromApi,'h' ) }
-                :
-                {dateFromApi.getMinutes() < 10 ? `0${dateFromApi.getMinutes() }` : dateFromApi.getMinutes() }
-            </div>
-            {timeFormat ?
-                null :
-                <span className={styles.card__am}>
-                    {dateFromApi.getHours() > 13  ? <p>PM</p> : <p>AM</p>}
-                </span>}
-        </div>
-        <div className={styles.card__timezone}>GMT {data.utc_offset}</div>
-        <div className={styles.card__date}>
-            {dateFromApi.getHours() > 7 && dateFromApi.getHours() < 22 ?
-                <Image src={Sunny} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>
-                :
-                <Image src={Night} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>
-            }
+        {/*<div className={styles.card__title}>{data.timezone.substring(data.timezone.lastIndexOf('/') + 1).replace("_", " ")}</div>*/}
+        {/*<div className={styles.card__time}>*/}
+        {/*    <div className={`${styles.card__time__item} ${timeFormat */}
+        {/*        ? styles.card__time__item__24h */}
+        {/*        : styles.card__time__item__am} `}>*/}
+        {/*        {timeFormat || dateFromApi.getHours() < 13*/}
+        {/*            ?  dateFromApi.getHours() < 10*/}
+        {/*                ? `0${dateFromApi.getHours() }`*/}
+        {/*                : dateFromApi.getHours()*/}
+        {/*            :   format(dateFromApi,'h' ) }*/}
+        {/*        :*/}
+        {/*        {dateFromApi.getMinutes() < 10 ? `0${dateFromApi.getMinutes() }` : dateFromApi.getMinutes() }*/}
+        {/*    </div>*/}
+        {/*    {timeFormat ?*/}
+        {/*        null :*/}
+        {/*        <span className={styles.card__am}>*/}
+        {/*            {dateFromApi.getHours() > 13  ? <p>PM</p> : <p>AM</p>}*/}
+        {/*        </span>}*/}
+        {/*</div>*/}
+        {/*<div className={styles.card__timezone}>GMT {data.utc_offset}</div>*/}
+        {/*<div className={styles.card__date}>*/}
+        {/*    {dateFromApi.getHours() > 7 && dateFromApi.getHours() < 22 ?*/}
+        {/*        <Image src={Sunny} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>*/}
+        {/*        :*/}
+        {/*        <Image src={Night} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>*/}
+        {/*    }*/}
 
-            {`${days[dateFromApi.getDay()]} ${dateFromApi.getDate()} ${month[dateFromApi.getMonth()]}`}
-        </div>
-                <div className={isHovering ? `${styles.card__controls__visible} ${styles.card__close}` :
-                    `${styles.card__controls__invisible} ${styles.card__close}` }
-                     onMouseOver={handleMouseOver}
-                     onMouseOut={handleMouseOut}
-                     onClick={() => removeTimezone(data.timezone)}
-                >
-                    <Image src={Close} width={24} height={24} alt=''></Image>
-                </div>
-                <div
-                    className={isHovering ? `${styles.card__controls__visible} ${styles.card__drag}` :
-                        `${styles.card__controls__invisible} ${styles.card__drag}` }
-                    onMouseOver={handleMouseOver}
-                    onMouseOut={handleMouseOut}>
-                    <Image src={Drag} width={24} height={24} alt=''></Image>
-                </div>
+        {/*    {`${days[dateFromApi.getDay()]} ${dateFromApi.getDate()} ${month[dateFromApi.getMonth()]}`}*/}
+        {/*</div>*/}
+        {/*        <div className={isHovering ? `${styles.card__controls__visible} ${styles.card__close}` :*/}
+        {/*            `${styles.card__controls__invisible} ${styles.card__close}` }*/}
+        {/*             onMouseOver={handleMouseOver}*/}
+        {/*             onMouseOut={handleMouseOut}*/}
+        {/*             onClick={() => removeTimezone(data.timezone)}*/}
+        {/*        >*/}
+        {/*            <Image src={Close} width={24} height={24} alt=''></Image>*/}
+        {/*        </div>*/}
+        {/*        <div*/}
+        {/*            className={isHovering ? `${styles.card__controls__visible} ${styles.card__drag}` :*/}
+        {/*                `${styles.card__controls__invisible} ${styles.card__drag}` }*/}
+        {/*            onMouseOver={handleMouseOver}*/}
+        {/*            onMouseOut={handleMouseOut}>*/}
+        {/*            <Image src={Drag} width={24} height={24} alt=''></Image>*/}
+        {/*        </div>*/}
     </div>)
 }
 
