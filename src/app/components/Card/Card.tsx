@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import styles from './Card.module.css'
 import Sunny from '../../../../public/icons/State=Sunny.svg'
 import Night from '../../../../public/icons/State=Clear-night.svg'
@@ -76,13 +78,17 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         onDragEnd={handleSort}
         onDragOver={event => event.preventDefault()}
         className={styles.card}
-        style={{
-            backgroundImage: `url(${Gradient.src})`,
-            '--background-pos-prev': `${4.16666666667 * (dateFromApi.getHours() - 1)}%`,
-            '--background-pos-middle': `${4.16666666667 * (dateFromApi.getHours() - 0.5)}%`,
-            '--background-pos-curr': `${4.16666666667 * dateFromApi.getHours()}%`,
-            backgroundPositionX: `${4.16666666667 * dateFromApi.getHours()}%`,
-    }}
+
+        style={
+            //@ts-ignore
+            {
+                backgroundImage: `url(${Gradient.src})`,
+                backgroundPositionX: `${4.16666666667 * dateFromApi.getHours()}%`,
+                '--background-pos-prev': `${4.16666666667 * (dateFromApi.getHours() - 1)}%`,
+                '--background-pos-middle': `${4.16666666667 * (dateFromApi.getHours() - 0.5)}%`,
+                '--background-pos-curr': `${4.16666666667 * dateFromApi.getHours()}%`,
+            }
+    }
     >
         <div className={styles.card__title}>{data.timezone.substring(data.timezone.lastIndexOf('/') + 1).replace("_", " ")}</div>
         <div className={styles.card__time}>
