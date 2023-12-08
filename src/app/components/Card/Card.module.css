@@ -1,3 +1,20 @@
+.card {
+    --background-pos-prev: '';
+    --background-pos-middle: '';
+    --background-pos-curr: '';
+}
+
+@keyframes backgroundAnimation {
+    0% {
+        background-position-x: var(--background-pos-prev);
+    }
+    50% {
+        background-position-x: var(--background-pos-middle);
+    }
+    100% {
+        background-position-x: var(--background-pos-curr);
+    }
+}
 
 .card {
     height: 66px;
@@ -13,6 +30,7 @@
     color: #FFFFFF;
     font-family: Public Sans sans-serif;
     user-select: none;
+    animation: backgroundAnimation 2s linear;
     cursor: pointer;
 }
 

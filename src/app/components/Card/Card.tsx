@@ -65,6 +65,7 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
     const gradientFiltered = gradients.filter(e => e.hour === dateFromApi.getHours())
 
 
+    // @ts-ignore
     return (<div
         onMouseOver={handleMouseOver}
         key={data + timeOffset}
@@ -77,9 +78,10 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         className={styles.card}
         style={{
             backgroundImage: `url(${Gradient.src})`,
-            opacity: '1',
+            '--background-pos-prev': `${4.16666666667 * (dateFromApi.getHours() - 1)}%`,
+            '--background-pos-middle': `${4.16666666667 * (dateFromApi.getHours() - 0.5)}%`,
+            '--background-pos-curr': `${4.16666666667 * dateFromApi.getHours()}%`,
             backgroundPositionX: `${4.16666666667 * dateFromApi.getHours()}%`,
-            transition: "opacity 2s ease-in-out",
     }}
     >
         <div className={styles.card__title}>{data.timezone.substring(data.timezone.lastIndexOf('/') + 1).replace("_", " ")}</div>
