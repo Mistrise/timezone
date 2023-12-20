@@ -26,6 +26,9 @@
     border-radius: 7px;
     animation-duration: 3s;
     animation-name: slide;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: padding-left .1s linear, padding-right .1s linear;
 }
 
 
