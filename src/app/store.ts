@@ -3,6 +3,7 @@ import { devtools } from 'zustand/middleware'
 import {addMinutes} from 'date-fns'
 import {immer} from "zustand/middleware/immer";
 import {citiesConst} from "@/constants/constants";
+import {persist} from "zustand/middleware";
 
 interface TimeStore {
     timeOffset: string
@@ -22,7 +23,7 @@ interface TimeStore {
 // @ts-ignore
 // @ts-ignore
 export const useTimeStore = create<TimeStore>()(
-    (devtools(
+    (persist(devtools(
          immer(
              (set) => ({
             timeOffset: '',
@@ -66,6 +67,6 @@ export const useTimeStore = create<TimeStore>()(
              resetCurrentDate: () => set(
                  {currentDate: new Date()}
              ),
-        })),
+        }))),
         { name: 'timeStore' }
 )))
