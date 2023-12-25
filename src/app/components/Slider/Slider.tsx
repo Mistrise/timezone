@@ -1,83 +1,76 @@
 "use client"
 
 import styles from './Slider.module.css'
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef} from "react";
 import SliderTimer from "@/app/components/SliderTimer/SliderTimer";
-import {useTimeStore} from "@/app/store";
+import {useRapidTimeStore, useTimeStore} from "@/app/store";
 
 
-
+const PIXELS_PER_HOUR = 50;
 
 const Slider = () => {
-    const changeTime = useTimeStore(state => state.changeTime)
-    const resetCurrentDate = useTimeStore(state => state.resetCurrentDate)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const innerScrollElement = useRef<HTMLDivElement | null>(null);
+  const totalDiffXRef = useRef<number>(0);
+
+  const setHoursOffset = useTimeStore(state => state.setHoursOffset)
+  const setSecondsOffset = useRapidTimeStore(state => state.setSecondsOffset)
+
+  const onReset = () => {
+    totalDiffXRef.current = 0;
+  }
+
+
+  const calcRoundedTime = useCallback((pxOffset: number) => {
+    const hoursOffset = Math.round(pxOffset / PIXELS_PER_HOUR * 2) / 2;
+    setHoursOffset(hoursOffset)
+    setSecondsOffset(Math.round(pxOffset / PIXELS_PER_HOUR * 60 * 60))
+  }, [setHoursOffset])
+
+  useEffect(() => {
     let startX: number | null = null
-    let innerScrollElement = useRef<HTMLDivElement | null>(null);
-    let timeElement = useRef<HTMLDivElement | string>('');
-    let totalDiffX = 0;
     let currentDiffX = 0;
-    const PIXELS_PER_HOUR = 50;
-    const [resetTime, setResetTime] = useState(false)
 
-
-    const calcRoundedTime = useCallback((pxOffset: number) =>  {
-        const hoursOffset = Math.round(pxOffset / PIXELS_PER_HOUR * 2) / 2;
-        if (hoursOffset === 0 || resetTime) {
-            timeElement.current = '';
-        } else {
-            const prevElement = timeElement.current
-            const sign = hoursOffset > 0 ? '+' : '';
-            timeElement.current = `${sign}${hoursOffset}h`;
-            if (prevElement !== timeElement.current) {
-                changeTime(`${sign}${hoursOffset}h`)
-            }
+    if (containerRef.current) {
+      const activeElement = containerRef.current
+      const onMouseUp = () => {
+        totalDiffXRef.current = currentDiffX;
+        startX = null;
+      }
+      const onMouseMove = (e: MouseEvent) => {
+        if (startX) {
+          const diffX = e.clientX - startX;
+          currentDiffX =  totalDiffXRef.current - diffX;
+          calcRoundedTime(currentDiffX)
+          if (innerScrollElement.current) {
+            innerScrollElement.current.style.transform = `translate(${diffX}px)`;
+          }
         }
-    }, [resetTime, changeTime, resetCurrentDate])
+      }
+      const onMouseDown = (e: MouseEvent) => {
+        e.preventDefault();
+        window.getSelection()?.removeAllRanges();
+        startX = e.clientX
+      }
+      activeElement.addEventListener('mousedown', onMouseDown)
+      document.addEventListener('mousemove', onMouseMove)
+      document.addEventListener('mouseup', onMouseUp)
+      return () => {
+        activeElement.removeEventListener('mousedown', onMouseDown)
+        document.removeEventListener('mousemove', onMouseMove)
+        document.removeEventListener('mouseup', onMouseUp)
+      }
+    }
+  }, [setHoursOffset, containerRef.current]);
 
-    useEffect(() => {
-        setResetTime(false)
-        document.addEventListener('mouseup', (e) => {
-            totalDiffX = currentDiffX;
-            startX = null;
-        })
-
-        document.addEventListener('mousemove', (e) => {
-            if (startX) {
-                const diffX = e.clientX - startX;
-                currentDiffX = totalDiffX - diffX;
-                // @ts-ignore
-                innerScrollElement.current.style.transform = `translate(${diffX}px)`;
-                calcRoundedTime(currentDiffX)
-            }
-        })
-        return () => {
-            document.removeEventListener('mouseup', (e) => {
-                totalDiffX = currentDiffX;
-                startX = null;
-            })
-
-            document.removeEventListener('mousemove', (e) => {
-                if (startX) {
-                    const diffX = e.clientX - startX;
-                    currentDiffX = totalDiffX - diffX;
-                    // @ts-ignore
-                    innerScrollElement.current.style.transform = `translate(${diffX}px)`;
-                    calcRoundedTime(currentDiffX)
-                }
-            })
-        }
-    }, [resetTime, changeTime, resetCurrentDate]);
-
-    return (
-        <div className={styles.container}
-             onMouseDown={event => {
-                 startX = event.clientX
-             }}
-        >
-            <SliderTimer resetSlider={setResetTime}/>
-            <div className={styles.slider__background} ref={innerScrollElement}></div>
-        </div>
-    )
+  return (
+    <div className={styles.container}
+         ref={containerRef}
+    >
+      <SliderTimer onReset={onReset}/>
+      <div className={styles.slider__background} ref={innerScrollElement}></div>
+    </div>
+  )
 }
 
 export default React.memo(Slider)

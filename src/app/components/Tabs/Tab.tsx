@@ -12,13 +12,13 @@ const Tab = ({elem1, elem2, setState, prevState}: Props) => {
       <div className={styles.switch} onClick={() => setState(!prevState)}>
           {prevState ?
               <>
-                  <div className={styles.switch__active}>{elem1}</div>
-                  <div>{elem2}</div>
+                  <div className={styles.tab__active}>{elem1}</div>
+                  <div className={styles.tab}>{elem2}</div>
               </>
               :
               <>
-                  <div>{elem1}</div>
-                  <div className={styles.switch__active}>{elem2}</div>
+                  <div className={styles.tab}>{elem1}</div>
+                  <div className={styles.tab__active}>{elem2}</div>
               </>
           }
       </div>

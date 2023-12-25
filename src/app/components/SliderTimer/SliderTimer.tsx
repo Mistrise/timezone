@@ -2,38 +2,37 @@ import styles from "./SliderTimer.module.css";
 import Image from "next/image";
 import Cross from "../../../../public/icons/Icon=cross-circle.svg";
 import React from "react";
-import {useTimeStore} from "@/app/store";
+import {useRapidTimeStore, useTimeStore} from "@/app/store";
 import Dot from "../../../../public/icons/State=Off.svg"
 
-interface Props {
-    resetSlider: (status: boolean) => void
+type Props = {
+  onReset: () => void
 }
+const SliderTimer = ({onReset} : Props) => {
+  const hoursOffset = useTimeStore(state => state.hoursOffset)
+  const setHoursOffset = useTimeStore(state => state.setHoursOffset)
+  const setSecondsOffset = useRapidTimeStore(state => state.setSecondsOffset)
 
-
-const SliderTimer = ({resetSlider}:Props) => {
-    const timeOffset = useTimeStore(state => state.timeOffset)
-    const changeTime = useTimeStore(state => state.changeTime)
-    const resetCurrentDate = useTimeStore(state => state.resetCurrentDate)
 
   return (
-      <div className={styles.slider__timer}>
-          { timeOffset !== '' ?
-              <>
-                  <div className={styles.slider__text}>{timeOffset}</div>
-                  <Image
-                      src={Cross} alt={''} width={16} height={16}
-                      className={styles.slider__image}
-                      onClick={() => {
-                          changeTime('')
-                          resetCurrentDate()
-                          resetSlider(true)
-                      }}>
-                  </Image>
-              </>
-              :
-                <Image src={Dot} alt={''} width={83} height={24}></Image>
-          }
-      </div>
+    <div className={styles.slider__timer}>
+      {hoursOffset !== 0 ?
+        <>
+          <div className={styles.slider__text}>{hoursOffset > 0 ? `+${hoursOffset}h` : `${hoursOffset}h`}</div>
+          <Image
+            src={Cross} alt={''} width={16} height={16}
+            className={styles.slider__image}
+            onClick={() => {
+              setHoursOffset(0)
+              setSecondsOffset(0)
+              onReset()
+            }}>
+          </Image>
+        </>
+        :
+        <Image src={Dot} alt={''} width={83} height={24}></Image>
+      }
+    </div>
   )
 }
 

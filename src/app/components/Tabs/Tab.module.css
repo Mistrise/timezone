@@ -11,12 +11,16 @@
     box-sizing: border-box;
     margin: 0;
     gap: 5px;
-    padding: 16px;
+    padding: 16px 10px;
 }
 
 
+.tab {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 
-.switch__active {
+.tab__active {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,6 +41,6 @@
         margin-right: 0;
     }
     to {
-       margin-right: 0;
+        margin-right: 0;
     }
 }

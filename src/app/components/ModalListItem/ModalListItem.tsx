@@ -1,12 +1,12 @@
 import styles from './ModalListItem.module.css'
-import {useTimeStore} from "@/app/store";
+import {TimeZone, useTimeStore} from "@/app/store";
 
 interface Props {
-  city: any
+  timeZone: TimeZone
 }
 
-const ModalListItem = ({city}: Props) => {
-    const splitCitiesAndCountries = city.split('/')
+const ModalListItem = ({timeZone}: Props) => {
+    const splitCitiesAndCountries = timeZone.zoneName.split('/')
 
     const lengthOfCitiesArr = splitCitiesAndCountries.length
 
@@ -18,7 +18,7 @@ const ModalListItem = ({city}: Props) => {
 
 
   return (
-      <div className={styles.modal__list__item} onClick={() => addTimezone(city)}>
+      <div className={styles.modal__list__item} onClick={() => addTimezone(timeZone.zoneName)}>
           <div>🏳</div>
           <div className={styles.modal__list__item_city}>
               {cityString.replace('_', ' ')}
