@@ -1,5 +1,3 @@
-//@ts-nocheck
-
 import styles from './Card.module.css'
 import Sunny from '../../../../public/icons/State=Sunny.svg'
 import Night from '../../../../public/icons/State=Clear-night.svg'
@@ -9,11 +7,9 @@ import Gradient from '../../../../public/assets/Gradient.svg'
 import Image from "next/image";
 import {useTimeStore} from "@/app/store";
 import {days, month} from "@/constants/constants";
-import {useState} from "react";
-import {useQuery} from "@tanstack/react-query";
-import axios from "axios";
-import {addMinutes, format} from 'date-fns'
-import {gradients} from '@/constants/constants'
+import {useEffect, useRef, useState} from "react";
+import {format} from 'date-fns'
+
 
 
 interface Props {
@@ -27,24 +23,14 @@ interface Props {
 
 const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Props) => {
 
-    const { isPending, error, data } = useQuery({
-        queryKey: ['city', city],
-        queryFn: () =>
-            axios
-                .get(`https://worldtimeapi.org/api/${city}`)
-                .then((res) => res.data),
-    })
+
+    const gradientRef = useRef(null)
 
     const [isHovering, setIsHovering] = useState(false)
 
     const timeOffset = useTimeStore(state => state.timeOffset)
 
     const removeTimezone = useTimeStore(state => state.removeTimezone)
-
-    if (isPending) return <div className={styles.card__skeleton}></div>
-
-    if (error) return 'An error has occurred: ' + error.message
-
     const handleMouseOver = () => {
         setIsHovering(true)
     }
@@ -61,12 +47,18 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         setIsHovering(false)
     }
 
-    const dateFromApi = addMinutes(new Date(data.utc_datetime.slice(0, -6)), getActualTime(data.utc_offset))
+    const data = new Date()
+
+    const dateFromApi = new Date()
     // data.utc_datetime.slice(0, -6)) cutting unnecessary part with timezone
 
-    const gradientFiltered = gradients.filter(e => e.hour === dateFromApi.getHours())
+    const setGradient = () => {
+        gradientRef.current.style.backgroundPositionX = `${4.16666666667 * Math.random()}%`
+    }
 
-
+    useEffect(() => {
+        setGradient()
+    }, []);
     // @ts-ignore
     return (<div
         onMouseOver={handleMouseOver}
@@ -78,19 +70,19 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
         onDragEnd={handleSort}
         onDragOver={event => event.preventDefault()}
         className={styles.card}
-
-        style={
-            //@ts-ignore
-            {
-                backgroundImage: `url(${Gradient.src})`,
-                backgroundPositionX: `${4.16666666667 * dateFromApi.getHours()}%`,
-                '--background-pos-prev': `${4.16666666667 * (dateFromApi.getHours() - 1)}%`,
-                '--background-pos-middle': `${4.16666666667 * (dateFromApi.getHours() - 0.5)}%`,
-                '--background-pos-curr': `${4.16666666667 * dateFromApi.getHours()}%`,
-            }
-    }
+        ref={gradientRef}
+        style={{position: "relative", overflow: "hidden"}}
     >
-        <div className={styles.card__title}>{data.timezone.substring(data.timezone.lastIndexOf('/') + 1).replace("_", " ")}</div>
+        <Image src={Gradient} alt={''}
+               style={{
+                position: "absolute",
+                zIndex: '-2', opacity: '.99',
+                backgroundPositionX: `${4.16666666667 * dateFromApi.getHours()}%`
+               }
+        }>
+
+        </Image>
+        <div className={styles.card__title}>{data.getTimezoneOffset()}</div>
         <div className={styles.card__time}>
             <div className={`${styles.card__time__item} ${timeFormat 
                 ? styles.card__time__item__24h 
@@ -110,7 +102,9 @@ const Card = ({city, timeFormat, dragItem, dragOverItem, handleSort, index}: Pro
                 </span>}
         </div>
         <div className={styles.card__timezone}>GMT {data.utc_offset}</div>
-        <div className={`${timeFormat ? styles.card__date__24h : styles.card__date}`}>
+        <div
+            className={`${timeFormat ? styles.card__date__24h : styles.card__date}`}
+        >
             {dateFromApi.getHours() > 7 && dateFromApi.getHours() < 22 ?
                 <Image src={Sunny} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>
                 :

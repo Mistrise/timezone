@@ -9,6 +9,7 @@ import Card from "@/app/components/Card/Card";
 import Container from "@/app/components/Container/Container";
 import CitiesModal from "@/app/components/CitiesModal/CitiesModal";
 import {useTimeStore} from "@/app/store";
+import {GET} from "@/app/api/route";
 
 
 export interface City {
@@ -41,6 +42,9 @@ export default function Home() {
     // const [calendarType, setCalendarType] = useState(true)
 
     const [timeFormat, setTimeFormat] = useState(true)
+
+
+    const listOfCitiesFromApi = GET()
 
     const handleSort = () => {
         let prevCities = [...cities]

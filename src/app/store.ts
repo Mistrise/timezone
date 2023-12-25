@@ -21,7 +21,7 @@ interface TimeStore {
 
 
 // @ts-ignore
-// @ts-ignore
+
 export const useTimeStore = create<TimeStore>()(
     (persist(devtools(
          immer(
