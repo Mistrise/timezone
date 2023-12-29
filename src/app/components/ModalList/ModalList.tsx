@@ -1,7 +1,5 @@
 import ModalListItem from "@/app/components/ModalListItem/ModalListItem";
 import styles from './ModalList.module.css'
-import {useQuery} from "@tanstack/react-query";
-import axios from "axios";
 import {useMemo} from "react";
 import {useTimeStore} from "@/app/store";
 
