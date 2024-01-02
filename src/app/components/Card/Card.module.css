@@ -12,10 +12,8 @@
 }
 
 .card_grid {
-    height: 66px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr ;
     grid-gap: 5px;
     padding: 14px 20px 18px 20px;
 }
@@ -33,12 +31,11 @@
 }
 .card_control {
     display: none;
-    height: 24px;
     width: 24px;
     padding: 8px;
 }
 .card:hover .card_control {
-    display: flex;
+    display: block;
 }
 
 .card__skeleton {

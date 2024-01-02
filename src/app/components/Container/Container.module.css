@@ -4,5 +4,11 @@
     display: flex;
     flex-direction: column;
     row-gap: 8px;
-    width: 548px;
+    width: 44%;
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+    width: 100%;
+  }
 }

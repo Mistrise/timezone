@@ -57,7 +57,7 @@ export default function Home() {
             key={timeZoneKey}
           />)
         }
-        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: "8px"}}>
           <Button showSearch={showSearch} setShowSearch={setShowSearch}/>
           <Tab elem1={'24H'} elem2={'AM/PM'} prevState={timeFormat} setState={setTimeFormat}/>
           {showSearch ? <CitiesModal setShowSearch={setShowSearch}/> : null}
