@@ -8,7 +8,6 @@
     position: relative;
     border-radius: 30px;
     color: #FFFFFF;
-    font-family: Public Sans sans-serif;
     cursor: pointer;
 }
 
@@ -55,7 +54,6 @@
     border-radius: 30px;
     align-self: stretch;
     color: #FFFFFF;
-    font-family: Public Sans sans-serif;
     transition: background-color 0.5s ease;
     user-select: none;
     cursor: pointer;
