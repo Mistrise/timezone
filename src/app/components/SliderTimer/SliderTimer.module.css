@@ -12,7 +12,6 @@
     min-height: 24px;
 }
 
-.slider__timer_activeState {}
 .slider__timer_disabledState {
   background: transparent;
 }
