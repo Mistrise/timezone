@@ -1,6 +1,6 @@
 .button {
     cursor: pointer;
-    width: 395px;
+    flex: 1 0 0;
     height: 48px;
     border-radius: 12px;
     padding: 14px;

@@ -10,8 +10,8 @@
     align-items: center;
     box-sizing: border-box;
     margin: 0;
-    gap: 5px;
-    padding: 16px 10px;
+    gap: 4px;
+    padding: 4px;
 }
 
 
@@ -27,7 +27,7 @@
     height: 40px;
     background: #FFFFFF;
     color: #000000;
-    border-radius: 7px;
+    border-radius: 8px;
     animation-duration: 3s;
     animation-name: slide;
     padding-left: 10px;

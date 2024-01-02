@@ -1,14 +1,39 @@
 .slider__timer {
-    width: 73px;
-    height: 16px;
+    width: 80px;
     display: flex;
-    padding: 4px 4px 4px 6px;
+    padding: 4px 26px 4px 6px;
     justify-content: center;
     align-items: center;
     color: #000000A3;
     background: #00000014;
     border-radius: 12px;
+    position: relative;
+    transition: all cubic-bezier(0, 0.55, 0.45, 1) 0.6s;
+    min-height: 24px;
 }
+
+.slider__timer_activeState {}
+.slider__timer_disabledState {
+  background: transparent;
+}
+
+.slider__timer_disabledState::after {
+  content: ''; /* Required for the pseudo-element to be generated */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.12);
+}
+
+.slider__timer_disabledState .slider__text,
+.slider__timer_disabledState .slider__image {
+  opacity: 0;
+}
+
 
 .slider__text {
     color: rgba(0, 0, 0, 0.64);
@@ -18,11 +43,13 @@
     font-weight: 500;
     line-height: normal;
     letter-spacing: -0.41px;
-    margin-right: 6px;
 }
 
 .slider__image {
     cursor: pointer;
+    position: absolute;
+    right: 4px;
+    top: 4px;
 }
 
 
