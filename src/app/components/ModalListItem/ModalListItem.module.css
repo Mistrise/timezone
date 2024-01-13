@@ -1,23 +1,23 @@
 .modal__list__item {
     box-sizing: border-box;
-    width: 390px;
     display: grid;
-    grid-template-columns: 24px 159px 181px;
-    grid-template-rows: 1fr 16px;
+    grid-template-columns: 24px 1fr 1fr;
+    grid-template-rows: 1fr 19px;
     color: #000000;
 
     /* Title/22 */
     font-size: 21px;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    line-height: 25px;
     letter-spacing: -0.41px;
     padding: 8px 12px;
+    grid-column-gap: 6px;
 }
 
 .modal__list__item:hover {
     background: rgba(0, 0, 0, 0.08);
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .modal__list__item__country {
@@ -40,9 +40,9 @@
 .modal__list__item__timezone {
     color: rgba(0, 0, 0, 0.48);
     grid-column: 3/3;
-    grid-row: 1/2;
+    grid-row: span 2;
     justify-self: end;
-    align-self: end;
+    align-self: center;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
