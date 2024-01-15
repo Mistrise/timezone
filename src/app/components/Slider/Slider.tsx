@@ -52,13 +52,42 @@ const Slider = () => {
         window.getSelection()?.removeAllRanges();
         startX = e.clientX
       }
+
+      const onTouchDown = (e: TouchEvent) => {
+        e.preventDefault();
+        window.getSelection()?.removeAllRanges();
+        startX = e.touches[0].clientX
+      }
+
+      const onTouchUp = () => {
+        totalDiffXRef.current = currentDiffX;
+        startX = null;
+      }
+
+      const onTouchMove = (e: TouchEvent) => {
+        if (startX) {
+          const diffX = e.touches[0].clientX - startX;
+          currentDiffX =  totalDiffXRef.current - diffX;
+          calcRoundedTime(currentDiffX)
+          if (innerScrollElement.current) {
+            innerScrollElement.current.style.transform = `translate(${diffX}px)`;
+          }
+        }
+      }
+
       activeElement.addEventListener('mousedown', onMouseDown)
+      activeElement.addEventListener('touchstart', onTouchDown)
       document.addEventListener('mousemove', onMouseMove)
+      document.addEventListener('touchmove', onTouchMove)
       document.addEventListener('mouseup', onMouseUp)
+      document.addEventListener('touchend', onTouchUp)
       return () => {
         activeElement.removeEventListener('mousedown', onMouseDown)
+        activeElement.removeEventListener('touchstart', onTouchDown)
         document.removeEventListener('mousemove', onMouseMove)
+        document.removeEventListener('touchmove', onTouchMove)
         document.removeEventListener('mouseup', onMouseUp)
+        document.removeEventListener('touchend', onTouchUp)
       }
     }
   }, [setHoursOffset, containerRef.current]);

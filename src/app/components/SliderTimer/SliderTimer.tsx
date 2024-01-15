@@ -3,7 +3,6 @@ import Image from "next/image";
 import Cross from "../../../../public/icons/Icon=cross-circle.svg";
 import React from "react";
 import {useRapidTimeStore, useTimeStore} from "@/app/store";
-import Dot from "../../../../public/icons/State=Off.svg"
 
 type Props = {
   onReset: () => void
@@ -24,7 +23,14 @@ const SliderTimer = ({onReset} : Props) => {
               setHoursOffset(0)
               setSecondsOffset(0)
               onReset()
-            }}>
+            }}
+            onTouchStart={ () => {
+                setHoursOffset(0)
+                setSecondsOffset(0)
+                onReset()
+            }
+            }
+          >
           </Image>
     </div>
   )
