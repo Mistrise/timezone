@@ -1,5 +1,6 @@
 import {useEffect, useMemo, useRef, useState} from "react";
 import {TimeZone, useRapidTimeStore, useTimeStore} from "@/app/store";
+import clsx from "clsx";
 import styles from "@/app/components/Card/Card.module.css";
 import Image from "next/image";
 import Gradient from "../../../../public/assets/Gradient.svg";
@@ -70,9 +71,7 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
     <div className={styles.card_grid}>
       <div className={styles.card__title}>{getCityName(timeZone.zoneName)}</div>
       <div className={styles.card__time}>
-        <div className={`${styles.card__time__item} ${timeFormat
-          ? styles.card__time__item__24h
-          : styles.card__time__item__am} `}>
+        <div className={`${styles.card__time__item}`}>
           {timeFormat || timeZoneDate.getHours() < 13
             ? timeZoneDate.getHours() < 10
               ? `0${timeZoneDate.getHours()}`
@@ -81,15 +80,17 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
           :
           {timeZoneDate.getMinutes() < 10 ? `0${timeZoneDate.getMinutes()}` : timeZoneDate.getMinutes()}
         </div>
-        {timeFormat ?
-          null :
-          <span className={styles.card__am}>
+        <span className={clsx(styles.card__am, {
+          [styles.card__am_active]: timeFormat
+        })}>
                     {timeZoneDate.getHours() > 13 ? <p>PM</p> : <p>AM</p>}
-                </span>}
+            </span>
       </div>
       <div className={styles.card__timezone}>GMT {gmtOffset >= 0 ? `+${gmtOffset}` : gmtOffset}</div>
       <div
-        className={`${timeFormat ? styles.card__date__24h : styles.card__date}`}
+        className={clsx(styles.card__date, {
+          [styles.card__date__am]: timeFormat
+        })}
       >
         {timeZoneDate.getHours() > 7 && timeZoneDate.getHours() < 22 ?
           <Image src={Sunny} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>

@@ -2,5 +2,6 @@
     margin-top: 8px;
     overflow-y: scroll;
     overflow-x: hidden;
-    width: 100%;
+    margin-right: -16px;
+    padding-right: 16px;
 }
