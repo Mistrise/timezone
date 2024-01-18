@@ -44,6 +44,19 @@ export default function Home() {
       clearInterval(intervalId)
     }
   }, [])
+  
+ useEffect(() => {
+    if (!showSearch) {
+      // Remove the overflow style
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      return;
+    }
+
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+        
+  }, [showSearch]);
 
   return (
     <>
