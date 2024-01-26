@@ -16,6 +16,12 @@ const ModalListItem = ({timeZone}: Props) => {
 
     const addTimezone = useTimeStore(state => state.addTimezone)
 
+    const calculateOffset = () => {
+        const calculatedOffset = timeZone.gmtOffset / 3600
+        if (calculatedOffset > 0) return `GMT +${calculatedOffset > 10 ? calculatedOffset : '0' + calculatedOffset}`
+        else if (calculatedOffset < 0) return `GMT ${calculatedOffset > 10 ? calculatedOffset : '-0' + Math.abs(calculatedOffset)}`
+        else return 'GMT +00'
+    }
 
   return (
       <div className={styles.modal__list__item} onClick={() => addTimezone(timeZone.zoneName)}>
@@ -27,7 +33,7 @@ const ModalListItem = ({timeZone}: Props) => {
               {zoneString ? zoneString.replace('_', ' ') : 'other'}
           </div>
           <div className={styles.modal__list__item__timezone}>
-              todo
+              {calculateOffset()}
           </div>
       </div>
   )
