@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState} from "react";
+import {useEffect, useMemo, useRef} from "react";
 import {TimeZone, useRapidTimeStore, useTimeStore} from "@/app/store";
 import clsx from "clsx";
 import styles from "@/app/components/Card/Card.module.css";
@@ -81,7 +81,7 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
           {timeZoneDate.getMinutes() < 10 ? `0${timeZoneDate.getMinutes()}` : timeZoneDate.getMinutes()}
         </div>
         <span className={clsx(styles.card__am, {
-          [styles.card__am_active]: timeFormat
+          [styles.card__am_active]: !timeFormat
         })}>
                     {timeZoneDate.getHours() > 13 ? <p>PM</p> : <p>AM</p>}
             </span>
@@ -89,7 +89,7 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
       <div className={styles.card__timezone}>GMT {gmtOffset >= 0 ? `+${gmtOffset}` : gmtOffset}</div>
       <div
         className={clsx(styles.card__date, {
-          [styles.card__date__am]: timeFormat
+          [styles.card__date__am]: !timeFormat
         })}
       >
         {timeZoneDate.getHours() > 7 && timeZoneDate.getHours() < 22 ?
