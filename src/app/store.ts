@@ -25,6 +25,7 @@ interface TimeStore {
   addTimezone: any
   timeOffsetAddedHours: any
   updateCurrentDate: any
+  shuffleTimezone: any
 }
 
 
@@ -49,6 +50,10 @@ export const useTimeStore = create<TimeStore>()(
         currentDate: new Date(),
 
         removeTimezone: (city: string) => set(state => ({selectedTimezoneKeys: state.selectedTimezoneKeys.filter((timezone: any) => timezone !== city)})),
+
+        shuffleTimezone: (timezones: []) => set(state => {
+            state.selectedTimezoneKeys = timezones
+        }),
 
         addTimezone: (city: any) => set(state => {
           state.selectedTimezoneKeys.includes(city) || state.selectedTimezoneKeys.push(city)
