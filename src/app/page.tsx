@@ -62,8 +62,6 @@ export default function Home() {
   const handleDrag = (result: {source: {droppableId: string, index: number}, destination: {droppableId: string, index: number}, type: string}) => {
       const {source, destination, type} = result
 
-
-      console.log(result)
       if (!destination) return
 
       if (
@@ -78,7 +76,7 @@ export default function Home() {
           const [removedState] = reorderedState.splice(sourceIndex, 1)
           reorderedState.splice(destinationIndex, 0, removedState)
           shuffleTimezone(reorderedState)
-      };
+      }
   }
 
 
@@ -93,22 +91,24 @@ export default function Home() {
                 <Slider/>
                 <Droppable droppableId={'1'} type='group'>
                     {(provided) => (
-                        <div {...provided.droppableProps} ref={provided.innerRef}>
+                        <div {...provided.droppableProps} ref={provided.innerRef} >
                             {selectedTimezoneKeys.map((timeZoneKey: string, index: number) =>
-                                <Draggable draggableId={timeZoneKey} key={timeZoneKey} index={index}>
+                                <Draggable draggableId={timeZoneKey} key={timeZoneKey} index={index} >
                                     {provided => (
                                         <div {...provided.draggableProps}
                                              {...provided.dragHandleProps}
-                                             ref={provided.innerRef}>
+                                             ref={provided.innerRef}
+                                        >
                                             <Card
                                                 timeFormat={timeFormat}
                                                 timeZoneKey={timeZoneKey}
                                                 key={timeZoneKey}
                                             />
-
+                                            <div style={{height: '10px'}}>  </div>
                                         </div>
                                     )}
-                                </Draggable>)
+                                </Draggable>
+                            )
                             }
                             {provided.placeholder}
                         </div>)}
