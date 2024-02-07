@@ -25,6 +25,7 @@ export interface City {
 // @ts-nocheck
 export default function Home() {
   const selectedTimezoneKeys = useTimeStore(state => state.selectedTimezoneKeys)
+  const setTimezone = useTimeStore(state => state.setTimezone)
   const initTimeZonesMap = useTimeStore(state => state.initTimeZonesMap)
   const initSelectedTimezonesKeys = useTimeStore(state => state.initSelectedTimezonesKeys)
   const updateCurrentDate = useTimeStore(state => state.updateCurrentDate)
@@ -69,6 +70,22 @@ export default function Home() {
     document.body.style.overflow = 'hidden';
         
   }, [showSearch]);
+
+    useEffect(() => {
+       const addedCities = localStorage.getItem('cities')
+        const timeToggle = localStorage.getItem('timeToggle')
+        if (addedCities) {
+            setTimezone(JSON.parse(addedCities))
+        } else {
+            localStorage.setItem('cities', JSON.stringify(selectedTimezoneKeys))
+        }
+        if (timeToggle) {
+            // @ts-ignore
+            setTimeFormat(localStorage.getItem('timeToggle'))
+        } else {
+            localStorage.setItem('timeToggle', JSON.stringify(true))
+        }
+    }, []);
 
   const handleDrag = (result: {source: {droppableId: string, index: number}, destination: {droppableId: string, index: number}, type: string}) => {
       const {source, destination, type} = result

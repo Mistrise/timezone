@@ -1,6 +1,5 @@
 import {create} from 'zustand'
 import {devtools} from 'zustand/middleware'
-import {addMinutes} from 'date-fns'
 import {immer} from "zustand/middleware/immer";
 import {citiesConst} from "@/constants/constants";
 
@@ -27,6 +26,7 @@ interface TimeStore {
   timeOffsetAddedHours: any
   updateCurrentDate: any
   shuffleTimezone: any
+    setTimezone: any
 }
 
 
@@ -59,6 +59,9 @@ export const useTimeStore = create<TimeStore>()(
         addTimezone: (city: any) => set(state => {
           state.selectedTimezoneKeys.includes(city) || state.selectedTimezoneKeys.push(city)
         }),
+          setTimezone: (cityList: any) => set(state => {
+              state.selectedTimezoneKeys = cityList
+          }),
         initTimeZonesMap: (timeZones: TimeZone[]) => set(state => ({
           timezonesMap: timeZones.reduce((acc, timeZone) => {
             acc[timeZone.zoneName] = timeZone
