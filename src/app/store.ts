@@ -18,6 +18,7 @@ interface TimeStore {
   setHoursOffset: any
   timezonesMap: Record<string, TimeZone>
   selectedTimezoneKeys: any
+  initSelectedTimezonesKeys: any
   citiesList: any
   removeTimezone: any
   fetchCurrentDate?: any
@@ -50,9 +51,9 @@ export const useTimeStore = create<TimeStore>()(
         currentDate: new Date(),
 
         removeTimezone: (city: string) => set(state => ({selectedTimezoneKeys: state.selectedTimezoneKeys.filter((timezone: any) => timezone !== city)})),
-
+        initSelectedTimezonesKeys: (timezoneKeys: string[]) => set(state => ({selectedTimezoneKeys: timezoneKeys})),
         shuffleTimezone: (timezones: []) => set(state => {
-            state.selectedTimezoneKeys = timezones
+          state.selectedTimezoneKeys = timezones
         }),
 
         addTimezone: (city: any) => set(state => {
@@ -87,7 +88,7 @@ export const useTimeStore = create<TimeStore>()(
   )))
 
 
-export const useRapidTimeStore = create<{secondsOffset: number, setSecondsOffset: any}>()(
+export const useRapidTimeStore = create<{ secondsOffset: number, setSecondsOffset: any }>()(
   (devtools(
     immer(
       (set) => ({
