@@ -27,11 +27,22 @@ export default function Home() {
   const selectedTimezoneKeys = useTimeStore(state => state.selectedTimezoneKeys)
   const setTimezone = useTimeStore(state => state.setTimezone)
   const initTimeZonesMap = useTimeStore(state => state.initTimeZonesMap)
+  const initSelectedTimezonesKeys = useTimeStore(state => state.initSelectedTimezonesKeys)
   const updateCurrentDate = useTimeStore(state => state.updateCurrentDate)
   const shuffleTimezone = useTimeStore(state => state.shuffleTimezone)
   const [showSearch, setShowSearch] = useState(false)
   const [timeFormat, setTimeFormat] = useState(true)
 
+
+  useEffect(() => {
+    const savedTimezones = localStorage.getItem('timezones')
+    if (savedTimezones) {
+      initSelectedTimezonesKeys(JSON.parse(savedTimezones))
+    }
+    return useTimeStore.subscribe((state) => {
+      localStorage.setItem('timezones', JSON.stringify(state.selectedTimezoneKeys))
+    })
+  }, []);
 
   useEffect(() => {
     fetch('/api/timezones').then((response) => response.json()).then((data) => {
