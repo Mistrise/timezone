@@ -1,5 +1,7 @@
+'use client'
 import styles from './ModalListItem.module.css'
 import {TimeZone, useTimeStore} from "@/app/store";
+
 
 interface Props {
   timeZone: TimeZone
@@ -23,8 +25,21 @@ const ModalListItem = ({timeZone}: Props) => {
         else return 'GMT +00'
     }
 
+    const addTimezoneInLocalStorage = (timeZone: string) => {
+        const dataFromLocalStorage = localStorage.getItem('cities')
+        // @ts-ignore
+        const preparedDataForLocalStorage = JSON.parse(dataFromLocalStorage)
+        if (preparedDataForLocalStorage.indexOf(timeZone) === -1) {
+            preparedDataForLocalStorage.push(timeZone)
+        }
+        localStorage.setItem('cities', JSON.stringify(preparedDataForLocalStorage))
+    }
+
   return (
-      <div className={styles.modal__list__item} onClick={() => addTimezone(timeZone.zoneName)}>
+      <div className={styles.modal__list__item} onClick={() => {
+          addTimezoneInLocalStorage(timeZone.zoneName)
+          addTimezone(timeZone.zoneName)
+      }}>
           <div>🏳</div>
           <div className={styles.modal__list__item_city}>
               {cityString.replace('_', ' ')}
