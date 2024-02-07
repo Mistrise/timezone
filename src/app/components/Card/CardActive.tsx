@@ -1,4 +1,3 @@
-'use client'
 import {useEffect, useMemo, useRef} from "react";
 import {TimeZone, useRapidTimeStore, useTimeStore} from "@/app/store";
 import clsx from "clsx";
@@ -41,7 +40,6 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
     const secondsToAdd = (new Date()).getTimezoneOffset() * 60 + timeZone.gmtOffset;
     return addSeconds(currentDate, secondsToAdd + hoursOffset * 60 * 60);
   }, [currentDate, timeZone, hoursOffset])
-
 
   const removeTimezoneFromLocalStorage = (timeZone: string) => {
     const dataFromLocalStorage = localStorage.getItem('cities')
