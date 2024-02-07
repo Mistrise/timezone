@@ -41,16 +41,6 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
     return addSeconds(currentDate, secondsToAdd + hoursOffset * 60 * 60);
   }, [currentDate, timeZone, hoursOffset])
 
-  const removeTimezoneFromLocalStorage = (timeZone: string) => {
-    const dataFromLocalStorage = localStorage.getItem('cities')
-    // @ts-ignore
-    const preparedDataForLocalStorage = JSON.parse(dataFromLocalStorage)
-    const index = preparedDataForLocalStorage.indexOf(timeZone)
-    if (index > -1) {
-      preparedDataForLocalStorage.splice(index, 1)
-    }
-    localStorage.setItem('cities', JSON.stringify(preparedDataForLocalStorage))
-  }
 
   useEffect(() => {
     const updateBgPosition = (secondsOffset: number) => {
@@ -82,8 +72,7 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
       <div className={styles.card__title}>{getCityName(timeZone.zoneName)}</div>
       <div className={styles.card__time}>
         <div className={`${styles.card__time__item}`}>
-          {/*@ts-ignore*/}
-          {JSON.parse(localStorage.getItem('timeToggle')) || timeZoneDate.getHours() < 13
+          {timeFormat || timeZoneDate.getHours() < 13
             ? timeZoneDate.getHours() < 10
               ? `0${timeZoneDate.getHours()}`
               : timeZoneDate.getHours()
@@ -91,10 +80,8 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
           :
           {timeZoneDate.getMinutes() < 10 ? `0${timeZoneDate.getMinutes()}` : timeZoneDate.getMinutes()}
         </div>
-
         <span className={clsx(styles.card__am, {
-          // @ts-ignore
-          [styles.card__am_active]: !JSON.parse(localStorage.getItem('timeToggle'))
+          [styles.card__am_active]: !timeFormat
         })}>
                     {timeZoneDate.getHours() > 13 ? <p>PM</p> : <p>AM</p>}
             </span>
@@ -102,8 +89,7 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
       <div className={styles.card__timezone}>GMT {gmtOffset >= 0 ? `+${gmtOffset}` : gmtOffset}</div>
       <div
         className={clsx(styles.card__date, {
-          // @ts-ignore
-          [styles.card__date__am]: !JSON.parse(localStorage.getItem('timeToggle'))
+          [styles.card__date__am]: !timeFormat
         })}
       >
         {timeZoneDate.getHours() > 7 && timeZoneDate.getHours() < 22 ?
@@ -116,10 +102,7 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
       </div>
     </div>
     <div className={styles.card_controls}>
-      <div className={styles.card_control} onClick={() => {
-        removeTimezone(timeZone.zoneName)
-        removeTimezoneFromLocalStorage(timeZone.zoneName)
-      }}>
+      <div className={styles.card_control} onClick={() => removeTimezone(timeZone.zoneName)}>
         <Image src={Close} width={24} height={24} alt=''></Image>
       </div>
       <div className={styles.card_control}>
