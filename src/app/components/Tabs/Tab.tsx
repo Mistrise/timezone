@@ -1,3 +1,4 @@
+'use client'
 import styles from './Tab.module.css'
 
 
@@ -9,15 +10,16 @@ interface Props {
 }
 
 const Tab = ({elem1, elem2, setState, prevState}: Props) => {
-    const changeTimeToggle = () => {
-        // @ts-ignore
-        const data = JSON.parse(localStorage.getItem('timeToggle'))
-        if (data === true) {
-            localStorage.setItem('timeToggle', JSON.stringify(!data))
-        } else if (data === false) {
-            localStorage.setItem('timeToggle', JSON.stringify(!data))
+        const changeTimeToggle = () => {
+            // @ts-ignore
+            const data = JSON.parse(localStorage.getItem('timeToggle'))
+            if (data === true) {
+                localStorage.setItem('timeToggle', JSON.stringify(!data))
+            } else if (data === false) {
+                localStorage.setItem('timeToggle', JSON.stringify(!data))
+            }
         }
-    }
+
   return (
       <div className={styles.switch} onClick={() => {
           setState(!prevState)

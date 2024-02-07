@@ -1,3 +1,4 @@
+'use client'
 import styles from './ModalListItem.module.css'
 import {TimeZone, useTimeStore} from "@/app/store";
 
