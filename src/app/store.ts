@@ -50,7 +50,7 @@ export const useTimeStore = create<TimeStore>()(
         ],
         citiesList: citiesConst,
         currentDate: new Date(),
-        toggleTimeFormat: false,
+        toggleTimeFormat: true,
         setToggleTimeFormat: (timeFormat: boolean) => set(() => ({toggleTimeFormat: timeFormat})),
         removeTimezone: (city: string) => set(state => ({selectedTimezoneKeys: state.selectedTimezoneKeys.filter((timezone: any) => timezone !== city)})),
         initSelectedTimezonesKeys: (timezoneKeys: string[]) => set(state => ({selectedTimezoneKeys: timezoneKeys})),
