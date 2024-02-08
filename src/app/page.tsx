@@ -30,11 +30,12 @@ export default function Home() {
   const updateCurrentDate = useTimeStore(state => state.updateCurrentDate)
   const shuffleTimezone = useTimeStore(state => state.shuffleTimezone)
   const [showSearch, setShowSearch] = useState(false)
-  const [timeFormat, setTimeFormat] = useState(true)
-
+  const toggleTimeFormat = useTimeStore(state => state.toggleTimeFormat)
+  const setToggleTimeFormat = useTimeStore(state => state.setToggleTimeFormat)
 
   useEffect(() => {
     const savedTimezones = localStorage.getItem('timezones')
+
     if (savedTimezones) {
       initSelectedTimezonesKeys(JSON.parse(savedTimezones))
     }
@@ -42,6 +43,19 @@ export default function Home() {
       localStorage.setItem('timezones', JSON.stringify(state.selectedTimezoneKeys))
     })
   }, []);
+
+    useEffect(() => {
+        const timeFormatStore = localStorage.getItem('timeFormat')
+
+        if (timeFormatStore) {
+            // @ts-ignore
+            setToggleTimeFormat(JSON.parse(localStorage.getItem('timeFormat')))
+        }
+        return useTimeStore.subscribe(state => {
+            localStorage.setItem('timeFormat', JSON.stringify(state.toggleTimeFormat))
+        })
+
+    }, []);
 
   useEffect(() => {
     fetch('/api/timezones').then((response) => response.json()).then((data) => {
@@ -73,8 +87,6 @@ export default function Home() {
   const handleDrag = (result: {source: {droppableId: string, index: number}, destination: {droppableId: string, index: number}, type: string}) => {
       const {source, destination, type} = result
 
-
-      console.log(result)
       if (!destination) return
 
       if (
@@ -89,7 +101,7 @@ export default function Home() {
           const [removedState] = reorderedState.splice(sourceIndex, 1)
           reorderedState.splice(destinationIndex, 0, removedState)
           shuffleTimezone(reorderedState)
-      };
+      }
   }
 
 
@@ -112,7 +124,7 @@ export default function Home() {
                                              {...provided.dragHandleProps}
                                              ref={provided.innerRef}>
                                             <Card
-                                                timeFormat={timeFormat}
+                                                timeFormat={toggleTimeFormat}
                                                 timeZoneKey={timeZoneKey}
                                                 key={timeZoneKey}
                                             />
@@ -127,7 +139,7 @@ export default function Home() {
                 <div
                     style={{display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: "8px"}}>
                     <Button showSearch={showSearch} setShowSearch={setShowSearch}/>
-                    <Tab elem1={'24H'} elem2={'AM/PM'} prevState={timeFormat} setState={setTimeFormat}/>
+                    <Tab elem1={'24H'} elem2={'AM/PM'} />
                     {showSearch ? <CitiesModal setShowSearch={setShowSearch}/> : null}
                 </div>
             </Container>

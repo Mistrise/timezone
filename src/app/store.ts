@@ -1,6 +1,5 @@
 import {create} from 'zustand'
 import {devtools} from 'zustand/middleware'
-import {addMinutes} from 'date-fns'
 import {immer} from "zustand/middleware/immer";
 import {citiesConst} from "@/constants/constants";
 
@@ -27,6 +26,8 @@ interface TimeStore {
   timeOffsetAddedHours: any
   updateCurrentDate: any
   shuffleTimezone: any
+  toggleTimeFormat: boolean
+  setToggleTimeFormat: any
 }
 
 
@@ -49,7 +50,8 @@ export const useTimeStore = create<TimeStore>()(
         ],
         citiesList: citiesConst,
         currentDate: new Date(),
-
+        toggleTimeFormat: false,
+        setToggleTimeFormat: (timeFormat: boolean) => set(() => ({toggleTimeFormat: timeFormat})),
         removeTimezone: (city: string) => set(state => ({selectedTimezoneKeys: state.selectedTimezoneKeys.filter((timezone: any) => timezone !== city)})),
         initSelectedTimezonesKeys: (timezoneKeys: string[]) => set(state => ({selectedTimezoneKeys: timezoneKeys})),
         shuffleTimezone: (timezones: []) => set(state => {
