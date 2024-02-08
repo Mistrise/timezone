@@ -128,7 +128,7 @@ export default function Home() {
                                                 timeZoneKey={timeZoneKey}
                                                 key={timeZoneKey}
                                             />
-
+                                            <div style={{height: '10px'}}></div>
                                         </div>
                                     )}
                                 </Draggable>)

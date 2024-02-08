@@ -9,7 +9,7 @@
     border-radius: 20px;
     color: #FFFFFF;
     cursor: pointer;
-    margin-bottom: 10px;
+    user-select: none;
 }
 
 .card_grid {
