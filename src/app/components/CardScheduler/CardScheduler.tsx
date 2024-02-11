@@ -1,4 +1,3 @@
-import {City} from "@/app/page";
 import styles from './CardScheduler.module.css'
 import Image from "next/image";
 import BackgroundImage24h from '../../../../public/assets/24h=On.svg'
@@ -6,7 +5,7 @@ import BackgroundImageAmPm from '../../../../public/assets/24h=Off.svg'
 import {useTimeStore} from "@/app/store";
 
 interface Props {
-    city: City
+    city: any
     timeFormat: boolean
     dragItem: any
     dragOverItem: any

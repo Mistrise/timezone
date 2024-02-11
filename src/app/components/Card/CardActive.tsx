@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useRef} from "react";
-import {TimeZone, useRapidTimeStore, useTimeStore} from "@/app/store";
+import {City, TimeZone, useRapidTimeStore, useTimeStore} from "@/app/store";
 import clsx from "clsx";
 import styles from "@/app/components/Card/Card.module.css";
 import Image from "next/image";
@@ -10,10 +10,11 @@ import Night from "../../../../public/icons/State=Clear-night.svg";
 import {days, month} from "@/constants/constants";
 import Close from "../../../../public/icons/Icon=cross-circle-outlined.svg";
 import Drag from "../../../../public/icons/Icon=drag.svg";
+import {getTzOffsetByName} from "@/helpers/getTzOffsetByName";
 
 
 interface Props {
-  timeZone: TimeZone
+  city: City
   timeFormat: boolean
 }
 
@@ -29,23 +30,26 @@ function getBgPositionPercent(gmtOffset: number, secondsOffset: number) {
   return Math.round(PERCENT_MOVE_PER_SECOND * totalSeconds * 1000) / 1000
 }
 
-export const CardActive = ({timeZone, timeFormat}: Props) => {
+export const CardActive = ({timeFormat, city}: Props) => {
+  const gmtOffsetSeconds = useMemo(() => {
+    return getTzOffsetByName(city.timezone) * 60
+  }, [])
   const gradientRef = useRef<HTMLDivElement>(null)
-  const bgPositionPercentRef = useRef<number>(getBgPositionPercent(timeZone.gmtOffset, 0))
+  const bgPositionPercentRef = useRef<number>(getBgPositionPercent(gmtOffsetSeconds, 0))
   const currentDate = useTimeStore(state => state.currentDate)
   const hoursOffset = useTimeStore(state => state.hoursOffset)
-  const removeTimezone = useTimeStore(state => state.removeTimezone)
+  const removeCity = useTimeStore(state => state.removeCity)
 
   const timeZoneDate = useMemo(() => {
-    const secondsToAdd = (new Date()).getTimezoneOffset() * 60 + timeZone.gmtOffset;
+    const secondsToAdd = (new Date()).getTimezoneOffset() * 60 + gmtOffsetSeconds;
     return addSeconds(currentDate, secondsToAdd + hoursOffset * 60 * 60);
-  }, [currentDate, timeZone, hoursOffset])
+  }, [currentDate, gmtOffsetSeconds, hoursOffset])
 
 
   useEffect(() => {
     const updateBgPosition = (secondsOffset: number) => {
       if (gradientRef.current) {
-        const percent = getBgPositionPercent(timeZone.gmtOffset, secondsOffset);
+        const percent = getBgPositionPercent(gmtOffsetSeconds, secondsOffset);
         bgPositionPercentRef.current = percent;
         gradientRef.current.style.backgroundPositionX = `${percent}%`;
       }
@@ -54,9 +58,9 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
     return useRapidTimeStore.subscribe((state) => {
       updateBgPosition(state.secondsOffset)
     })
-  }, [gradientRef.current, timeZone.gmtOffset])
+  }, [gradientRef.current, gmtOffsetSeconds])
 
-  const gmtOffset = timeZone.gmtOffset / 60 / 60;
+  const gmtOffset = gmtOffsetSeconds / 60 / 60;
 
   return (<div
     className={styles.card}
@@ -69,7 +73,7 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
     }
   >
     <div className={styles.card_grid}>
-      <div className={styles.card__title}>{getCityName(timeZone.zoneName)}</div>
+      <div className={styles.card__title}>{city.name}</div>
       <div className={styles.card__time}>
         <div className={`${styles.card__time__item}`}>
           {timeFormat || timeZoneDate.getHours() < 13
@@ -102,7 +106,7 @@ export const CardActive = ({timeZone, timeFormat}: Props) => {
       </div>
     </div>
     <div className={styles.card_controls}>
-      <div className={styles.card_control} onClick={() => removeTimezone(timeZone.zoneName)}>
+      <div className={styles.card_control} onClick={() => removeCity(city)}>
         <Image src={Close} width={24} height={24} alt=''></Image>
       </div>
       <div className={styles.card_control}>

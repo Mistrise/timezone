@@ -40,7 +40,7 @@
 }
 
 .card__skeleton {
-    height: 66px;
+    height: 98px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -59,7 +59,7 @@
 
 .card__title {
     /* Title/29 */
-
+    white-space: nowrap;
     font-size: 29px;
     font-style: normal;
     font-weight: 400;

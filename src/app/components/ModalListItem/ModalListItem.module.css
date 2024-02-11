@@ -4,7 +4,7 @@
     grid-template-columns: 24px 1fr 1fr;
     grid-template-rows: 1fr 19px;
     color: #000000;
-
+    cursor: pointer;
     /* Title/22 */
     font-size: 21px;
     font-style: normal;
@@ -33,6 +33,7 @@
 }
 
 .modal__list__item_city {
+    white-space: nowrap;
     grid-column: 2/3;
     grid-row: 1/2;
 }
