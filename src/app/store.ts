@@ -1,7 +1,6 @@
 import {create} from 'zustand'
 import {devtools} from 'zustand/middleware'
 import {immer} from "zustand/middleware/immer";
-import {citiesConst} from "@/constants/constants";
 
 export type TimeZone = {
   countryCode: string
@@ -11,18 +10,44 @@ export type TimeZone = {
   zoneName: string
 }
 
+export interface CityCoordinates {
+  lon: number
+  lat: number
+}
+
+export interface City {
+  geoname_id: string
+  name: string
+  ascii_name: string
+  alternate_names: string[]
+  feature_class: string
+  feature_code: string
+  country_code: string
+  cou_name_en: string
+  country_code_2: any
+  admin1_code: string
+  admin2_code: string
+  admin3_code: string
+  admin4_code: string
+  population: number
+  elevation: any
+  dem: number
+  timezone: string
+  modification_date: string
+  label_en: string
+  coordinates: CityCoordinates
+}
+
 interface TimeStore {
   hoursOffset: number
   currentDate: any
   setHoursOffset: any
-  timezonesMap: Record<string, TimeZone>
-  selectedTimezoneKeys: any
-  initSelectedTimezonesKeys: any
-  citiesList: any
-  removeTimezone: any
+  selectedCities: City[]
+  removeCity: any
   fetchCurrentDate?: any
-  initTimeZonesMap: any
-  addTimezone: any
+  init: (cities: City[]) => void
+  isInitialized: boolean;
+  addCity: any
   timeOffsetAddedHours: any
   updateCurrentDate: any
   shuffleTimezone: any
@@ -40,33 +65,22 @@ export const useTimeStore = create<TimeStore>()(
         // TODO rename to hoursOffset
         hoursOffset: 0,
         timeOffsetAddedHours: '',
-        timezonesMap: {},
-        selectedTimezoneKeys: [
-          "Europe/Moscow",
-          "Europe/Paris",
-          "Europe/Prague",
-          "America/New_York",
-          "Asia/Hong_Kong",
-        ],
-        citiesList: citiesConst,
+        selectedCities: [],
         currentDate: new Date(),
         toggleTimeFormat: true,
+        isInitialized: false,
         setToggleTimeFormat: (timeFormat: boolean) => set(() => ({toggleTimeFormat: timeFormat})),
-        removeTimezone: (city: string) => set(state => ({selectedTimezoneKeys: state.selectedTimezoneKeys.filter((timezone: any) => timezone !== city)})),
-        initSelectedTimezonesKeys: (timezoneKeys: string[]) => set(state => ({selectedTimezoneKeys: timezoneKeys})),
+        removeCity: (removedCity: City) => set(state => ({selectedCities: state.selectedCities.filter((city) => city.geoname_id !== removedCity.geoname_id)})),
+        init: (cities: City[]) => set(state => ({selectedCities: cities, isInitialized: true})),
         shuffleTimezone: (timezones: []) => set(state => {
-          state.selectedTimezoneKeys = timezones
+          state.selectedCities = timezones
         }),
 
-        addTimezone: (city: any) => set(state => {
-          state.selectedTimezoneKeys.includes(city) || state.selectedTimezoneKeys.push(city)
+        addCity: (nextCity: City) => set(state => {
+          if (!state.selectedCities.find((city) => city.geoname_id === nextCity.geoname_id)) {
+            state.selectedCities.push(nextCity)
+          }
         }),
-        initTimeZonesMap: (timeZones: TimeZone[]) => set(state => ({
-          timezonesMap: timeZones.reduce((acc, timeZone) => {
-            acc[timeZone.zoneName] = timeZone
-            return acc;
-          }, {} as Record<string, TimeZone>)
-        })),
 
         // TODO rename to changeHoursOffset
         setHoursOffset: (nextTimeOffsetHours: number) => set((state) => {

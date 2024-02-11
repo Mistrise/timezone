@@ -1,41 +1,33 @@
 import styles from './ModalListItem.module.css'
-import {TimeZone, useTimeStore} from "@/app/store";
+import {City, useTimeStore} from "@/app/store";
+import {getTzOffsetByName} from "@/helpers/getTzOffsetByName";
+import {useMemo} from "react";
 
 interface Props {
-  timeZone: TimeZone
+  city: City
 }
 
-const ModalListItem = ({timeZone}: Props) => {
-    const splitCitiesAndCountries = timeZone.zoneName.split('/')
+const ModalListItem = ({city}: Props) => {
+  const addCity = useTimeStore(state => state.addCity)
 
-    const lengthOfCitiesArr = splitCitiesAndCountries.length
-
-    const cityString = splitCitiesAndCountries[lengthOfCitiesArr - 1]
-
-    const zoneString = splitCitiesAndCountries[lengthOfCitiesArr - 2]
-
-    const addTimezone = useTimeStore(state => state.addTimezone)
-
-    const calculateOffset = () => {
-        const calculatedOffset = timeZone.gmtOffset / 3600
-        if (calculatedOffset > 0) return `GMT +${calculatedOffset > 10 ? calculatedOffset : '0' + calculatedOffset}`
-        else if (calculatedOffset < 0) return `GMT ${calculatedOffset > 10 ? calculatedOffset : '-0' + Math.abs(calculatedOffset)}`
-        else return 'GMT +00'
-    }
+  const offset = useMemo(() => {
+    const calculatedOffset = getTzOffsetByName(city.timezone) / 60
+    return `GMT ${calculatedOffset >= 0 ? '+' : ''}${calculatedOffset}`
+  }, [])
 
   return (
-      <div className={styles.modal__list__item} onClick={() => addTimezone(timeZone.zoneName)}>
-          <div>🏳</div>
-          <div className={styles.modal__list__item_city}>
-              {cityString.replace('_', ' ')}
-          </div>
-          <div className={styles.modal__list__item__country}>
-              {zoneString ? zoneString.replace('_', ' ') : 'other'}
-          </div>
-          <div className={styles.modal__list__item__timezone}>
-              {calculateOffset()}
-          </div>
+    <div className={styles.modal__list__item} onClick={() => addCity(city)}>
+      <div>🏳</div>
+      <div className={styles.modal__list__item_city}>
+        {city.name}
       </div>
+      <div className={styles.modal__list__item__country}>
+        {city.timezone || 'other'}
+      </div>
+      <div className={styles.modal__list__item__timezone}>
+        {offset}
+      </div>
+    </div>
   )
 }
 

@@ -4,29 +4,20 @@ import Heading from "@/app/components/Heading/Heading";
 import Slider from "@/app/components/Slider/Slider";
 import Tab from "@/app/components/Tabs/Tab";
 import {useEffect, useState} from "react";
-import {Card} from "@/app/components/Card/Card";
 import Container from "@/app/components/Container/Container";
 import CitiesModal from "@/app/components/CitiesModal/CitiesModal";
 import {useTimeStore} from "@/app/store";
-import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd"
-
-export interface City {
-  id: number
-  city: string
-  timezone: number
-  hours: number
-  minutes: number
-  date: string
-  flag: string
-  country: string
-  localDate?: Date
-}
+import {DragDropContext, Droppable, Draggable, OnDragEndResponder} from "react-beautiful-dnd"
+import {CardActive} from "@/app/components/Card/CardActive";
+import {CardSkeleton} from "@/app/components/Card/CardSkeleton";
+import {getByIds} from "@/fetchers/cities";
+import {DEFAULT_CITY_GEONAME_IDS} from "@/constants/constants";
 
 // @ts-nocheck
 export default function Home() {
-  const selectedTimezoneKeys = useTimeStore(state => state.selectedTimezoneKeys)
-  const initTimeZonesMap = useTimeStore(state => state.initTimeZonesMap)
-  const initSelectedTimezonesKeys = useTimeStore(state => state.initSelectedTimezonesKeys)
+  const selectedCities = useTimeStore(state => state.selectedCities)
+  const isInitialized = useTimeStore(state => state.isInitialized)
+  const initTimeStore = useTimeStore(state => state.init)
   const updateCurrentDate = useTimeStore(state => state.updateCurrentDate)
   const shuffleTimezone = useTimeStore(state => state.shuffleTimezone)
   const [showSearch, setShowSearch] = useState(false)
@@ -34,34 +25,34 @@ export default function Home() {
   const setToggleTimeFormat = useTimeStore(state => state.setToggleTimeFormat)
 
   useEffect(() => {
-    const savedTimezones = localStorage.getItem('timezones')
+    const savedCities = localStorage.getItem('cities')
+    const timeFormatStore = localStorage.getItem('timeFormat')
 
-    if (savedTimezones) {
-      initSelectedTimezonesKeys(JSON.parse(savedTimezones))
+    if (savedCities) {
+      // TODO validate that data from storage matches required format
+      initTimeStore(JSON.parse(savedCities))
+    } else {
+      getByIds(DEFAULT_CITY_GEONAME_IDS).then(({results}) => {
+        initTimeStore(results)
+      })
     }
+
+    if (timeFormatStore) {
+      // @ts-ignore
+      setToggleTimeFormat(JSON.parse(localStorage.getItem('timeFormat')))
+    }
+
     return useTimeStore.subscribe((state) => {
-      localStorage.setItem('timezones', JSON.stringify(state.selectedTimezoneKeys))
+      if (state.selectedCities.length > 0) {
+        localStorage.setItem('cities', JSON.stringify(state.selectedCities))
+      } else {
+        localStorage.removeItem('cities')
+      }
+      localStorage.setItem('timeFormat', JSON.stringify(state.toggleTimeFormat))
     })
-  }, []);
-
-    useEffect(() => {
-        const timeFormatStore = localStorage.getItem('timeFormat')
-
-        if (timeFormatStore) {
-            // @ts-ignore
-            setToggleTimeFormat(JSON.parse(localStorage.getItem('timeFormat')))
-        }
-        return useTimeStore.subscribe(state => {
-            localStorage.setItem('timeFormat', JSON.stringify(state.toggleTimeFormat))
-        })
-
-    }, []);
+  }, [initTimeStore, setToggleTimeFormat]);
 
   useEffect(() => {
-    fetch('/api/timezones').then((response) => response.json()).then((data) => {
-      initTimeZonesMap(data)
-    })
-
     const intervalId = setInterval(() => {
       updateCurrentDate()
     }, 1000)
@@ -70,8 +61,8 @@ export default function Home() {
       clearInterval(intervalId)
     }
   }, [])
-  
- useEffect(() => {
+
+  useEffect(() => {
     if (!showSearch) {
       // Remove the overflow style
       document.documentElement.style.overflow = '';
@@ -81,69 +72,73 @@ export default function Home() {
 
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
-        
+
   }, [showSearch]);
 
-  const handleDrag = (result: {source: {droppableId: string, index: number}, destination: {droppableId: string, index: number}, type: string}) => {
-      const {source, destination, type} = result
+  const handleDrag: OnDragEndResponder = (result) => {
+    const {source, destination, type} = result
 
-      if (!destination) return
+    if (!destination) return
 
-      if (
-          source.droppableId === destination.droppableId &&
-          source.index === destination.index) return;
-      if (type === 'group') {
-          const reorderedState = [...selectedTimezoneKeys]
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index) return;
+    if (type === 'group') {
+      const reorderedState = [...selectedCities]
 
-          const sourceIndex = source.index
-          const destinationIndex = destination.index
+      const sourceIndex = source.index
+      const destinationIndex = destination.index
 
-          const [removedState] = reorderedState.splice(sourceIndex, 1)
-          reorderedState.splice(destinationIndex, 0, removedState)
-          shuffleTimezone(reorderedState)
-      }
+      const [removedState] = reorderedState.splice(sourceIndex, 1)
+      reorderedState.splice(destinationIndex, 0, removedState)
+      shuffleTimezone(reorderedState)
+    }
   }
 
 
-
-
-    return (
-    <>
-        {/* @ts-ignore */}
-        <DragDropContext onDragEnd={handleDrag}>
-          <Heading/>
-            <Container>
-                <Slider/>
-                <Droppable droppableId={'1'} type='group'>
-                    {(provided) => (
-                        <div {...provided.droppableProps} ref={provided.innerRef}>
-                            {selectedTimezoneKeys.map((timeZoneKey: string, index: number) =>
-                                <Draggable draggableId={timeZoneKey} key={timeZoneKey} index={index}>
-                                    {provided => (
-                                        <div {...provided.draggableProps}
-                                             {...provided.dragHandleProps}
-                                             ref={provided.innerRef}>
-                                            <Card
-                                                timeFormat={toggleTimeFormat}
-                                                timeZoneKey={timeZoneKey}
-                                                key={timeZoneKey}
-                                            />
-                                            <div style={{height: '10px'}}></div>
-                                        </div>
-                                    )}
-                                </Draggable>)
-                            }
-                            {provided.placeholder}
-                        </div>)}
-                </Droppable>
-                <div
-                    style={{display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: "8px"}}>
-                    <Button showSearch={showSearch} setShowSearch={setShowSearch}/>
-                    <Tab elem1={'24H'} elem2={'AM/PM'} />
-                    {showSearch ? <CitiesModal setShowSearch={setShowSearch}/> : null}
-                </div>
-            </Container>
-        </DragDropContext>
-    </>
+  return (
+    <DragDropContext onDragEnd={handleDrag}>
+      <Heading/>
+      <Container>
+        <Slider/>
+        {isInitialized ? (
+          <Droppable droppableId={'1'} type='group'>
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {selectedCities.map((city, index: number) =>
+                  <Draggable draggableId={city.geoname_id} key={city.geoname_id} index={index}>
+                    {provided => (
+                      <div {...provided.draggableProps}
+                           {...provided.dragHandleProps}
+                           ref={provided.innerRef}>
+                        <CardActive
+                          timeFormat={toggleTimeFormat}
+                          city={city}
+                        />
+                        <div style={{height: '10px'}}></div>
+                      </div>
+                    )}
+                  </Draggable>)
+                }
+                {provided.placeholder}
+              </div>)}
+          </Droppable>
+        ) : (
+          <>
+            <CardSkeleton/>
+            <CardSkeleton/>
+            <CardSkeleton/>
+            <CardSkeleton/>
+            <CardSkeleton/>
+          </>
+        )}
+        <div
+          style={{display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: "8px"}}>
+          <Button showSearch={showSearch} setShowSearch={setShowSearch}/>
+          <Tab elem1={'24H'} elem2={'AM/PM'}/>
+          {showSearch ? <CitiesModal setShowSearch={setShowSearch}/> : null}
+        </div>
+      </Container>
+    </DragDropContext>
   )
 }

@@ -1,4 +1,3 @@
-import {City} from "@/app/page";
 export const days = [
     'Sun',
     'Mon',
@@ -13,61 +12,17 @@ export const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 ]
 
+export const DEFAULT_CITY_GEONAME_IDS = [
+  '524901', // MOSCOW
+  '2988507', // PARIS
+  '3067696', // PRAGUE
+  '5128581', // NEW YORK
+  '1819729', // HONG KONG
+]
+
 
 export let globalDate = new Date()
 
-export const citiesConst: City[] = [
-    {
-        id: 1,
-        city: 'Moscow',
-        country: 'Russia',
-        timezone: 3,
-        hours: globalDate.getUTCHours(),
-        minutes: globalDate.getUTCMinutes(),
-        date: `${days[globalDate.getUTCDay()]} ${globalDate.getUTCDate()} ${month[globalDate.getUTCMonth()]}`,
-        flag: `🇷🇺`
-    },
-    {
-        id: 2,
-        city: 'London',
-        country: 'UK',
-        timezone: 1,
-        hours: globalDate.getUTCHours(),
-        minutes: globalDate.getUTCMinutes(),
-        date: `${days[globalDate.getUTCDay()]} ${globalDate.getUTCDate()} ${month[globalDate.getUTCMonth()]}`,
-        flag: `🇬🇧`
-    },
-    {
-        id: 3,
-        city: 'New York',
-        country: 'USA',
-        timezone: -4,
-        hours: globalDate.getUTCHours(),
-        minutes: globalDate.getUTCMinutes(),
-        date: `${days[globalDate.getUTCDay()]} ${globalDate.getUTCDate()} ${month[globalDate.getUTCMonth()]}`,
-        flag: `🇺🇸`
-    },
-    {
-        id: 4,
-        city: 'Paris',
-        country: 'France',
-        timezone: 2,
-        hours: globalDate.getUTCHours(),
-        minutes: globalDate.getUTCMinutes(),
-        date: `${days[globalDate.getUTCDay()]} ${globalDate.getUTCDate()} ${month[globalDate.getUTCMonth()]}`,
-        flag: `🇫🇷`
-    },
-    {
-        id: 5,
-        city: 'Washington',
-        country: 'USA',
-        timezone: -4,
-        hours: globalDate.getUTCHours(),
-        minutes: globalDate.getUTCMinutes(),
-        date: `${days[globalDate.getUTCDay()]} ${globalDate.getUTCDate()} ${month[globalDate.getUTCMonth()]}`,
-        flag: `🇺🇸`
-    },
-]
 //
 // 1 - 153664 - 153664
 // 2 - 153664 - 153664
