@@ -8,7 +8,7 @@ const queryByWhere = async (where?: string): Promise<{ results: City[] }>  => {
   const cacheKey = where || 'empty'
   if (!queryCacheStack[cacheKey]) {
     const searchParams =  new URLSearchParams()
-    searchParams.append('select', "name,timezone,coordinates,geoname_id")
+    searchParams.append('select', "name,timezone,coordinates,geoname_id,country_code")
     searchParams.append('order_by', 'population desc')
     searchParams.append('limit', '20')
     // TODO maybe change, added so we don't show a lot of small cities

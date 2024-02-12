@@ -2,6 +2,8 @@ import styles from './ModalListItem.module.css'
 import {City, useTimeStore} from "@/app/store";
 import {getTzOffsetByName} from "@/helpers/getTzOffsetByName";
 import {useMemo} from "react";
+import countryCodeToFlagEmoji from "@/helpers/translateCodeToEmoji";
+
 
 interface Props {
   city: City
@@ -17,8 +19,8 @@ const ModalListItem = ({city}: Props) => {
 
   return (
     <div className={styles.modal__list__item} onClick={() => addCity(city)}>
-      <div>🏳</div>
-      <div className={styles.modal__list__item_city}>
+        <div>{countryCodeToFlagEmoji(city.country_code)}</div>
+        <div className={styles.modal__list__item_city}>
         {city.name}
       </div>
       <div className={styles.modal__list__item__country}>
