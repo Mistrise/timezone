@@ -59,7 +59,6 @@
 
 .card__title {
     /* Title/29 */
-    white-space: nowrap;
     font-size: 29px;
     font-style: normal;
     font-weight: 400;
@@ -157,5 +156,5 @@
 }
 
 .card__date__am {
-    margin-right: 30px;
+    margin-right: 0;
 }
