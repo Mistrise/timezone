@@ -3,12 +3,6 @@ body {
   padding-bottom: 32px;
 }
 
-@media only screen and (max-width: 600px) {
-    body {
-    padding: 0px 16px;
-  }
-}
-
 *{
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;

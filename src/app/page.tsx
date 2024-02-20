@@ -115,7 +115,7 @@ export default function Home() {
                           timeFormat={toggleTimeFormat}
                           city={city}
                         />
-                        <div style={{height: '10px'}}></div>
+                        <div style={{height: '8px'}}></div>
                       </div>
                     )}
                   </Draggable>)
@@ -133,7 +133,7 @@ export default function Home() {
           </>
         )}
         <div
-          style={{display: "flex", flexDirection: "row", justifyContent: "space-between", paddingTop: "8px"}}>
+          style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
           <Button showSearch={showSearch} setShowSearch={setShowSearch}/>
           <Tab elem1={'24H'} elem2={'AM/PM'}/>
           {showSearch ? <CitiesModal setShowSearch={setShowSearch}/> : null}

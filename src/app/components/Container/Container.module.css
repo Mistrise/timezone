@@ -5,19 +5,11 @@
     flex-direction: column;
     row-gap: 8px;
     width: 36%;
-    min-width: 400px;
+    min-width: 360px;
 }
 
 @media only screen and (max-width: 768px) {
     .container {
-        width: 300px;
-        min-width: auto;
+        width: 80%;
   }
-}
-
-@media only screen and (max-width: 360px){
-    .container {
-        width: 200px;
-        min-width: auto;
-    }
 }

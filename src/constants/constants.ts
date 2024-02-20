@@ -13,9 +13,8 @@ export const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 ]
 
 export const DEFAULT_CITY_GEONAME_IDS = [
-  '524901', // MOSCOW
+  '5391959', // SAN FRANCISCO
   '2988507', // PARIS
-  '3067696', // PRAGUE
   '5128581', // NEW YORK
   '1819729', // HONG KONG
 ]

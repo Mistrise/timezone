@@ -14,7 +14,7 @@
 
 .card_grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     grid-gap: 5px;
     padding: 14px 20px 18px 20px;
 }
@@ -64,6 +64,9 @@
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.41px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card__time {
@@ -72,12 +75,12 @@
 }
 
 .card__time__item {
-    font-size: 36px;
+    font-size: 29px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.41px;
-    transition: .5s;
+    transition: .5s;    
 }
 
 .card__time__item__24h {
