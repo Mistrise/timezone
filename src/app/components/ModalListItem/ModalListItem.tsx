@@ -6,10 +6,11 @@ import countryCodeToFlagEmoji from "@/helpers/translateCodeToEmoji";
 
 
 interface Props {
-  city: City
+  city: City,
+  setShowSearch: (show: boolean) => void
 }
 
-const ModalListItem = ({city}: Props) => {
+const ModalListItem = ({city, setShowSearch}: Props) => {
   const addCity = useTimeStore(state => state.addCity)
 
   const offset = useMemo(() => {
@@ -18,7 +19,10 @@ const ModalListItem = ({city}: Props) => {
   }, [])
 
   return (
-    <div className={styles.modal__list__item} onClick={() => addCity(city)}>
+    <div className={styles.modal__list__item} onClick={() => {
+        setShowSearch(false)
+        addCity(city)
+    }}>
         <div>{countryCodeToFlagEmoji(city.country_code)}</div>
         <div className={styles.modal__list__item_city}>
         {city.name}

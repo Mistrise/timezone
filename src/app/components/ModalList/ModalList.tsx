@@ -6,10 +6,11 @@ import {debouncedSearch, search} from "@/fetchers/cities";
 import {useUpdateEffect} from "@/helpers/useUpdateEffect";
 
 interface Props {
-  modalInput: string
+  modalInput: string,
+  setShowSearch: (show: boolean) => void
 }
 
-const ModalList = ({modalInput}: Props) => {
+const ModalList = ({modalInput, setShowSearch}: Props) => {
   const [cities, setCities] = useState<City[]>([])
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const ModalList = ({modalInput}: Props) => {
 
   return (
     <div className={styles.modal__list}>
-      {cities.map((city) => <ModalListItem key={city.geoname_id} city={city}/>)}
+      {cities.map((city) => <ModalListItem setShowSearch={setShowSearch} key={city.geoname_id} city={city}/>)}
     </div>
   )
 }

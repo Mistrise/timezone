@@ -37,7 +37,7 @@ const CitiesModal = ({setShowSearch}: Props) => {
           <Image src={Close} alt={''} className={styles.modal__title__image} onClick={() => setShowSearch(false)}/>
         </div>
         <ModalSearch setModalInput={setModalInput}/>
-        <ModalList modalInput={modalInput}/>
+        <ModalList setShowSearch={setShowSearch} modalInput={modalInput}/>
       </div>
     </div>
   )
