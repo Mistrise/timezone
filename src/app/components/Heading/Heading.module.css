@@ -31,3 +31,18 @@
     line-height: normal;
     letter-spacing: -0.41px;
 }
+
+@media only screen and (max-width: 768px) {
+    .heading_container {
+        margin-top: 0px;
+    }
+    
+    .heading_title {
+        font-size: 28px;
+    }
+    
+    .heading_text {
+        margin-top: 0px;
+        font-size: 18px;
+    }
+}

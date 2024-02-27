@@ -14,26 +14,27 @@
 
 .card_grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     grid-gap: 5px;
-    padding: 14px 20px 18px 20px;
+    padding: 12px 16px 14px 16px;
 }
 .card_controls {
     position: absolute;
     left: 100%;
     top: 0;
     flex-direction: column;
-    padding: 6px 8px;
+    padding: 8px 8px 8px;
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    width: 50px;
     box-sizing: border-box;
+    display: flex;
+    
 }
 .card_control {
     display: none;
     width: 24px;
-    padding: 8px;
+    height: 24px !important;
 }
 .card:hover .card_control {
     display: block;
@@ -59,9 +60,9 @@
 
 .card__title {
     /* Title/29 */
-    font-size: 29px;
+    font-size: 26px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: normal;
     letter-spacing: -0.41px;
     white-space: nowrap;
@@ -75,9 +76,9 @@
 }
 
 .card__time__item {
-    font-size: 29px;
+    font-size: 26px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: normal;
     letter-spacing: -0.41px;
     transition: .5s;    
@@ -160,4 +161,14 @@
 
 .card__date__am {
     margin-right: 0;
+}
+
+@media only screen and (max-width: 768px) {
+        .card__title {
+            font-size: 22px;
+    }
+
+        .card__time__item {
+            font-size: 22px;
+    }
 }
