@@ -8,7 +8,7 @@
     position: relative;
     border-radius: 20px;
     color: #FFFFFF;
-    cursor: pointer;
+    cursor: -webkit-grab;
     user-select: none;
 }
 

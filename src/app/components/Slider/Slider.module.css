@@ -6,7 +6,7 @@
 }
 
 .slider__background {
-    cursor: move;
+    cursor: ew-resize;
     margin-top: 8px;
     background: url("../../../../public/assets/Hour.svg") repeat-x;
     width: 500vw;
