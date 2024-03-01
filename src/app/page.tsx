@@ -129,7 +129,6 @@ export default function Home() {
             <CardSkeleton/>
             <CardSkeleton/>
             <CardSkeleton/>
-            <CardSkeleton/>
           </>
         )}
         <div
