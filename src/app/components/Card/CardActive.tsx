@@ -5,8 +5,10 @@ import styles from "@/app/components/Card/Card.module.css";
 import Image from "next/image";
 import Gradient from "../../../../public/assets/Gradient.svg";
 import {addSeconds, format} from "date-fns";
-import Sunny from "../../../../public/icons/State=Sunny.svg";
-import Night from "../../../../public/icons/State=Clear-night.svg";
+import Day from "../../../../public/icons/Day.svg";
+import Rise from "../../../../public/icons/Rise.svg";
+import Set from "../../../../public/icons/Set.svg";
+import Night from "../../../../public/icons/Night.svg";
 import {days, month} from "@/constants/constants";
 import Close from "../../../../public/icons/Icon=cross-circle-outlined.svg";
 import Drag from "../../../../public/icons/Icon=drag.svg";
@@ -96,12 +98,16 @@ export const CardActive = ({timeFormat, city}: Props) => {
           [styles.card__date__am]: !timeFormat
         })}
       >
-        {timeZoneDate.getHours() > 7 && timeZoneDate.getHours() < 22 ?
-          <Image src={Sunny} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>
-          :
-          <Image src={Night} width={18} height={18} alt='' style={{marginRight: '3px'}}></Image>
+        {timeZoneDate.getHours() > 6 && timeZoneDate.getHours() < 9 ? (
+          <Image src={Rise} width={18} height={18} alt='' style={{ marginRight: '3px' }} />
+        ) : timeZoneDate.getHours() > 10 && timeZoneDate.getHours() < 19 ? (
+          <Image src={Day} width={18} height={18} alt='' style={{ marginRight: '3px' }} />
+        ) : timeZoneDate.getHours() > 18 && timeZoneDate.getHours() < 21 ? (
+          <Image src={Set} width={18} height={18} alt='' style={{ marginRight: '3px' }} />
+        ) : (
+          <Image src={Night} width={18} height={18} alt='' style={{ marginRight: '3px' }} />
+        )
         }
-
         {`${days[timeZoneDate.getDay()]} ${timeZoneDate.getDate()} ${month[timeZoneDate.getMonth()]}`}
       </div>
     </div>
