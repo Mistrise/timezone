@@ -100,9 +100,9 @@ export const CardActive = ({timeFormat, city}: Props) => {
       >
         {timeZoneDate.getHours() > 6 && timeZoneDate.getHours() < 9 ? (
           <Image src={Rise} width={18} height={18} alt='' style={{ marginRight: '3px' }} />
-        ) : timeZoneDate.getHours() > 10 && timeZoneDate.getHours() < 19 ? (
+        ) : timeZoneDate.getHours() > 8 && timeZoneDate.getHours() < 18 ? (
           <Image src={Day} width={18} height={18} alt='' style={{ marginRight: '3px' }} />
-        ) : timeZoneDate.getHours() > 18 && timeZoneDate.getHours() < 21 ? (
+        ) : timeZoneDate.getHours() > 17 && timeZoneDate.getHours() < 21 ? (
           <Image src={Set} width={18} height={18} alt='' style={{ marginRight: '3px' }} />
         ) : (
           <Image src={Night} width={18} height={18} alt='' style={{ marginRight: '3px' }} />
