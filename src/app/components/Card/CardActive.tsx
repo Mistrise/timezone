@@ -80,7 +80,8 @@ export const CardActive = ({timeFormat, city}: Props) => {
         <div className={`${styles.card__time__item}`}>
           {timeFormat || timeZoneDate.getHours() < 13
             ? timeZoneDate.getHours() < 10
-              ? `0${timeZoneDate.getHours()}`
+              ? `${timeZoneDate.getHours()}`
+              // removed "0" before "$" above
               : timeZoneDate.getHours()
             : format(timeZoneDate, 'h')}
           :
