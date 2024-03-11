@@ -105,11 +105,11 @@ export default function Home() {
         ></Script>
         <Script id='gtag-script' strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-          
-            gtag('config', 'G-0GHJHT40EY');
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            
+              gtag('config', 'G-0GHJHT40EY');
           `}
         </Script>
         <DragDropContext onDragEnd={handleDrag}>
