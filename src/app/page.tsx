@@ -12,6 +12,7 @@ import {CardActive} from "@/app/components/Card/CardActive";
 import {CardSkeleton} from "@/app/components/Card/CardSkeleton";
 import {getByIds} from "@/fetchers/cities";
 import {DEFAULT_CITY_GEONAME_IDS} from "@/constants/constants";
+import Script from "next/script";
 
 // @ts-nocheck
 export default function Home() {
@@ -97,47 +98,62 @@ export default function Home() {
 
 
   return (
-    <DragDropContext onDragEnd={handleDrag}>
-      <Heading/>
-      <Container>
-        <Slider/>
-        {isInitialized ? (
-          <Droppable droppableId={'1'} type='group'>
-            {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                {selectedCities.map((city, index: number) =>
-                  <Draggable draggableId={city.geoname_id} key={city.geoname_id} index={index}>
-                    {provided => (
-                      <div {...provided.draggableProps}
-                           {...provided.dragHandleProps}
-                           ref={provided.innerRef}>
-                        <CardActive
-                          timeFormat={toggleTimeFormat}
-                          city={city}
-                        />
-                        <div style={{height: '8px'}}></div>
-                      </div>
-                    )}
-                  </Draggable>)
-                }
-                {provided.placeholder}
-              </div>)}
-          </Droppable>
-        ) : (
-          <>
-            <CardSkeleton/>
-            <CardSkeleton/>
-            <CardSkeleton/>
-            <CardSkeleton/>
-          </>
-        )}
-        <div
-          style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-          <Button showSearch={showSearch} setShowSearch={setShowSearch}/>
-          <Tab elem1={'24H'} elem2={'AM/PM'}/>
-          {showSearch ? <CitiesModal setShowSearch={setShowSearch}/> : null}
-        </div>
-      </Container>
-    </DragDropContext>
+      <>
+        <Script
+            async={true}
+            src={'https://www.googletagmanager.com/gtag/js?id=G-0GHJHT40EY'}
+            onLoad={() => {
+              // @ts-nocheck
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              // @ts-nocheck
+              gtag('js', new Date());
+              // @ts-nocheck
+              gtag('config', 'G-0GHJHT40EY');
+            }}
+        ></Script>
+        <DragDropContext onDragEnd={handleDrag}>
+          <Heading/>
+          <Container>
+            <Slider/>
+            {isInitialized ? (
+              <Droppable droppableId={'1'} type='group'>
+                {(provided) => (
+                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                    {selectedCities.map((city, index: number) =>
+                      <Draggable draggableId={city.geoname_id} key={city.geoname_id} index={index}>
+                        {provided => (
+                          <div {...provided.draggableProps}
+                               {...provided.dragHandleProps}
+                               ref={provided.innerRef}>
+                            <CardActive
+                              timeFormat={toggleTimeFormat}
+                              city={city}
+                            />
+                            <div style={{height: '8px'}}></div>
+                          </div>
+                        )}
+                      </Draggable>)
+                    }
+                    {provided.placeholder}
+                  </div>)}
+              </Droppable>
+            ) : (
+              <>
+                <CardSkeleton/>
+                <CardSkeleton/>
+                <CardSkeleton/>
+                <CardSkeleton/>
+              </>
+            )}
+            <div
+              style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+              <Button showSearch={showSearch} setShowSearch={setShowSearch}/>
+              <Tab elem1={'24H'} elem2={'AM/PM'}/>
+              {showSearch ? <CitiesModal setShowSearch={setShowSearch}/> : null}
+            </div>
+          </Container>
+        </DragDropContext>
+      </>
   )
 }
