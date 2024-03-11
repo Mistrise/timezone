@@ -12,6 +12,7 @@ import {CardActive} from "@/app/components/Card/CardActive";
 import {CardSkeleton} from "@/app/components/Card/CardSkeleton";
 import {getByIds} from "@/fetchers/cities";
 import {DEFAULT_CITY_GEONAME_IDS} from "@/constants/constants";
+import Script from "next/script";
 
 // @ts-nocheck
 export default function Home() {
@@ -98,6 +99,19 @@ export default function Home() {
 
   return (
       <>
+        <Script
+            src={'https://www.googletagmanager.com/gtag/js?id=G-0GHJHT40EY'}
+            strategy="afterInteractive"
+        ></Script>
+        <Script id='gtag-script' strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          
+            gtag('config', 'G-0GHJHT40EY');
+          `}
+        </Script>
         <DragDropContext onDragEnd={handleDrag}>
           <Heading/>
           <Container>

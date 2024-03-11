@@ -21,22 +21,6 @@ export default function RootLayout({
       <body className={publicSansFont.className}>
         {children}
       </body>
-      <Script
-          async={true}
-          src={'https://www.googletagmanager.com/gtag/js?id=G-0GHJHT40EY'}
-      ></Script>
-      <Script
-          id='gtag-script'
-          dangerouslySetInnerHTML={{
-              __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-            
-              gtag('config', 'G-0GHJHT40EY');
-              `
-          }}
-      />
     </html>
   )
 }
