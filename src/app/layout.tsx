@@ -9,7 +9,11 @@ const publicSansFont = Public_Sans({ weight: ['400', '500', '600', '700'], subse
 
 export const metadata: Metadata = {
   title: 'Timezone Portal',
-  description: 'Timezone Service',
+  description: 'Service that shows time in different cities',
+  openGraph: {
+    title: 'Timezone Portal',
+    description: 'Service that shows time in different cities'
+  }
 }
 
 export default function RootLayout({
