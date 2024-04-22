@@ -10,7 +10,7 @@ interface Props {
 const Button = ({setShowSearch, showSearch}: Props) => {
   return (
       <button className={styles.button} onClick={() => setShowSearch(!showSearch)}>
-        <Image src={Plus} alt=''></Image>
+        <Image src={Plus} alt='' width={20} height={20} />
       </button>
   )
 }
