@@ -90,7 +90,7 @@ export const CardActive = ({timeFormat, city}: Props) => {
         <span className={clsx(styles.card__am, {
           [styles.card__am_active]: !timeFormat
         })}>
-                    {timeZoneDate.getHours() > 13 ? <p>PM</p> : <p>AM</p>}
+                    {timeZoneDate.getHours() > 11 ? <p>PM</p> : <p>AM</p>}
             </span>
       </div>
       <div className={styles.card__timezone}>GMT {gmtOffset >= 0 ? `+${gmtOffset}` : gmtOffset}</div>
