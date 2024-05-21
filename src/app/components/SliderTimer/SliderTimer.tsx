@@ -17,8 +17,8 @@ const SliderTimer = ({onReset} : Props) => {
     <div className={`${styles.slider__timer} ${!hoursOffset && styles.slider__timer_disabledState}`}>
           <div className={styles.slider__text}>
               {hoursOffset > 0 ?
-                  `+${hoursOffset.toString().endsWith('5') ? `${hoursOffset.toFixed(0)}:30` : `${hoursOffset}:00` }h` :
-                  `${hoursOffset.toString().endsWith('5') ? `${hoursOffset.toFixed(0)}:30` : `${hoursOffset}:00` }h`}
+                  `+${hoursOffset.toString().endsWith('5') ? `${Math.trunc(hoursOffset)}:30` : `${hoursOffset}:00` }h` :
+                  `${hoursOffset.toString().endsWith('5') ? `${Math.trunc(hoursOffset)}:30` : `${hoursOffset}:00` }h`}
           </div>
           <Image
             src={Cross} alt={''} width={16} height={16}
