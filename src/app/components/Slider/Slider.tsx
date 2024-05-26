@@ -97,6 +97,8 @@ const Slider = () => {
          ref={containerRef}
     >
       <SliderTimer onReset={onReset}/>
+      <div className={styles.fade__left}></div>
+      <div className={styles.fade__right}></div>
       <div className={styles.slider__background} ref={innerScrollElement}></div>
     </div>
   )

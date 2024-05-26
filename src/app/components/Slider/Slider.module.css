@@ -3,13 +3,36 @@
     align-items: center;
     flex-direction: column;
     overflow: hidden;
+    position: relative;
+    margin-left: 44px;
+    margin-right: 44px;
 }
 
 .slider__background {
-    cursor: ew-resize;
+    cursor: pointer;
     margin-top: 8px;
     background: url("../../../../public/assets/Hour.svg") repeat-x;
     width: 500vw;
     height: 48px;
+    margin-bottom: 24px;
 }
 
+.fade__left {
+    height: 48px;
+    width: 100px;
+    position: absolute;
+    background: linear-gradient(90deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 99.73%);
+    top: 26px;
+    left: 0;
+    z-index: 99999999;
+}
+
+.fade__right {
+    height: 48px;
+    width: 100px;
+    position: absolute;
+    top: 26px;
+    right: 0;
+    z-index: 99999999;
+    background: linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 99.73%);
+}
