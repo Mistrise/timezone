@@ -23,7 +23,14 @@ export default function Home() {
   const [showSearch, setShowSearch] = useState(false)
   const toggleTimeFormat = useTimeStore(state => state.toggleTimeFormat)
   const setToggleTimeFormat = useTimeStore(state => state.setToggleTimeFormat)
-  const viewPort = window.innerWidth
+  const [innerWidth, setInnerWidth] = useState(0);
+
+  useEffect(() => {
+    setInnerWidth(window.innerWidth);
+    console.log(innerWidth)
+    return () => {
+    };
+  }, []);
 
   useEffect(() => {
     const savedCities = localStorage.getItem('cities')
@@ -102,7 +109,7 @@ export default function Home() {
         <DragDropContext onDragEnd={handleDrag}>
           <Heading/>
           <Container>
-            {showSearch && viewPort < 740 ? null : <Slider/>}
+            {showSearch && innerWidth < 740 ? null : <Slider/>}
             {isInitialized ? (
               <Droppable droppableId={'1'} type='group'>
                 {(provided) => (
