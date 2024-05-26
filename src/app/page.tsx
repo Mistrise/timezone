@@ -23,6 +23,7 @@ export default function Home() {
   const [showSearch, setShowSearch] = useState(false)
   const toggleTimeFormat = useTimeStore(state => state.toggleTimeFormat)
   const setToggleTimeFormat = useTimeStore(state => state.setToggleTimeFormat)
+  const viewPort = window.innerWidth
 
   useEffect(() => {
     const savedCities = localStorage.getItem('cities')
@@ -101,7 +102,7 @@ export default function Home() {
         <DragDropContext onDragEnd={handleDrag}>
           <Heading/>
           <Container>
-            <Slider/>
+            {showSearch && viewPort < 740 ? null : <Slider/>}
             {isInitialized ? (
               <Droppable droppableId={'1'} type='group'>
                 {(provided) => (
