@@ -6,7 +6,7 @@ import Image from "next/image";
 import {useEffect, useState} from "react";
 
 interface Props {
-  setShowSearch: (show: boolean) => void
+  setShowSearch: (show: boolean) => void,
 }
 
 const CitiesModal = ({setShowSearch}: Props) => {
@@ -34,7 +34,9 @@ const CitiesModal = ({setShowSearch}: Props) => {
       }>
         <div className={styles.modal__title}>
           <div className={styles.modal__title__text}>Add City</div>
-          <Image src={Close} alt={''} className={styles.modal__title__image} onClick={() => setShowSearch(false)}/>
+          <Image src={Close} alt={''} className={styles.modal__title__image} onClick={() => {
+            setShowSearch(false)
+          }}/>
         </div>
         <ModalSearch setModalInput={setModalInput}/>
         <ModalList setShowSearch={setShowSearch} modalInput={modalInput}/>

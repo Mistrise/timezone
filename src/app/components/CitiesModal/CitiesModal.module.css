@@ -29,6 +29,7 @@
     animation: moveUp .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
 }
 
+
 .modal__title {
     display: flex;
     flex-direction: row;
@@ -77,11 +78,3 @@
     }
 }
 
-@keyframes moveDown {
-    0% {
-        transform:translate(-50%, -50%);
-    }
-    100% {
-        transform:translate(-50%, 0);
-    }
-}
