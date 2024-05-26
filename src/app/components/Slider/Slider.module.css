@@ -24,7 +24,7 @@
     background: linear-gradient(90deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 99.73%);
     top: 26px;
     left: 0;
-    z-index: 999;
+    z-index: 1;
 }
 
 .fade__right {
@@ -33,7 +33,7 @@
     position: absolute;
     top: 26px;
     right: 0;
-    z-index: 999;
+    z-index: 1;
     background: linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 99.73%);
 }
 @media only screen and (max-width: 768px) {
@@ -46,7 +46,7 @@
         position: fixed;
         bottom: 0;
         left: 0;
-        z-index: 999999;
+        z-index: 9999;
         border-top: 1px solid #00000029;
         overflow: hidden;
     }
