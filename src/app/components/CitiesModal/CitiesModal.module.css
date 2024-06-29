@@ -6,6 +6,7 @@
     right: 0;
     background: #0000003D;
     z-index: 999999;
+    animation: fadeIn .3s;
 }
 
 
@@ -26,7 +27,7 @@
     background: #FFFFFF;
     overflow: hidden;
     box-shadow: 0 32px 56px rgba(0, 0, 0, 0.16);
-    animation: moveUp 0.5s cubic-bezier(0.165, 0.800, 0.5, 1.000) forwards;
+    animation: moveUp .3s cubic-bezier(0.165, 0.800, 0.5, 1.000) forwards;
 }
 
 
@@ -44,7 +45,7 @@
 }
 
 .out {
-    animation: moveDown .5s cubic-bezier(0.165, 0.800, 0.5, 1.000) forwards;
+    animation: moveDown .3s cubic-bezier(0.165, 0.800, 0.5, 1.000) forwards;
 }
 
 .modal__title__text {
@@ -79,3 +80,11 @@
     }
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
