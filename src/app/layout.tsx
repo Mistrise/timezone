@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Public_Sans } from 'next/font/google'
 import GoogleAnalyticsScript from "@/app/GoogleAnalyticsScript";
+import NavBar from "@/app/components/NavBar/NavBar";
 
 
 const publicSansFont = Public_Sans({ weight: ['400', '500', '600', '700'], subsets: ['latin'] })
@@ -31,6 +32,7 @@ export default function RootLayout({
     <html lang="en">
     <GoogleAnalyticsScript/>
       <body className={publicSansFont.className}>
+        <NavBar/>
         {children}
       </body>
     </html>

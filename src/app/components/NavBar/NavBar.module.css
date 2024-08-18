@@ -1,0 +1,44 @@
+.navBarContainer {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.navBarContainerSecondaryItems {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.navLink {
+    text-decoration: none;
+    color: #000000A3;
+}
+
+
+.navLink:visited {
+    text-decoration: none;
+}
+
+.navLink:hover {
+    text-decoration: none;
+}
+
+.navLink:active {
+    text-decoration: none;
+}
+
+.navBarItem {
+    height: 44px;
+    background: #0000000A;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+}
+
+.active {
+    background: #000000;
+    color: #FFFFFF;
+}
