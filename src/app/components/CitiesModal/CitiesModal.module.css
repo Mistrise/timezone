@@ -6,6 +6,7 @@
     right: 0;
     background: #0000003D;
     z-index: 999999;
+    animation: fadeIn .3s;
 }
 
 
@@ -20,14 +21,13 @@
     height: 50%;
     padding: 0 16px;
     flex-direction: column;
-    align-items: flex-start;
     flex-shrink: 0;
     z-index: 999999;
     border-radius: 20px;
     background: #FFFFFF;
     overflow: hidden;
     box-shadow: 0 32px 56px rgba(0, 0, 0, 0.16);
-    animation: moveUp .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    animation: moveUp .3s cubic-bezier(0.165, 0.800, 0.5, 1.000) forwards;
 }
 
 
@@ -45,7 +45,7 @@
 }
 
 .out {
-    animation: moveDown .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+    animation: moveDown .3s cubic-bezier(0.165, 0.800, 0.5, 1.000) forwards;
 }
 
 .modal__title__text {
@@ -65,17 +65,26 @@
 @media only screen and (max-width: 768px) {
         .modal__container {
             top: 50%;
-            height: 70%;
+            height: 50%;
+            margin-bottom: 0;
             width: 90%!important;
     }
 }
 
 @keyframes moveUp {
     0% {
-        transform:translate(-50%, 0);
+        transform: translate(-50%, -48%) scale(0.98);
     }
     100% {
-        transform: translate(-50%, -50%)
+        transform: translate(-50%, -50%) scale(1);
     }
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
