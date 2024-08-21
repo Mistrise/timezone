@@ -60,6 +60,24 @@ export function getSortedPostsData() {
   });
 }
 
+export function getPostByIdData(postId: string) {
+  const fileNames = fs.readdirSync(postsDirectory);
+  const allPostsData = fileNames.map((fileName) => {
+    const id = fileName.replace(/\.md$/, '');
+    const fullPath = path.join(postsDirectory, fileName);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const matterResult = matter(fileContents);
+    return {
+      id,
+      ...matterResult.data,
+      fileContents
+    };
+  });
+  return allPostsData.find(post => {
+    return post.id === postId
+  });
+}
+
 
 export default function RootLayout({
   children,
