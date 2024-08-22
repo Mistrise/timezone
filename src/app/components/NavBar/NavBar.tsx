@@ -24,7 +24,7 @@ const NavBar = () => {
                         </div>
                     </Link>
                     <Link href={'/blog'} className={styles.navLink}>
-                        <div className={`${styles.navBarItem} ${pathname === '/blog' ? `${styles.active}` : ''}`}>
+                        <div className={`${styles.navBarItem} ${pathname.startsWith('/blog') ? `${styles.active}` : ''}`}>
                             Blog
                         </div>
                     </Link>
