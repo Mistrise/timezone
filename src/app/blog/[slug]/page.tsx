@@ -57,7 +57,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                             <HeadingH1>
                                 {title}
                             </HeadingH1>
-                            <Image width={588} height={322} src={DefaultImage} alt={'default post image'} style={{borderRadius: "16px"}}/>
+                            <Image width={547} height={322} src={DefaultImage} alt={'default post image'} style={{borderRadius: "16px"}}/>
                             <BasicText>
                                 <Markdown>
                                     {content}
