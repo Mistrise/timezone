@@ -6,6 +6,7 @@ import Image from "next/image";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import Markdown from "markdown-to-jsx";
 
 const Page = ({ params }: { params: { slug: string } }) => {
     const postsDirectory = path.join(process.cwd(), 'posts');
@@ -29,7 +30,6 @@ const Page = ({ params }: { params: { slug: string } }) => {
 
     {/*@ts-ignore*/}
     const {title, fileContents} = getPostByIdData(params.slug)
-
     function removeBetween(str:string, startChar: string, endChar: string) {
         const startIndex = str.indexOf(startChar);
         const endIndex = str.indexOf(endChar, startIndex + 1);
@@ -59,7 +59,9 @@ const Page = ({ params }: { params: { slug: string } }) => {
                             </HeadingH1>
                             <Image width={588} height={322} src={DefaultImage} alt={'default post image'} style={{borderRadius: "16px"}}/>
                             <BasicText>
-                                {content}
+                                <Markdown>
+                                    {content}
+                                </Markdown>
                             </BasicText>
                         </div>
                     }
