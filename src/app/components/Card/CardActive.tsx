@@ -28,7 +28,7 @@ function getCityName(zoneName: string) {
 }
 function getBgPositionPercent(gmtOffset: number, secondsOffset: number) {
   const date = addSeconds(new Date(), gmtOffset + secondsOffset)
-  const totalSeconds = date.getSeconds() + date.getMinutes() * 60 + (date.getHours() + date.getTimezoneOffset() / 60) * 60 * 60;
+  const totalSeconds = date.getSeconds() + date.getMinutes() * 60 + date.getHours() * 60 * 60;
   return Math.round(PERCENT_MOVE_PER_SECOND * totalSeconds * 1000) / 1000
 }
 
