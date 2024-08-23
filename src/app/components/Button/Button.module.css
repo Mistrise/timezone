@@ -10,3 +10,8 @@
     display: inline-block;
     margin: 0 16px 0 0 ;
 }
+
+.button:hover {
+    background: #00000024;
+    border-radius: 12px;
+}

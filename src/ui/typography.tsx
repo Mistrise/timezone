@@ -27,7 +27,7 @@ export const HeadingH3 = (props: PropsWithChildrenAndStyles) => (
 
 export const BasicText = (props: PropsWithChildrenAndStyles) => (
     <p
-        style={{fontWeight: "400", fontSize: "16px", lineHeight: "18px", ...props.style }}
+        style={{fontWeight: "400", fontSize: "16px", lineHeight: "22px", ...props.style }}
     >
         {props.children}
     </p>
@@ -35,7 +35,7 @@ export const BasicText = (props: PropsWithChildrenAndStyles) => (
 
 export const SmallText = (props: PropsWithChildrenAndStyles) => (
     <p
-        style={{ fontWeight: "500", fontSize: "14px", lineHeight: "20px", ...props.style }}
+        style={{ fontWeight: "400", fontSize: "14px", lineHeight: "18px", ...props.style }}
     >
         {props.children}
     </p>

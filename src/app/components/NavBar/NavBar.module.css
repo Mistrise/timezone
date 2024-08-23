@@ -1,5 +1,5 @@
 .navBarContainer {
-    margin-top: 12px;
+    margin-top: 16px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -22,7 +22,8 @@
 }
 
 .navLink:hover {
-    text-decoration: none;
+    background: #00000024;
+    border-radius: 20px;
 }
 
 .navLink:active {
@@ -31,8 +32,8 @@
 
 .navBarItem {
     height: 44px;
-    background: #0000000A;
-    border-radius: 16px;
+    background: #00000014;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     padding: 12px;
