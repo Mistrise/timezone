@@ -6,7 +6,7 @@ import MoveRoller from '../../../public/images/about/about_2.png';
 import MoveCard from '../../../public/images/about/about_3.png';
 import DeleteCard from '../../../public/images/about/about_4.png';
 import ChangeTimeFormat from '../../../public/images/about/about_5.png';
-import {BasicText, HeadingH1, HeadingH2, HeadingH3, SmallText} from "@/ui/typography";
+import {BasicText, HeadingH1, HeadingH2, SmallText} from "@/ui/typography";
 
 const Page = () => {
     return (
@@ -59,7 +59,7 @@ const Page = () => {
                 </div>
                 <SmallText style={{color: '#000000B8', marginTop: "8px"}}>
                 <br/>
-                    To delete a city, hover over the city card, and an "X" icon will appear on the right. Click on it, and the city will be removed from the list.
+                    To delete a city, hover over the city card, and an &quot;X&quot; icon will appear on the right. Click on it, and the city will be removed from the list.
                 <br/>
                 </SmallText>
                 <div style={{backgroundColor: '#f0f0f0', padding: '16px', borderRadius: '16px', display: 'inline-block', width: '100%', textAlign: 'center'}}>
