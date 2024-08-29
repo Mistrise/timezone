@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useRef} from "react";
-import {City, TimeZone, useRapidTimeStore, useTimeStore} from "@/app/store";
+import {City, useRapidTimeStore, useTimeStore} from "@/app/store";
 import clsx from "clsx";
 import styles from "@/app/components/Card/Card.module.css";
 import Image from "next/image";
@@ -44,7 +44,7 @@ export const CardActive = ({timeFormat, city}: Props) => {
 
   const timeZoneDate = useMemo(() => {
     const secondsToAdd = (new Date()).getTimezoneOffset() * 60 + gmtOffsetSeconds;
-    return addSeconds(currentDate, secondsToAdd + hoursOffset * 60 * 60);
+    return addSeconds(currentDate, secondsToAdd + (hoursOffset + 3) * 60 * 60);
   }, [currentDate, gmtOffsetSeconds, hoursOffset])
 
 
