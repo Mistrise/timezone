@@ -1,7 +1,6 @@
 import Container from "@/app/components/Container/Container";
 import Link from "next/link";
 import {BasicText, HeadingH1} from "@/ui/typography";
-import DefaultImage from "../../../../public/images/blog/BlogDefaultImage.png";
 import Image from "next/image";
 import fs from "fs";
 import path from "path";
@@ -57,7 +56,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                             <HeadingH1>
                                 {title}
                             </HeadingH1>
-                            <Image width={547} height={322} src={DefaultImage} alt={'default post image'} style={{borderRadius: "16px"}}/>
+                            <Image width={547} height={322} src={`/images/blog/${params.slug}.png`} alt={'default post image'} style={{borderRadius: "16px"}}/>
                             <BasicText>
                                 <Markdown>
                                     {content}

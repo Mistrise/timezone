@@ -1,7 +1,6 @@
 'use client'
 import styles from "./BlogGridItem.module.css";
 import Image from "next/image";
-import DefaultImage from "../../../../../public/images/blog/BlogDefaultImage.png";
 import {useRouter} from "next/navigation";
 
 
@@ -9,7 +8,7 @@ const BlogGridItem = (article: any) => {
     const router = useRouter()
     return (
         <div key={article.e.id} className={styles.grid__item} onClick={() => router.push(`blog/${article.e.id}`)}>
-            <Image width={261} height={200} src={DefaultImage} alt={'default post image'}/>
+            <Image width={261} height={200} src={`/images/blog/${article.e.id}.png`} alt={'default post image'}/>
             <div className={styles.grid__item__title}>
                 {/*@ts-ignore*/}
                 <div style={{padding: "12px", margin: 0}}>{article.e.title.length > 65 ?
