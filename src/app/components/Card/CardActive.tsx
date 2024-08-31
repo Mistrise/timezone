@@ -29,7 +29,7 @@ function getCityName(zoneName: string) {
 function getBgPositionPercent(gmtOffset: number, secondsOffset: number) {
   const date = addSeconds(new Date(), gmtOffset + secondsOffset)
   const totalSeconds = date.getSeconds() + date.getMinutes() * 60 + date.getHours() * 60 * 60;
-  return Math.round(PERCENT_MOVE_PER_SECOND * totalSeconds * 1000) / 1000
+  return Math.round(PERCENT_MOVE_PER_SECOND * totalSeconds  * 1000) / 1000
 }
 
 export const CardActive = ({timeFormat, city}: Props) => {
@@ -44,14 +44,14 @@ export const CardActive = ({timeFormat, city}: Props) => {
 
   const timeZoneDate = useMemo(() => {
     const secondsToAdd = (new Date()).getTimezoneOffset() * 60 + gmtOffsetSeconds;
-    return addSeconds(currentDate, secondsToAdd + (hoursOffset + 3) * 60 * 60);
+    return addSeconds(currentDate, secondsToAdd + hoursOffset  * 60 * 60);
   }, [currentDate, gmtOffsetSeconds, hoursOffset])
 
 
   useEffect(() => {
     const updateBgPosition = (secondsOffset: number) => {
       if (gradientRef.current) {
-        const percent = getBgPositionPercent(gmtOffsetSeconds, secondsOffset);
+        const percent = getBgPositionPercent(gmtOffsetSeconds - 9600, secondsOffset); // -9600 is setting bg position to a proper timing
         bgPositionPercentRef.current = percent;
         gradientRef.current.style.backgroundPositionX = `${percent}%`;
       }
