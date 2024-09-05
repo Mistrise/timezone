@@ -27,7 +27,6 @@ export default function Home() {
 
   useEffect(() => {
     setInnerWidth(window.innerWidth);
-    console.log(innerWidth)
     return () => {
     };
   }, []);
@@ -69,6 +68,14 @@ export default function Home() {
       clearInterval(intervalId)
     }
   }, [])
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+          .register('./sw.js')
+          .then((registration) => console.log('scope is: ', registration.scope));
+    }
+  }, []);
 
   useEffect(() => {
     if (!showSearch) {
