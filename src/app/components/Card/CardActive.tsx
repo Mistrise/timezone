@@ -4,7 +4,7 @@ import clsx from "clsx";
 import styles from "@/app/components/Card/Card.module.css";
 import Image from "next/image";
 import Gradient from "../../../../public/assets/Gradient.svg";
-import {addSeconds, format} from "date-fns";
+import {addHours, addSeconds, format} from "date-fns";
 import Day from "../../../../public/icons/Day.svg";
 import Rise from "../../../../public/icons/Rise.svg";
 import Set from "../../../../public/icons/Set.svg";
@@ -64,6 +64,17 @@ export const CardActive = ({timeFormat, city}: Props) => {
 
   const gmtOffset = gmtOffsetSeconds / 60 / 60;
 
+  let addHoursCount = Math.sign(hoursOffset)
+
+  let hours = timeZoneDate.getHours()
+
+  const minutes = timeZoneDate.getMinutes()
+
+  if (hoursOffset !== 0 && Math.ceil(minutes / 30) * 30 !== 60) {
+    console.log(hours, addHoursCount)
+    addHours(hours, addHoursCount)
+  }
+
   return (<div
     className={styles.card}
     ref={gradientRef}
@@ -78,14 +89,17 @@ export const CardActive = ({timeFormat, city}: Props) => {
       <div className={styles.card__title}>{city.name}</div>
       <div className={styles.card__time}>
         <div className={`${styles.card__time__item}`}>
-          {timeFormat || timeZoneDate.getHours() < 13
-            ? timeZoneDate.getHours() < 10
-              ? `${timeZoneDate.getHours()}`
+          {timeFormat ||
+          hours < 13
+            ? hours < 10
+              ? `${hours}`
               // removed "0" before "$" above
-              : timeZoneDate.getHours()
+              : hours
             : format(timeZoneDate, 'h')}
           :
-          {timeZoneDate.getMinutes() < 10 ? `0${timeZoneDate.getMinutes()}` : timeZoneDate.getMinutes()}
+          {hoursOffset === 0 ? minutes < 10 ? `0${minutes}` : minutes
+            : Math.ceil(minutes / 30) * 30 !== 60 ? '00' : '30'
+          }
         </div>
         <span className={clsx(styles.card__am, {
           [styles.card__am_active]: !timeFormat
