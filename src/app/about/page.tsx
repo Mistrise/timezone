@@ -7,11 +7,12 @@ import MoveCard from '../../../public/images/about/about_3.png';
 import DeleteCard from '../../../public/images/about/about_4.png';
 import ChangeTimeFormat from '../../../public/images/about/about_5.png';
 import {BasicText, HeadingH1, HeadingH2, SmallText} from "@/ui/typography";
+import styles from './Heading.module.css'
 
 const Page = () => {
     return (
         <Container>
-            <div style={{marginTop: '60px'}}>
+            <div>
                 <HeadingH1 style={{color: '#000000', margin: 0, fontSize: '36px', textAlign: 'center'}}>About</HeadingH1>
             </div>
             <div style={{marginTop: '24px'}}>

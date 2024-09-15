@@ -11,11 +11,11 @@
 
 .grid__item__title {
     font-weight: 600;
-    height: 52px;
+    height: 46px;
     overflow: hidden;
     font-size: 14px;
     line-height: 16px;
-    padding-bottom: 0;
+    padding-bottom: 16px;
 }
 
 .grid__item__time {
@@ -23,5 +23,6 @@
     font-size: 12px;
     line-height: 14px;
     color: #0000007A;
+    margin-top: 4px;
     padding-left: 12px;
 }

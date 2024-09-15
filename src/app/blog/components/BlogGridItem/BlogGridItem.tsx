@@ -8,18 +8,23 @@ const BlogGridItem = (article: any) => {
     const router = useRouter()
     return (
         <div key={article.e.id} className={styles.grid__item} onClick={() => router.push(`blog/${article.e.id}`)}>
-            <Image width={261} height={200} src={`/images/blog/${article.e.id}.png`} alt={'default post image'}/>
+            <div style={{ width: '100%', height: '200px', position: 'relative' }}>
+                <Image
+                    src={`/images/blog/${article.e.id}.png`}
+                    alt={'default post image'}
+                    layout="fill"
+                    objectFit="cover" // This will ensure the image covers the container without distorting
+                />
+            </div>
             <div className={styles.grid__item__title}>
-                {/*@ts-ignore*/}
-                <div style={{padding: "12px", margin: 0}}>{article.e.title.length > 65 ?
-                    // @ts-ignore
-                    `${article.e.title.slice(0, 65)}...` :
-                    // @ts-ignore
-                    article.e.title
-                }</div>
+                <div style={{ padding: "12px", margin: 0 }}>
+                    {article.e.title.length > 65 
+                        ? `${article.e.title.slice(0, 65)}...` 
+                        : article.e.title
+                    }
+                </div>
             </div>
             <div className={styles.grid__item__time}>
-                {/*@ts-ignore*/}
                 <div>{article.e.date}</div>
             </div>
         </div>
