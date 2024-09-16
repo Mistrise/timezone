@@ -7,7 +7,7 @@ const Page = () => {
     return (
         <Container>
             <HeadingH1 style={{color: '#000000', margin: 0, fontSize: '36px', textAlign: 'center'}}>Blog</HeadingH1>
-            <BasicText style={{ marginTop: '24px', color: '#000000B8'}}>A Time Zone Converter is an intuitive and user-friendly tool designed to help users quickly and accurately convert time across different time zones worldwide. Whether you’re scheduling international meetings, coordinating with global teams, or planning travel, this tool makes it easy to compare local times in various cities and countries.</BasicText>
+            <BasicText style={{ marginTop: '24px', color: '#000000B8'}}>Dealing with time zones and scheduling can be tricky, especially when working with teams across the globe. This blog is here to share helpful tips and tools for managing time differences, keeping your meetings on track, and staying organized.</BasicText>
             <BlogsGrid/>
         </Container>
     );

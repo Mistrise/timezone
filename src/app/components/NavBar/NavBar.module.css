@@ -1,5 +1,5 @@
 .navBarContainer {
-    width: 80%;
+    width: 36%;
     margin: auto;
     margin-top: 16px;
     margin-bottom: 56px;
@@ -44,4 +44,10 @@
 .active {
     background: #000000;
     color: #FFFFFF;
+}
+
+@media only screen and (max-width: 768px) {
+    .navBarContainer {
+        width: 80%;
+  }
 }

@@ -51,7 +51,7 @@ export const CardActive = ({timeFormat, city}: Props) => {
   useEffect(() => {
     const updateBgPosition = (secondsOffset: number) => {
       if (gradientRef.current) {
-        const percent = getBgPositionPercent(gmtOffsetSeconds - 9600, secondsOffset); // -9600 is setting bg position to a proper timing
+        const percent = getBgPositionPercent(gmtOffsetSeconds - -16600, secondsOffset); // -9600 is setting bg position to a proper timing
         bgPositionPercentRef.current = percent;
         gradientRef.current.style.backgroundPositionX = `${percent}%`;
       }
