@@ -14,11 +14,11 @@ export const metadata: Metadata = {
       'en-US': '/en-US',
     },
   },
-  title: 'Timezone Portal',
-  description: 'Service that shows time in different cities',
+  title: 'Time Hub – Global Time Zone Converter for Every City',
+  description: 'Time Hub Portal provides real-time time conversions across major global cities. Quickly find the current time anywhere in the world.',
   openGraph: {
-    title: 'Timezone Portal',
-    description: 'Service that shows time in different cities'
+    title: 'Time Hub – Real-Time Global Time Converter',
+    description: 'Time Hub Portal allows you to check the current time in cities across the world instantly. Perfect for travelers, businesses, and remote teams.'
   }
 }
 
