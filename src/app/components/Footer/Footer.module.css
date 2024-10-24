@@ -1,0 +1,39 @@
+.container {
+    width: 36%;
+    min-width: 320px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: sans-serif Public Sans;
+    color: #0000007A;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 16px auto;
+}
+
+.links {
+    text-decoration: none;
+    color: #0000007A;
+    cursor: pointer;
+}
+
+.links:visited {
+    text-decoration: none;
+    color: #0000007A;
+}
+
+.links:hover {
+    text-decoration: none;
+    color: #0000007A;
+}
+
+.contacts_containers {
+    display: flex;
+    gap: 16px;
+}
+
+.links_container {
+    display: flex;
+    gap: 16px;
+}

@@ -71,7 +71,6 @@ export const CardActive = ({timeFormat, city}: Props) => {
   const minutes = timeZoneDate.getMinutes()
 
   if (hoursOffset !== 0 && Math.ceil(minutes / 30) * 30 !== 60) {
-    console.log(hours, addHoursCount)
     addHours(hours, addHoursCount)
   }
 
