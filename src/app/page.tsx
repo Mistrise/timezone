@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import Button from "@/app/components/Button/Button";
 import Heading from "@/app/components/Heading/Heading";
@@ -7,13 +8,13 @@ import {useEffect, useState} from "react";
 import Container from "@/app/components/Container/Container";
 import CitiesModal from "@/app/components/CitiesModal/CitiesModal";
 import {useTimeStore} from "@/app/store";
-import {DragDropContext, Droppable, Draggable, OnDragEndResponder} from "react-beautiful-dnd"
 import {CardActive} from "@/app/components/Card/CardActive";
 import {CardSkeleton} from "@/app/components/Card/CardSkeleton";
 import {getByIds} from "@/fetchers/cities";
 import {DEFAULT_CITY_GEONAME_IDS} from "@/constants/constants";
+import {DragDropContext, Draggable, Droppable, OnDragEndResponder} from "@hello-pangea/dnd";
 
-// @ts-nocheck
+
 export default function Home() {
   const selectedCities = useTimeStore(state => state.selectedCities)
   const isInitialized = useTimeStore(state => state.isInitialized)

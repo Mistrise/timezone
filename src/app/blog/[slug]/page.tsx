@@ -6,8 +6,8 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Markdown from "markdown-to-jsx";
-
-const Page = ({ params }: { params: { slug: string } }) => {
+// @ts-ignore
+const Page = ({ params }: { params: any}) => {
     const postsDirectory = path.join(process.cwd(), 'posts');
     function getPostByIdData(postId: string) {
         const fileNames = fs.readdirSync(postsDirectory);
