@@ -2,8 +2,8 @@
     width: 36%;
     min-width: 320px;
     display: flex;
+    justify-content: center;
     flex-direction: row;
-    justify-content: space-between;
     font-family: sans-serif Public Sans;
     color: #0000007A;
     font-weight: 500;
@@ -36,4 +36,12 @@
 .links_container {
     display: flex;
     gap: 16px;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .container {
+        padding-top: 32px;
+        padding-bottom: 120px;
+    }
 }
