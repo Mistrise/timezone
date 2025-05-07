@@ -37,7 +37,7 @@ const Slider = () => {
   useEffect(() => {
     const isiOS = /iPhone/.test(navigator.userAgent);
     const hasNotch = window.screen.height >= 812;
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
     if (isiOS && hasNotch && isStandalone) {
       setBottomPadding(24);
