@@ -134,4 +134,5 @@ export const CardActive = ({timeFormat, city}: Props) => {
       </div>
     </div>
   </div>)
+
 }
