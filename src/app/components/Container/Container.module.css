@@ -10,7 +10,7 @@
 
 @media only screen and (max-width: 768px) {
   .container {
-    width: 80%;
+    width: 76%;
     margin-top: 0; /* или меньше, если нужно */
   }
 }
