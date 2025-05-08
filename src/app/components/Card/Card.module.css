@@ -10,9 +10,6 @@
     color: #FFFFFF;
     cursor: -webkit-grab;
     user-select: none;
-    max-width: 100%;
-    transition: max-width 0.3s ease;
-    width: 100%;
 }
 
 .card_grid {
@@ -177,8 +174,5 @@
 
         .card__am {
             margin-top: 2px;
-        }
-        .card_shrinked {
-            max-width: 96%;
         }
 }
