@@ -10,7 +10,7 @@ import Rise from "../../../../public/icons/Rise.svg";
 import Set from "../../../../public/icons/Set.svg";
 import Night from "../../../../public/icons/Night.svg";
 import {days, month} from "@/constants/constants";
-import Close from "../../../../public/icons/Icon=cross-circle-outlined.svg";
+import Close from "../../../../public/icons/Icon=cross.svg";
 import Drag from "../../../../public/icons/Icon=drag.svg";
 import {getTzOffsetByName} from "@/helpers/getTzOffsetByName";
 
@@ -134,4 +134,5 @@ export const CardActive = ({timeFormat, city}: Props) => {
       </div>
     </div>
   </div>)
+
 }
