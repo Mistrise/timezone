@@ -14,7 +14,7 @@
     transition: max-width 0.3s ease;
 }
 .card:hover {
-    max-width: 90%;
+    max-width: calc(100% - 32px);
 }
 
 .card_grid {
@@ -26,10 +26,11 @@
 .card_controls {
     position: absolute;
     left: 100%;
+    padding-left: 8px;
     top: 0;
     flex-direction: column;
-    padding: 8px 8px 8px;
-    justify-content: space-between;
+    gap: 16px;
+    justify-content: center;
     align-items: center;
     height: 100%;
     box-sizing: border-box;
@@ -37,10 +38,10 @@
     opacity: 0;
     transition: opacity 0.3s ease;
 }
-
 .card:hover .card_controls {
     opacity: 1;
 }
+
 
 .card_control {
     width: 24px;
